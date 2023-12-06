@@ -1,6 +1,9 @@
 import { extendType, nonNull, nullable, stringArg } from "nexus";
 import { Context } from "../../../context";
-import { getFileList } from "../../../prompts/getFileList";
+import {
+  getDocumentList,
+  getAddtFilesList,
+} from "../../../prompts/getFileList";
 
 export const GetFileListQuery = extendType({
   type: "Query",
@@ -9,10 +12,11 @@ export const GetFileListQuery = extendType({
       type: "JSON",
       args: {
         flowId: nonNull(stringArg()),
+        getThis: nonNull(stringArg()),
       },
       resolve: async (
         _,
-        { flowId },
+        { flowId, getThis },
         { prisma, openai, currentUser }: Context,
         x
       ) => {
@@ -31,12 +35,24 @@ export const GetFileListQuery = extendType({
 
         console.info("getFileList", flow.prompt);
 
+        let content = "";
+        switch (getThis) {
+          case "documents":
+            content = getDocumentList(flow.prompt);
+            break;
+          case "additionalFiles":
+            content = getAddtFilesList(flow.prompt);
+            break;
+          default:
+            throw new Error("Invalid getThis");
+        }
+
         // get continuation text from openai
         const response = await openai.chat.completions.create({
           model: "gpt-3.5-turbo-1106",
           messages: [
             {
-              content: getFileList(flow.prompt),
+              content: content,
               role: "user",
             },
           ],
