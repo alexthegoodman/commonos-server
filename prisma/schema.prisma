@@ -14,36 +14,68 @@ model User {
   email    String @unique
   password String
 
-  role     String @default("")
+  role String @default("")
 
   subscription String
   frequency    String
 
   stripeCustomerId String @default("")
 
+  // flows
+  flows Flow[]
+
   // documents
-  documents Document[]
+  documents    Document[]
   documentTree Json?
 
   // presentations
-  presentations Presentation[]
+  presentations     Presentation[]
   presentationFiles Json?
 
   // sheets
-  sheets Sheet[]
+  sheets     Sheet[]
   sheetFiles Json?
 
   // drawings
-  drawings Drawing[]
+  drawings     Drawing[]
   drawingFiles Json?
 
   // sounds
-  sounds Sound[]
+  sounds     Sound[]
   soundFiles Json?
 
   // videos
-  videos Video[]
+  videos     Video[]
   videoFiles Json?
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model Flow {
+  id String @id @unique @default(uuid())
+
+  prompt String
+  type   Type   @relation(fields: [typeId], references: [id])
+  typeId String
+
+  questionsContext Json?
+  resultsContext   Json?
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model Type {
+  id String @id @unique @default(uuid())
+
+  name String
+  code String
+
+  flows Flow[]
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
@@ -54,9 +86,9 @@ model Document {
 
   title   String
   content Json?
-  
-  creator     User @relation(fields: [creatorId], references: [id])
-  creatorId   String 
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
@@ -67,9 +99,9 @@ model Presentation {
 
   title   String
   context Json?
-  
-  creator     User @relation(fields: [creatorId], references: [id])
-  creatorId   String 
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
@@ -80,9 +112,9 @@ model Sheet {
 
   title   String
   context Json?
-  
-  creator     User @relation(fields: [creatorId], references: [id])
-  creatorId   String 
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
@@ -93,9 +125,9 @@ model Drawing {
 
   title   String
   context Json?
-  
-  creator     User @relation(fields: [creatorId], references: [id])
-  creatorId   String 
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
@@ -106,9 +138,9 @@ model Sound {
 
   title   String
   context Json?
-  
-  creator     User @relation(fields: [creatorId], references: [id])
-  creatorId   String 
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
@@ -119,9 +151,9 @@ model Video {
 
   title   String
   context Json?
-  
-  creator     User @relation(fields: [creatorId], references: [id])
-  creatorId   String 
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())

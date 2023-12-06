@@ -7,6 +7,9 @@ import { server } from "./server";
 import { context } from "./context";
 import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
+import { Server } from "socket.io";
+import { createServer } from "http";
+import { fullDomainPort } from "./helpers/urls";
 
 const prisma = new PrismaClient();
 
@@ -31,7 +34,7 @@ export const startApolloServer = async () => {
           const tokenHeader = req.header(tokenHeaderKey);
           const token = tokenHeader?.split("Bearer ")[1] as string;
 
-          console.info("verify", token, jwtSecretKey)
+          console.info("verify", token, jwtSecretKey);
 
           const verified = jwt.verify(token, jwtSecretKey);
 
@@ -61,7 +64,20 @@ export const startApolloServer = async () => {
     })
   );
 
-  await new Promise<void>((r) => app.listen({ port: process.env.PORT ? process.env.PORT : 4000 }, r));
+  const httpServer = createServer(app);
+  const io = new Server(httpServer, {
+    cors: {
+      origin: fullDomainPort,
+    },
+  });
+
+  io.on("connection", (socket) => {
+    console.info("a user connected");
+  });
+
+  await new Promise<void>((r) =>
+    httpServer.listen({ port: process.env.PORT ? process.env.PORT : 4000 }, r)
+  );
 
   console.info(`🚀 Server ready at http://localhost:4000/graphql`);
 };

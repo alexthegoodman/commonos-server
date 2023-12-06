@@ -21,6 +21,27 @@ export default async function clean() {
 
   // await prisma.raw("TRUNCATE AnnotationMeta;");
 
+  await prisma.type.deleteMany({
+    where: { id: { not: "" } },
+  });
+  await prisma.flow.deleteMany({
+    where: { id: { not: "" } },
+  });
+  await prisma.drawing.deleteMany({
+    where: { id: { not: "" } },
+  });
+  await prisma.presentation.deleteMany({
+    where: { id: { not: "" } },
+  });
+  await prisma.sheet.deleteMany({
+    where: { id: { not: "" } },
+  });
+  await prisma.sound.deleteMany({
+    where: { id: { not: "" } },
+  });
+  await prisma.video.deleteMany({
+    where: { id: { not: "" } },
+  });
   await prisma.document.deleteMany({
     where: { id: { not: "" } },
   });
