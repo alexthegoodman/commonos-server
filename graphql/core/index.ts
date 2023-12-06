@@ -4,6 +4,8 @@ export * from "../core/types/Flow";
 
 export * from "../core/queries/authenticate";
 export * from "../core/queries/getCurrentUser";
+export * from "../core/queries/flow";
+export * from "../core/queries/getFileList";
 
 export * from "../core/mutations/registerUser";
 export * from "../core/mutations/updateUser";
