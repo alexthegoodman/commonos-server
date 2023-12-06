@@ -14,7 +14,7 @@ const mixpanel = new MixpanelClient();
 export interface Context {
   prisma: PrismaClient;
   mixpanel: MixpanelClient;
-  req: Request;
+  req: any;
   currentUser: User;
   openai: OpenAI;
 }

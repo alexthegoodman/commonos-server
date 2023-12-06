@@ -36,9 +36,10 @@ export const permissions = shield(
       } else {
         console.error("The resolver threw something that is not an error.");
         if (thrownThing === null) {
-          thrownThing = "NOT AUTHORIZED!";
+          // thrownThing = "NOT AUTHORIZED!";
+          thrownThing = "GENERAL ERROR!";
         }
-        console.error(thrownThing, args, info);
+        console.error(thrownThing, args);
         // return new ApolloError(thrownThing as string, "ERR_INTERNAL_SERVER");
         return new Error(thrownThing as string);
       }

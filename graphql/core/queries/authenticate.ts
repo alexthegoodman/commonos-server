@@ -15,10 +15,10 @@ export const AuthenticateQuery = extendType({
       resolve: async (_, {}, { prisma, mixpanel, req }: Context, x) => {
         const helpers = new Helpers();
 
-        console.info("authenticate user", req.headers.get("Authorization"));
+        console.info("authenticate user", req.headers.authorization);
 
         const credentials = helpers.parseAuthHeader(
-          req.headers.get("Authorization") as string
+          req.headers.authorization as string
         );
         const email = credentials[0];
         const password = credentials[1];

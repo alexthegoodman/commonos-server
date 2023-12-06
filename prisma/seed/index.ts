@@ -2,11 +2,13 @@ import seedUsers from "./user";
 import clean from "./clean";
 
 import { PrismaClient } from "@prisma/client";
+import seedTypes from "./type";
 
 const prisma = new PrismaClient();
 
 async function main() {
   const { users } = await seedUsers();
+  const { types } = await seedTypes();
 }
 
 clean()

@@ -5,10 +5,10 @@ export const CreateFlowMutation = extendType({
   type: "Mutation",
   definition(t) {
     t.field("createFlow", {
-      type: "JSON",
+      type: "Flow",
       args: {
-        prompt: nullable(stringArg()),
-        typeCode: nullable(stringArg()),
+        prompt: nonNull(stringArg()),
+        typeCode: nonNull(stringArg()),
       },
       resolve: async (
         _,
