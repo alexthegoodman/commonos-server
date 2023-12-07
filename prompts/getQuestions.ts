@@ -1,5 +1,5 @@
 export const getInitialQuestions = (prompt) => `
-Provide a list of 5 questions you have regarding the prompt below. Provide answers in multiple choice format, so it is easy for the user to pick an option. Ask questions that clarify the original prompt, rather than evaluate the user's knowledge of the prompt.
+Provide a list of 5 questions you have which help clarify and provide detail to the prompt below. Do not evaluate the user's knowledge of the prompt. Provide answers in multiple choice format, so it is easy for the user to pick an option.
 
 "${prompt}"
 
