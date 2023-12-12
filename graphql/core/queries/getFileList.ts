@@ -33,19 +33,21 @@ export const GetFileListQuery = extendType({
           throw new Error("Flow not found");
         }
 
-        console.info("getFileList", flow.prompt);
+        const { initialQuestions } = flow.questionsContext;
 
         let content = "";
         switch (getThis) {
           case "documents":
-            content = getDocumentList(flow.prompt);
+            content = getDocumentList(flow.prompt, initialQuestions);
             break;
           case "additionalFiles":
-            content = getAddtFilesList(flow.prompt);
+            content = getAddtFilesList(flow.prompt, initialQuestions);
             break;
           default:
             throw new Error("Invalid getThis");
         }
+
+        console.info("getFileList", content);
 
         // get continuation text from openai
         const response = await openai.chat.completions.create({

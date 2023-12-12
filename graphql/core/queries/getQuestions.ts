@@ -11,6 +11,7 @@ export const GetQuestionsQuery = extendType({
     t.field("getQuestions", {
       type: "JSON",
       args: {
+        flowId: nonNull(stringArg()),
         fileTitle: nonNull(stringArg()),
         getThis: nonNull(stringArg()),
       },
@@ -22,17 +23,34 @@ export const GetQuestionsQuery = extendType({
       ) => {
         console.info("getQuestions", fileTitle);
 
+        const flow = await prisma.flow.findFirst({
+          where: {
+            id: flowId,
+            creator: {
+              id: currentUser.id,
+            },
+          },
+        });
+
+        if (!flow) {
+          throw new Error("Flow not found");
+        }
+
+        const { initialQuestions } = flow.questionsContext;
+
         let content = "";
         switch (getThis) {
           case "initial":
             content = getInitialQuestions(fileTitle);
             break;
           case "files":
-            content = getFileQuestions(fileTitle);
+            content = getFileQuestions(fileTitle, initialQuestions);
             break;
           default:
             throw new Error("Invalid getThis");
         }
+
+        console.info("getQuestions", content);
 
         // get continuation text from openai
         const response = await openai.chat.completions.create({
