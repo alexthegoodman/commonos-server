@@ -27,7 +27,7 @@ export const GetQuestionsQuery = extendType({
           case "initial":
             content = getInitialQuestions(fileTitle);
             break;
-          case "file":
+          case "files":
             content = getFileQuestions(fileTitle);
             break;
           default:
