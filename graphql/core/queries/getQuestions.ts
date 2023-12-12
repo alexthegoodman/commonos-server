@@ -36,14 +36,13 @@ export const GetQuestionsQuery = extendType({
           throw new Error("Flow not found");
         }
 
-        const { initialQuestions } = flow.questionsContext;
-
         let content = "";
         switch (getThis) {
           case "initial":
             content = getInitialQuestions(fileTitle);
             break;
           case "files":
+            const { initialQuestions } = flow.questionsContext;
             content = getFileQuestions(fileTitle, initialQuestions);
             break;
           default:
