@@ -4,6 +4,7 @@ import {
   getDocumentList,
   getAddtFilesList,
 } from "../../../prompts/getFileList";
+import { getEncoding, encodingForModel } from "js-tiktoken";
 
 export const GetFileListQuery = extendType({
   type: "Query",
@@ -20,6 +21,8 @@ export const GetFileListQuery = extendType({
         { prisma, openai, currentUser }: Context,
         x
       ) => {
+        const enc = getEncoding("cl100k_base");
+
         const flow = await prisma.flow.findFirst({
           where: {
             id: flowId,
@@ -49,6 +52,8 @@ export const GetFileListQuery = extendType({
 
         console.info("getFileList", content);
 
+        const inputTokens = enc.encode(content);
+
         // get continuation text from openai
         const response = await openai.chat.completions.create({
           model: "gpt-3.5-turbo-1106",
@@ -71,6 +76,23 @@ export const GetFileListQuery = extendType({
           if (!jsonText) {
             throw new Error("No JSON text");
           }
+
+          // update user token usage
+          const outputTokens = enc.encode(jsonText);
+          const tokensUsed = inputTokens.length + outputTokens.length;
+
+          console.info("tokensUsed", tokensUsed);
+
+          await prisma.user.update({
+            where: {
+              id: currentUser.id,
+            },
+            data: {
+              periodTokenUsage: {
+                increment: tokensUsed,
+              },
+            },
+          });
 
           const json = JSON.parse(jsonText);
           return json;

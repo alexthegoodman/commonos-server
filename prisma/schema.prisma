@@ -14,11 +14,18 @@ model User {
   email    String @unique
   password String
 
+  // security
   role String @default("")
 
+  // subscription
   subscription String
   frequency    String
 
+  // openai token usage
+  lastTokenReset DateTime @default(now())
+  periodTokenUsage Int @default(0)
+
+  // stripe
   stripeCustomerId String @default("")
 
   // flows

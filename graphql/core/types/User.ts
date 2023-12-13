@@ -11,6 +11,9 @@ export const UserType = objectType({
     t.field("subscription", { type: "String" });
     t.field("frequency", { type: "String" });
 
+    t.field("lastTokenReset", { type: "DateTime" });
+    t.field("periodTokenUsage", { type: "Int" });
+
     t.list.field("documents", {
       type: "Document",
       resolve: async (user, __, context: Context) => {

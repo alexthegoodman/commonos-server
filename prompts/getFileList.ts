@@ -5,11 +5,12 @@ Prompt: "${prompt}"
 
 Background Information:
 ${initialQuestions
-  .map(
-    (question) =>
-      `Question: ${question.question}\nAnswers:${question.chosenAnswers.join(
-        ","
-      )},${question.freeformAnswer}`
+  .map((question) =>
+    question.chosenAnswers.length || question.freeformAnswer.length
+      ? `Question: ${question.question}\nAnswers:${question.chosenAnswers.join(
+          ","
+        )},${question.freeformAnswer}`
+      : ""
   )
   .join("\n")}
 
@@ -24,11 +25,12 @@ Prompt: "${prompt}"
 
 Background Information:
 ${initialQuestions
-  .map(
-    (question) =>
-      `Question: ${question.question}\nAnswers:${question.chosenAnswers.join(
-        ","
-      )},${question.freeformAnswer}`
+  .map((question) =>
+    question.chosenAnswers.length || question.freeformAnswer.length
+      ? `Question: ${question.question}\nAnswers:${question.chosenAnswers.join(
+          ","
+        )},${question.freeformAnswer}`
+      : ""
   )
   .join("\n")}
 

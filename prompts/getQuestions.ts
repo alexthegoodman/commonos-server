@@ -10,11 +10,12 @@ Answer with a JSON object containing an array of strings. For example:
 export const getFileQuestions = (prompt, initialQuestions) => `
 Background FAQ:
 ${initialQuestions
-  .map(
-    (question) =>
-      `Question: ${question.question}\nAnswers:${question.chosenAnswers.join(
-        ","
-      )},${question.freeformAnswer}`
+  .map((question) =>
+    question.chosenAnswers.length || question.freeformAnswer.length
+      ? `Question: ${question.question}\nAnswers:${question.chosenAnswers.join(
+          ","
+        )},${question.freeformAnswer}`
+      : ""
   )
   .join("\n")}
 
