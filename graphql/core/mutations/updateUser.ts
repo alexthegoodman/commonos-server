@@ -6,16 +6,36 @@ export const UpdateUserMutation = extendType({
   definition(t) {
     t.field("updateUser", {
       type: "User",
-      args: { documentTree: nullable(stringArg()) },
+      args: {
+        documentTree: nullable(stringArg()),
+        presentationFiles: nullable(stringArg()),
+        sheetFiles: nullable(stringArg()),
+        drawingFiles: nullable(stringArg()),
+        soundFiles: nullable(stringArg()),
+        videoFiles: nullable(stringArg()),
+      },
       resolve: async (
         _,
-        { documentTree },
+        {
+          documentTree,
+          presentationFiles,
+          sheetFiles,
+          drawingFiles,
+          soundFiles,
+          videoFiles,
+        },
         { prisma, currentUser }: Context,
         x
       ) => {
         const updateData = {} as any;
 
         if (documentTree) updateData.documentTree = JSON.parse(documentTree);
+        if (presentationFiles)
+          updateData.presentationFiles = JSON.parse(presentationFiles);
+        if (sheetFiles) updateData.sheetFiles = JSON.parse(sheetFiles);
+        if (drawingFiles) updateData.drawingFiles = JSON.parse(drawingFiles);
+        if (soundFiles) updateData.soundFiles = JSON.parse(soundFiles);
+        if (videoFiles) updateData.videoFiles = JSON.parse(videoFiles);
 
         const updatedUser = await prisma.user.update({
           where: {

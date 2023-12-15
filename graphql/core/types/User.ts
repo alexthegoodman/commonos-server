@@ -28,6 +28,11 @@ export const UserType = objectType({
     });
 
     t.field("documentTree", { type: "JSON" });
+    t.field("presentationFiles", { type: "JSON" });
+    t.field("sheetFiles", { type: "JSON" });
+    t.field("drawingFiles", { type: "JSON" });
+    t.field("soundFiles", { type: "JSON" });
+    t.field("videoFiles", { type: "JSON" });
 
     t.field("updatedAt", { type: "DateTime" });
     t.field("createdAt", { type: "DateTime" });
