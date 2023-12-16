@@ -1,6 +1,7 @@
 import { extendType, nonNull, nullable, stringArg } from "nexus";
 import { Context } from "../../../context";
 import {
+  getFileOutline,
   getFileQuestions,
   getInitialQuestions,
 } from "../../../prompts/getQuestions";
@@ -45,7 +46,62 @@ export const GetQuestionsQuery = extendType({
             break;
           case "files":
             const { initialQuestions } = flow.questionsContext;
-            content = getFileQuestions(fileTitle, initialQuestions);
+
+            const outlineContent = getFileOutline(fileTitle);
+
+            const inputTokensOutline = enc.encode(outlineContent);
+
+            const outlineResponse = await openai.chat.completions.create({
+              model: "gpt-3.5-turbo-1106",
+              messages: [
+                {
+                  content: outlineContent,
+                  role: "user",
+                },
+              ],
+              response_format: { type: "json_object" },
+              // max_tokens: 50,
+              temperature: 1.5,
+            });
+
+            try {
+              const jsonText = outlineResponse.choices[0].message.content;
+
+              if (!jsonText) {
+                throw new Error("No JSON text");
+              }
+
+              const outputTokensOutline = enc.encode(jsonText);
+
+              const tokensUsed =
+                inputTokensOutline.length + outputTokensOutline.length;
+
+              console.info("tokensUsed", tokensUsed);
+
+              await prisma.user.update({
+                where: {
+                  id: currentUser.id,
+                },
+                data: {
+                  periodTokenUsage: {
+                    increment: tokensUsed,
+                  },
+                },
+              });
+
+              const json = JSON.parse(jsonText);
+
+              // TODO: save outline to flow
+
+              content = getFileQuestions(
+                fileTitle,
+                initialQuestions,
+                json.sections
+              );
+            } catch (error) {
+              console.error("Error parsing OpenAI JSON", error);
+            }
+
             break;
           default:
             throw new Error("Invalid getThis");
@@ -66,7 +122,7 @@ export const GetQuestionsQuery = extendType({
           ],
           response_format: { type: "json_object" },
           // max_tokens: 50,
-          // temperature: 0.2,
+          temperature: 1.5,
         });
 
         console.info("openai response", response);
