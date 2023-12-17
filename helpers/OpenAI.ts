@@ -12,6 +12,17 @@ export default class OpenAIClient {
   }
 
   async makeCompletion(outlineContent) {
+    const tokenUsageLimit =
+      this.currentUser.subscription === "NONE"
+        ? 50000
+        : this.currentUser.subscription === "STANDARD"
+          ? 2000000
+          : 0;
+
+    if (this.currentUser.periodTokenUsage >= tokenUsageLimit) {
+      throw new Error("Token usage limit reached");
+    }
+
     const enc = getEncoding("cl100k_base");
     const inputTokensOutline = enc.encode(outlineContent);
 

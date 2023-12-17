@@ -5,6 +5,7 @@ import {
   getAddtFilesList,
 } from "../../../prompts/getFileList";
 import { getEncoding, encodingForModel } from "js-tiktoken";
+import OpenAIClient from "../../../helpers/OpenAI";
 
 export const GetFileListQuery = extendType({
   type: "Query",
@@ -21,7 +22,7 @@ export const GetFileListQuery = extendType({
         { prisma, openai, currentUser }: Context,
         x
       ) => {
-        const enc = getEncoding("cl100k_base");
+        const openaiClient = new OpenAIClient(openai, prisma, currentUser);
 
         const flow = await prisma.flow.findFirst({
           where: {
@@ -52,53 +53,9 @@ export const GetFileListQuery = extendType({
 
         console.info("getFileList", content);
 
-        const inputTokens = enc.encode(content);
+        const finalJson = await openaiClient.makeCompletion(content);
 
-        // get continuation text from openai
-        const response = await openai.chat.completions.create({
-          model: "gpt-3.5-turbo-1106",
-          messages: [
-            {
-              content: content,
-              role: "user",
-            },
-          ],
-          response_format: { type: "json_object" },
-          // max_tokens: 50,
-          // temperature: 0.2,
-        });
-
-        console.info("openai response", response);
-
-        try {
-          const jsonText = response.choices[0].message.content;
-
-          if (!jsonText) {
-            throw new Error("No JSON text");
-          }
-
-          // update user token usage
-          const outputTokens = enc.encode(jsonText);
-          const tokensUsed = inputTokens.length + outputTokens.length;
-
-          console.info("tokensUsed", tokensUsed);
-
-          await prisma.user.update({
-            where: {
-              id: currentUser.id,
-            },
-            data: {
-              periodTokenUsage: {
-                increment: tokensUsed,
-              },
-            },
-          });
-
-          const json = JSON.parse(jsonText);
-          return json;
-        } catch (error) {
-          console.error("Error parsing OpenAI JSON", error);
-        }
+        return finalJson;
       },
     });
   },
