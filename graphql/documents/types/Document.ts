@@ -7,6 +7,7 @@ export const DocumentType = objectType({
     t.field("id", { type: "String" });
     t.field("title", { type: "String" });
     t.field("content", { type: "JSON" });
+    t.field("plaintext", { type: "String" });
 
     t.field("creator", {
       type: "User",

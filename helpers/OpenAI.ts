@@ -11,7 +11,11 @@ export default class OpenAIClient {
     this.currentUser = currentUser;
   }
 
-  async makeCompletion(outlineContent) {
+  async makeCompletion(
+    outlineContent,
+    temperature = 1.5,
+    responseFormat = "json_object"
+  ) {
     const tokenUsageLimit =
       this.currentUser.subscription === "NONE"
         ? 50000
@@ -41,9 +45,9 @@ export default class OpenAIClient {
           role: "user",
         },
       ],
-      response_format: { type: "json_object" },
+      response_format: { type: responseFormat },
       // max_tokens: 50,
-      temperature: 1.5,
+      temperature,
     });
 
     try {
@@ -70,7 +74,7 @@ export default class OpenAIClient {
         },
       });
 
-      const json = JSON.parse(jsonText);
+      const json = responseFormat === "json" ? JSON.parse(jsonText) : jsonText;
 
       console.info("prompt JSON", json);
 
