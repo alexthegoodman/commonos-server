@@ -34,7 +34,7 @@ export const startApolloServer = async () => {
           const tokenHeader = req.header(tokenHeaderKey);
           const token = tokenHeader?.split("Bearer ")[1] as string;
 
-          console.info("verify", token, jwtSecretKey);
+          // console.info("verify", token, jwtSecretKey);
 
           const verified = jwt.verify(token, jwtSecretKey);
 
@@ -45,12 +45,12 @@ export const startApolloServer = async () => {
               },
             });
 
-            console.info(
-              "Verified Token",
-              verified,
-              "currentUser",
-              currentUser
-            );
+            // console.info(
+            //   "Verified Token",
+            //   verified,
+            //   "currentUser",
+            //   currentUser
+            // );
           } else {
             console.warn("Token Not Verified 1");
           }

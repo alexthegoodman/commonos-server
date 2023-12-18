@@ -34,6 +34,7 @@ export default class OpenAIClient {
 
     const outlineResponse = await this.openai.chat.completions.create({
       model: "gpt-3.5-turbo-1106",
+      //   model: "gpt-4-1106-preview",
       messages: [
         {
           content: outlineContent,
@@ -71,7 +72,7 @@ export default class OpenAIClient {
 
       const json = JSON.parse(jsonText);
 
-      // TODO: save outline to flow
+      console.info("prompt JSON", json);
 
       return json;
     } catch (error) {

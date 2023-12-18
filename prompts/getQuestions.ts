@@ -18,6 +18,8 @@ Answer with a JSON object containing an array of strings. For example:
 //   )
 //   .join("\n")}
 
+// Ask the user what they would do within the Text Editor / Spreedsheet Editor app. (?)
+
 export const getDocumentQuestions = (prompt, initialQuestions, outline) => `
 ${prompt}
 

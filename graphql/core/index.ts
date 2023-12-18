@@ -14,3 +14,4 @@ export * from "../core/mutations/updateUser";
 export * from "../core/mutations/simpleUpload";
 export * from "../core/mutations/createFlow";
 export * from "../core/mutations/updateFlow";
+export * from "../core/mutations/createFile";
