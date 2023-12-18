@@ -23,7 +23,7 @@ export const startApolloServer = async () => {
   app.use(
     "/graphql",
     cors<cors.CorsRequest>(),
-    bodyParser.json(),
+    bodyParser.json({ limit: "50mb" }),
     expressMiddleware(server, {
       context: async ({ req, res }) => {
         const tokenHeaderKey = process.env.TOKEN_HEADER_KEY as string;

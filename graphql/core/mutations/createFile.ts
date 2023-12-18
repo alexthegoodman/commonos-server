@@ -1,7 +1,13 @@
 import { extendType, intArg, nonNull, nullable, stringArg } from "nexus";
 import { Context } from "../../../context";
 import OpenAIClient from "../../../helpers/OpenAI";
-import { getDocumentContent } from "../../../prompts/getFileContent";
+import {
+  getDocumentContent,
+  getImageContent,
+  getPresentationContent,
+  getSheetContent,
+} from "../../../prompts/getFileContent";
+import { v4 as uuidv4 } from "uuid";
 
 export const CreateFileMutation = extendType({
   type: "Mutation",
@@ -48,12 +54,12 @@ export const CreateFileMutation = extendType({
 
         switch (fileData?.app) {
           case "documents":
-            const contentPrompt = getDocumentContent(
+            const documentPrompt = getDocumentContent(
               fileData.name,
               fileData.questions
             );
             const documentContent = await openaiClient.makeCompletion(
-              contentPrompt,
+              documentPrompt,
               1.5,
               "text"
             );
@@ -113,10 +119,221 @@ export const CreateFileMutation = extendType({
 
             break;
           case "slides":
+            const presentationPrompt = getPresentationContent(
+              fileData.name,
+              fileData.questions
+            );
+            const presentationContent = await openaiClient.makeCompletion(
+              presentationPrompt,
+              1.5,
+              "json_object"
+            );
+            const presentationJson = JSON.parse(presentationContent);
+
+            const presentationContext = {
+              slides: presentationJson.slides.map((slide) => ({
+                id: uuidv4(),
+                title: slide.title,
+                texts: [
+                  {
+                    id: uuidv4(),
+                    content: slide.content,
+                    x: 50,
+                    y: 50,
+                    fontSize: 24,
+                    fontStyle: "normal",
+                    fontFamily: "Arial",
+                    fontVariant: "normal",
+                    fill: "black",
+                    align: "left",
+                    lineHeight: 1,
+                  },
+                ],
+                shapes: [],
+                images: [],
+              })),
+            };
+
+            const newPresentation = await prisma.presentation.create({
+              data: {
+                title: fileData.name,
+                context: presentationContext,
+                creator: {
+                  connect: {
+                    id: currentUser.id,
+                  },
+                },
+              },
+            });
+
+            const newPresentationFiles = currentUser.presentationFiles;
+            const existingPresentationFolder = newPresentationFiles?.find(
+              (folder) => folder.folderTitle === folderName
+            );
+            const newPresentationNode = {
+              id: newPresentation.id,
+              type: "file",
+            };
+
+            if (existingPresentationFolder) {
+              existingPresentationFolder.files.push(newPresentationNode);
+            } else {
+              newPresentationFiles.push({
+                id: uuidv4(),
+                folderTitle: folderName,
+                files: [newPresentationNode],
+                type: "folder",
+                folderCreatedAt: new Date().toISOString(),
+              });
+            }
+
+            await prisma.user.update({
+              where: {
+                id: currentUser.id,
+              },
+              data: {
+                presentationFiles: newPresentationFiles,
+              },
+            });
+
             break;
           case "sheets":
+            const sheetPrompt = getSheetContent(
+              fileData.name,
+              fileData.questions
+            );
+            const sheetContent = await openaiClient.makeCompletion(
+              sheetPrompt,
+              1.5,
+              "json_object"
+            );
+            const sheetJson = JSON.parse(sheetContent);
+
+            const numColumns = Object.keys(sheetJson.rows[0]).length;
+            const sheetContext = {
+              columns: Array.from(Array(numColumns).keys()).map((i) => ({
+                columnId: uuidv4(),
+                width: 100,
+                reorderable: true,
+                resizable: true,
+              })),
+              rows: sheetJson.rows.map((row) => ({
+                rowId: uuidv4(),
+                height: 30,
+                reorderable: true,
+                cells: Object.keys(row).map((key) => ({
+                  type: "text",
+                  text: row[key],
+                })),
+              })),
+            };
+
+            const newSheet = await prisma.sheet.create({
+              data: {
+                title: fileData.name,
+                context: sheetContext,
+                creator: {
+                  connect: {
+                    id: currentUser.id,
+                  },
+                },
+              },
+            });
+
+            const newSheetFiles = currentUser.sheetFiles;
+            const existingSheetFolder = newSheetFiles?.find(
+              (folder) => folder.folderTitle === folderName
+            );
+            const newSheetNode = {
+              id: newSheet.id,
+              type: "file",
+            };
+
+            if (existingSheetFolder) {
+              existingSheetFolder.files.push(newSheetNode);
+            } else {
+              newSheetFiles.push({
+                id: uuidv4(),
+                folderTitle: folderName,
+                files: [newSheetNode],
+                type: "folder",
+                folderCreatedAt: new Date().toISOString(),
+              });
+            }
+
+            await prisma.user.update({
+              where: {
+                id: currentUser.id,
+              },
+              data: {
+                sheetFiles: newSheetFiles,
+              },
+            });
+
             break;
           case "images":
+            const imagePrompt = getImageContent(
+              fileData.name,
+              fileData.questions
+            );
+            const imageBlob = await openaiClient.makeImage(imagePrompt);
+
+            const drawingContext = {
+              lines: [],
+              images: [
+                {
+                  id: uuidv4(),
+                  imageUrl: imageBlob.url,
+                  x: 0,
+                  y: 0,
+                  width: 1000,
+                  height: 1000,
+                },
+              ],
+            };
+
+            const newDrawing = await prisma.drawing.create({
+              data: {
+                title: fileData.name,
+                context: drawingContext,
+                creator: {
+                  connect: {
+                    id: currentUser.id,
+                  },
+                },
+              },
+            });
+
+            const newDrawingFiles = currentUser.drawingFiles;
+            const existingDrawingFolder = newDrawingFiles?.find(
+              (folder) => folder.folderTitle === folderName
+            );
+            const newDrawingNode = {
+              id: newDrawing.id,
+              type: "file",
+            };
+
+            if (existingDrawingFolder) {
+              existingDrawingFolder.files.push(newDrawingNode);
+            } else {
+              newDrawingFiles.push({
+                id: uuidv4(),
+                folderTitle: folderName,
+                files: [newDrawingNode],
+                type: "folder",
+                folderCreatedAt: new Date().toISOString(),
+              });
+            }
+
+            await prisma.user.update({
+              where: {
+                id: currentUser.id,
+              },
+              data: {
+                drawingFiles: newDrawingFiles,
+              },
+            });
+
             break;
           default:
             throw new Error("Invalid app");

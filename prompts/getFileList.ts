@@ -4,15 +4,21 @@ Provide a list of 1-5 document titles (like high-value handwritten documents kep
 Prompt: "${prompt}"
 
 Background Information:
-${initialQuestions
-  .map((question) =>
-    question.chosenAnswers.length || question.freeformAnswer.length
-      ? `Question: ${question.question}\nAnswers:${question.chosenAnswers.join(
-          ","
-        )},${question.freeformAnswer}`
-      : ""
-  )
-  .join("\n")}
+${
+  initialQuestions.length
+    ? initialQuestions
+        .map((question) =>
+          question.chosenAnswers.length || question.freeformAnswer.length
+            ? `Question: ${
+                question.question
+              }\nAnswers:${question.chosenAnswers.join(",")},${
+                question.freeformAnswer
+              }`
+            : ""
+        )
+        .join("\n")
+    : "No information provided"
+}
 
 Hints and Examples:
 For creating literature, use potential literature titles for each document title.
@@ -28,15 +34,21 @@ Provide a list of 0-3 presentation titles, 0-3 spreadsheet titles, and 0-3 image
 Prompt: "${prompt}"
 
 Background Information:
-${initialQuestions
-  .map((question) =>
-    question.chosenAnswers.length || question.freeformAnswer.length
-      ? `Question: ${question.question}\nAnswers:${question.chosenAnswers.join(
-          ","
-        )},${question.freeformAnswer}`
-      : ""
-  )
-  .join("\n")}
+${
+  initialQuestions.length
+    ? initialQuestions
+        .map((question) =>
+          question.chosenAnswers.length || question.freeformAnswer.length
+            ? `Question: ${
+                question.question
+              }\nAnswers:${question.chosenAnswers.join(",")},${
+                question.freeformAnswer
+              }`
+            : ""
+        )
+        .join("\n")
+    : "No information provided"
+}
 
 Answer with a JSON object containing an array of strings. For example:
 {"presentations":["Document title 1", "Document title 2"],"spreadsheets":["Document title 1", "Document title 2"],"images":["Document title 1", "Document title 2"]}
