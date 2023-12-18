@@ -38,6 +38,23 @@ export const CreateFileMutation = extendType({
 
         console.info("createFile", fileData, folderName);
 
+        // add to folder / tree structure
+        // generate content
+        // add content to context of new db entry
+
+        switch (fileData?.app) {
+          case "documents":
+            break;
+          case "slides":
+            break;
+          case "sheets":
+            break;
+          case "images":
+            break;
+          default:
+            throw new Error("Invalid app");
+        }
+
         return "SUCCESS";
       },
     });
