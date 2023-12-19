@@ -82,7 +82,8 @@ export default class OpenAIClient {
         },
       });
 
-      const json = responseFormat === "json" ? JSON.parse(jsonText) : jsonText;
+      const json =
+        responseFormat === "json_object" ? JSON.parse(jsonText) : jsonText;
 
       console.info("prompt JSON", json);
 

@@ -18,6 +18,8 @@ ${
 }
 
 Given the provided document title and information, please write at least 5 paragraphs of content for the document.
+Rather than describing the document, write the document itself.
+Include bullet points and lists where appropriate.
 `;
 
 export const getPresentationContent = (fileName, fileQuestions) => `

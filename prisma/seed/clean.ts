@@ -21,10 +21,10 @@ export default async function clean() {
 
   // await prisma.raw("TRUNCATE AnnotationMeta;");
 
-  await prisma.type.deleteMany({
+  await prisma.flow.deleteMany({
     where: { id: { not: "" } },
   });
-  await prisma.flow.deleteMany({
+  await prisma.type.deleteMany({
     where: { id: { not: "" } },
   });
   await prisma.drawing.deleteMany({

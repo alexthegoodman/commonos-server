@@ -1,5 +1,5 @@
 export const getDocumentList = (prompt, initialQuestions) => `
-Provide a list of 1-5 document titles (like high-value handwritten documents kept by consultants, startup founders, or practitioners, rather than titles which sound like article titles) that are relevant to the prompt below. The number of titles should reflect whether documents are needed for the prompt.
+Provide a list of 4-8 document titles (like in-depth documents kept by consultants, startup founders, or practitioners) that are relevant to the prompt below.
 
 Prompt: "${prompt}"
 
@@ -23,6 +23,8 @@ ${
 Hints and Examples:
 For creating literature, use potential literature titles for each document title.
 For creating physical objects, use titles relevant to specifications, materials, and human resources.
+For a plan or strategy, consider the sub-goals and sub-plans that would be needed to achieve the main goal.
+For a business or venture, consider the major departments or categories when determining the document titles.
 
 Answer with a JSON object containing an array of strings. For example:
 {"documents":["Document title 1", "Document title 2", "Document title 3"]}

@@ -60,7 +60,7 @@ export const CreateFileMutation = extendType({
             );
             const documentContent = await openaiClient.makeCompletion(
               documentPrompt,
-              1.5,
+              1.2,
               "text"
             );
 
@@ -76,7 +76,7 @@ export const CreateFileMutation = extendType({
               },
             });
 
-            const newDocumentTree = currentUser.documentTree;
+            const newDocumentTree = currentUser.documentTree || [];
             const existingFolder = newDocumentTree?.find(
               (folder) => folder.generatedName === folderName
             );
@@ -128,18 +128,18 @@ export const CreateFileMutation = extendType({
               1.5,
               "json_object"
             );
-            const presentationJson = JSON.parse(presentationContent);
 
             const presentationContext = {
-              slides: presentationJson.slides.map((slide) => ({
+              slides: presentationContent.slides.map((slide) => ({
                 id: uuidv4(),
                 title: slide.title,
                 texts: [
                   {
                     id: uuidv4(),
                     content: slide.content,
-                    x: 50,
-                    y: 50,
+                    x: 0,
+                    y: 250,
+                    width: 1000,
                     fontSize: 24,
                     fontStyle: "normal",
                     fontFamily: "Arial",
@@ -166,7 +166,7 @@ export const CreateFileMutation = extendType({
               },
             });
 
-            const newPresentationFiles = currentUser.presentationFiles;
+            const newPresentationFiles = currentUser.presentationFiles || [];
             const existingPresentationFolder = newPresentationFiles?.find(
               (folder) => folder.folderTitle === folderName
             );
@@ -207,9 +207,8 @@ export const CreateFileMutation = extendType({
               1.5,
               "json_object"
             );
-            const sheetJson = JSON.parse(sheetContent);
 
-            const numColumns = Object.keys(sheetJson.rows[0]).length;
+            const numColumns = Object.keys(sheetContent.rows[0]).length;
             const sheetContext = {
               columns: Array.from(Array(numColumns).keys()).map((i) => ({
                 columnId: uuidv4(),
@@ -217,14 +216,18 @@ export const CreateFileMutation = extendType({
                 reorderable: true,
                 resizable: true,
               })),
-              rows: sheetJson.rows.map((row) => ({
+              rows: sheetContent.rows.map((row) => ({
                 rowId: uuidv4(),
                 height: 30,
                 reorderable: true,
-                cells: Object.keys(row).map((key) => ({
-                  type: "text",
-                  text: row[key],
-                })),
+                cells: Object.keys(row).map((key, i) => {
+                  if (i < numColumns) {
+                    return {
+                      type: "text",
+                      text: row[key],
+                    };
+                  }
+                }),
               })),
             };
 
@@ -240,7 +243,7 @@ export const CreateFileMutation = extendType({
               },
             });
 
-            const newSheetFiles = currentUser.sheetFiles;
+            const newSheetFiles = currentUser.sheetFiles || [];
             const existingSheetFolder = newSheetFiles?.find(
               (folder) => folder.folderTitle === folderName
             );
@@ -304,7 +307,7 @@ export const CreateFileMutation = extendType({
               },
             });
 
-            const newDrawingFiles = currentUser.drawingFiles;
+            const newDrawingFiles = currentUser.drawingFiles || [];
             const existingDrawingFolder = newDrawingFiles?.find(
               (folder) => folder.folderTitle === folderName
             );

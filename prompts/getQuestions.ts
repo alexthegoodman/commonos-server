@@ -26,7 +26,7 @@ ${prompt}
 File Outline:
 ${outline.map((section) => `* ${section}`).join("\n")}
 
-Provide a list of 5 multiple choice questions (each with 4 selections), one for each section of the outline. Ask questions regarding what the user wants in each section.
+Provide a list of 5 multiple choice questions (each with 4 selections). Ask questions regarding what the user wants in each section of the outline.
 
 Answer with a JSON object containing an array of strings. For example:
 {"questions":[{"question":"Question 1","answers":["Answer 1","Answer 2","Answer 3"]},{"question":"Question 2","answers":["Answer 1","Answer 2","Answer 3"]}]}
@@ -56,7 +56,7 @@ ${prompt}
 Presentation Slides:
 ${outline.map((section) => `* ${section}`).join("\n")}
 
-Provide a list of 5 multiple choice questions (each with 4 selections), one for each slide of the presentation. Ask questions regarding what the user wants in each slide.
+Provide a list of 5 multiple choice questions (each with 4 selections). Ask questions regarding what the user wants in each slide.
 
 Answer with a JSON object containing an array of strings. For example:
 {"questions":[{"question":"Question 1","answers":["Answer 1","Answer 2","Answer 3"]},{"question":"Question 2","answers":["Answer 1","Answer 2","Answer 3"]}]}
