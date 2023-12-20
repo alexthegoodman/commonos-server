@@ -8,6 +8,7 @@ export * from "../core/queries/flow";
 export * from "../core/queries/getFileList";
 export * from "../core/queries/getQuestions";
 export * from "../core/queries/myFlows";
+export * from "../core/queries/getGuideQuestions";
 
 export * from "../core/mutations/registerUser";
 export * from "../core/mutations/updateUser";
