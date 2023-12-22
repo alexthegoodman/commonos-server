@@ -146,7 +146,7 @@ export const CreateFileMutation = extendType({
                     fontVariant: "normal",
                     fill: "black",
                     align: "left",
-                    lineHeight: 1,
+                    lineHeight: 1.35,
                   },
                 ],
                 shapes: [],

@@ -25,10 +25,10 @@ export default async function seedUsers() {
         email: "alexthegoodman@gmail.com",
         role: "ADMIN",
       },
-      { ...(await getDefaultUser()) },
-      { ...(await getDefaultUser()) },
-      { ...(await getDefaultUser()) },
-      { ...(await getDefaultUser()) },
+      // { ...(await getDefaultUser()) },
+      // { ...(await getDefaultUser()) },
+      // { ...(await getDefaultUser()) },
+      // { ...(await getDefaultUser()) },
     ],
   });
 
