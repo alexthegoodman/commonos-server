@@ -93,7 +93,10 @@ model Document {
 
   title   String
   content Json?
+  html    String?
   plaintext String?
+
+  messages Json?
 
   creator   User   @relation(fields: [creatorId], references: [id])
   creatorId String

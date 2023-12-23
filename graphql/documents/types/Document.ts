@@ -8,6 +8,8 @@ export const DocumentType = objectType({
     t.field("title", { type: "String" });
     t.field("content", { type: "JSON" });
     t.field("plaintext", { type: "String" });
+    t.field("html", { type: "String" });
+    t.field("messages", { type: "JSON" });
 
     t.field("creator", {
       type: "User",

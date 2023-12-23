@@ -2,7 +2,10 @@ import { extendType, nonNull, nullable, stringArg } from "nexus";
 import { Context } from "../../../context";
 import { getEncoding, encodingForModel } from "js-tiktoken";
 import OpenAIClient from "../../../helpers/OpenAI";
-import { getPresentationGuideQuestions } from "../../../prompts/getGuideQuestions";
+import {
+  getDocumentGuideQuestions,
+  getPresentationGuideQuestions,
+} from "../../../prompts/getGuideQuestions";
 
 export const GetGuideQuestionsQuery = extendType({
   type: "Query",
@@ -29,7 +32,7 @@ export const GetGuideQuestionsQuery = extendType({
         let content = "";
         switch (fileApp) {
           case "documents":
-            // content = getDocumentGuideQuestions(fileTitle, sectionContent);
+            content = getDocumentGuideQuestions(fileTitle, sectionContent);
             break;
           case "slides":
             content = getPresentationGuideQuestions(fileTitle, sectionContent);

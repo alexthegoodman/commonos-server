@@ -10,10 +10,13 @@ export const UpdateDocumentMutation = extendType({
         documentId: nonNull(stringArg()),
         title: nullable(stringArg()),
         content: nullable(stringArg()),
+        plaintext: nullable(stringArg()),
+        html: nullable(stringArg()),
+        messages: nullable(stringArg()),
       },
       resolve: async (
         _,
-        { documentId, title, content },
+        { documentId, title, content, plaintext, html, messages },
         { prisma, currentUser }: Context,
         x
       ) => {
@@ -22,6 +25,10 @@ export const UpdateDocumentMutation = extendType({
         if (title) updateData = { ...updateData, title };
         if (content)
           updateData = { ...updateData, content: JSON.parse(content) };
+        if (plaintext) updateData = { ...updateData, plaintext };
+        if (html) updateData = { ...updateData, html };
+        if (messages)
+          updateData = { ...updateData, messages: JSON.parse(messages) };
 
         const updatedDocument = await prisma.document.update({
           where: {
