@@ -66,7 +66,7 @@ ${
     : "No information provided"
 }
 
-Given the provided spreadsheet title and information, please create a spreadsheet with at least 5 rows and 5 columns of content.
+Given the provided spreadsheet title and information, please create a spreadsheet with at least 10 rows and 7-10 columns of content.
 
 Answer with a JSON object containing an array of strings. For example:
 {"rows":[{"col1": "Cell Content 1", "col2": "Cell Content 2", "col3": "Cell Content 3"}, {"col1": "Cell Content 4", "col2": "Cell Content 5", "col3": "Cell Content 6"}]}
