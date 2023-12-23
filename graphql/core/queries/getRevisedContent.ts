@@ -3,7 +3,10 @@ import { Context } from "../../../context";
 import { getEncoding, encodingForModel } from "js-tiktoken";
 import OpenAIClient from "../../../helpers/OpenAI";
 import { getPresentationGuideQuestions } from "../../../prompts/getGuideQuestions";
-import { getPresentationRevisionContent } from "../../../prompts/getRevisedContent";
+import {
+  getDocumentRevisionContent,
+  getPresentationRevisionContent,
+} from "../../../prompts/getRevisedContent";
 
 export const GetRevisedContentQuery = extendType({
   type: "Query",
@@ -39,7 +42,13 @@ export const GetRevisedContentQuery = extendType({
         let finalJson = {};
         switch (fileApp) {
           case "documents":
-            // finalJson = { content }
+            content = getDocumentRevisionContent(
+              fileTitle,
+              sectionContent,
+              sectionQuestions
+            );
+            let text = await openaiClient.makeCompletion(content, 1.2, "text");
+            finalJson = { text };
             break;
           case "slides":
             content = getPresentationRevisionContent(

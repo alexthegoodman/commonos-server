@@ -47,3 +47,43 @@ Answer with a JSON object. For example:
   }
 }
 `;
+
+export const getDocumentRevisionContent = (
+  fileTitle,
+  sectionContent,
+  sectionQuestions
+) => `
+# Document Title: ${fileTitle}
+# Document Content:
+"""
+${
+  sectionContent.length
+    ? sectionContent
+        .map((item, i) => (item.text ? `${item.text}` : ""))
+        .join("\n")
+    : "No information provided"
+}
+"""
+
+# New Information:
+"""
+${
+  sectionQuestions.length
+    ? sectionQuestions
+        .map((question) =>
+          question.chosenAnswers.length || question.freeformAnswer.length
+            ? `Question: ${
+                question.question
+              }\nAnswers:${question.chosenAnswers.join(",")},${
+                question.freeformAnswer
+              }`
+            : ""
+        )
+        .join("\n")
+    : "No information provided"
+}
+"""
+
+# Instructions:
+Revise the Document Content, using the New Information as a guide / reference.
+`;
