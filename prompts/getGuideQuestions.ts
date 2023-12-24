@@ -8,8 +8,7 @@ ${
     : "No information provided"
 }
 
-Provide a list of 3 multiple choice questions (each with 4 selections).
-Considering the goal of the title, ask in-depth questions regarding what the user wants in the sections provided. 
+Considering the goal of the title, ask 3 in-depth questions (each with 4 possible selections) regarding what the user wants in the sections provided. 
 Make sure the questions extract information that is not already provided in the sections.
 Avoid asking about what the user likes, what appeals to them, or what they are interested in, instead ask about what they want in the sections.
 Also avoid asking the questions which are already answered by the sections.
@@ -28,8 +27,7 @@ ${
     : "No information provided"
 }
 
-Provide a list of 3 multiple choice questions (each with 4 selections). 
-Considering the goal of the title, ask in-depth questions regarding what the user wants in the sections provided. 
+Considering the goal of the title, ask 3 in-depth questions (each with 4 possible selections) regarding what the user wants in the sections provided. 
 Make sure the questions extract information that is not already provided in the sections.
 Avoid asking about what the user likes, what appeals to them, or what they are interested in, instead ask about what they want in the sections.
 Also avoid asking the questions which are already answered by the sections.
