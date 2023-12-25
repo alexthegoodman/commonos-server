@@ -12,11 +12,12 @@ export const UpdateDocumentMutation = extendType({
         content: nullable(stringArg()),
         plaintext: nullable(stringArg()),
         html: nullable(stringArg()),
+        markdown: nullable(stringArg()),
         messages: nullable(stringArg()),
       },
       resolve: async (
         _,
-        { documentId, title, content, plaintext, html, messages },
+        { documentId, title, content, plaintext, html, markdown, messages },
         { prisma, currentUser }: Context,
         x
       ) => {
@@ -27,6 +28,7 @@ export const UpdateDocumentMutation = extendType({
           updateData = { ...updateData, content: JSON.parse(content) };
         if (plaintext) updateData = { ...updateData, plaintext };
         if (html) updateData = { ...updateData, html };
+        if (markdown) updateData = { ...updateData, markdown };
         if (messages)
           updateData = { ...updateData, messages: JSON.parse(messages) };
 
