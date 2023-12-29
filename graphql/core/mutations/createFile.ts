@@ -130,28 +130,52 @@ export const CreateFileMutation = extendType({
             );
 
             const presentationContext = {
-              slides: presentationContent.slides.map((slide) => ({
-                id: uuidv4(),
-                title: slide.title,
-                texts: [
-                  {
-                    id: uuidv4(),
-                    content: slide.content,
-                    x: 0,
-                    y: 250,
-                    width: 1000,
-                    fontSize: 24,
-                    fontStyle: "normal",
-                    fontFamily: "Arial",
-                    fontVariant: "normal",
-                    fill: "black",
-                    align: "left",
-                    lineHeight: 1.35,
-                  },
-                ],
-                shapes: [],
-                images: [],
-              })),
+              slides: [
+                {
+                  id: uuidv4(),
+                  title: fileData.name,
+                  texts: [
+                    {
+                      id: uuidv4(),
+                      content: fileData.name,
+                      x: 0,
+                      y: 250,
+                      width: 1000,
+                      fontSize: 24,
+                      fontStyle: "normal",
+                      fontFamily: "Arial",
+                      fontVariant: "normal",
+                      fill: "black",
+                      align: "center",
+                      lineHeight: 1.35,
+                    },
+                  ],
+                  shapes: [],
+                  images: [],
+                },
+                ...presentationContent.slides.map((slide) => ({
+                  id: uuidv4(),
+                  title: slide.title,
+                  texts: [
+                    {
+                      id: uuidv4(),
+                      content: slide.content,
+                      x: 150,
+                      y: 250,
+                      width: 700,
+                      fontSize: 24,
+                      fontStyle: "normal",
+                      fontFamily: "Arial",
+                      fontVariant: "normal",
+                      fill: "black",
+                      align: "left",
+                      lineHeight: 1.35,
+                    },
+                  ],
+                  shapes: [],
+                  images: [],
+                })),
+              ],
             };
 
             const newPresentation = await prisma.presentation.create({
@@ -212,7 +236,7 @@ export const CreateFileMutation = extendType({
             const sheetContext = {
               columns: Array.from(Array(numColumns).keys()).map((i) => ({
                 columnId: uuidv4(),
-                width: 100,
+                width: 200,
                 reorderable: true,
                 resizable: true,
               })),
