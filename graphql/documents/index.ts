@@ -8,3 +8,4 @@ export * from "./queries/document";
 export * from "./mutations/export";
 export * from "./mutations/newDocument";
 export * from "./mutations/updateDocument";
+export * from "./mutations/deleteDocument";

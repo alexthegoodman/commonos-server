@@ -35,6 +35,9 @@ export const UpdateDocumentMutation = extendType({
         const updatedDocument = await prisma.document.update({
           where: {
             id: documentId,
+            creator: {
+              id: currentUser.id,
+            },
           },
           data: updateData,
         });
