@@ -78,7 +78,7 @@ export const CreateFileMutation = extendType({
 
             const newDocumentTree = currentUser.documentTree || [];
             const existingFolder = newDocumentTree?.find(
-              (folder) => folder.generatedName === folderName
+              (folder) => folder?.generatedName === folderName
             );
             const newDocNode = {
               id: newDocument.id,
