@@ -53,7 +53,7 @@ export default class OpenAIClient {
           role: "user",
         },
       ],
-      response_format: { type: responseFormat },
+      response_format: { type: responseFormat as any },
       // max_tokens: 50,
       temperature,
     });
@@ -120,7 +120,7 @@ export default class OpenAIClient {
       prompt,
     });
 
-    const fileData = data[0].b64_json;
+    const fileData = data[0].b64_json as any;
 
     // upload to storage
     const helpers = new Helpers();

@@ -37,7 +37,7 @@ export const GetFileListQuery = extendType({
           throw new Error("Flow not found");
         }
 
-        const { initialQuestions } = flow.questionsContext;
+        const { initialQuestions } = flow.questionsContext as any;
 
         let content = "";
         switch (getThis) {

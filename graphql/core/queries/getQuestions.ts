@@ -51,7 +51,7 @@ export const GetQuestionsQuery = extendType({
             content = getInitialQuestions(fileTitle);
             break;
           case "files":
-            const { initialQuestions } = flow.questionsContext;
+            const { initialQuestions } = flow.questionsContext as any;
 
             if (fileApp === "documents") {
               const outlineContent = getDocumentOutline(fileTitle);

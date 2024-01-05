@@ -40,9 +40,9 @@ export const CreateFileMutation = extendType({
           throw new Error("Flow not found");
         }
 
-        const fileData = flow?.questionsContext?.files?.find(
-          (file) => file.id === fileId
-        );
+        const { files } = flow?.questionsContext as any;
+
+        const fileData = files?.find((file) => file.id === fileId);
 
         const folderName = prompt.substr(0, 80) + "...";
 
@@ -76,7 +76,7 @@ export const CreateFileMutation = extendType({
               },
             });
 
-            const newDocumentTree = currentUser.documentTree || [];
+            const newDocumentTree = currentUser.documentTree || ([] as any);
             const existingFolder = newDocumentTree?.find(
               (folder) => folder?.generatedName === folderName
             );
@@ -190,7 +190,8 @@ export const CreateFileMutation = extendType({
               },
             });
 
-            const newPresentationFiles = currentUser.presentationFiles || [];
+            const newPresentationFiles =
+              currentUser.presentationFiles || ([] as any);
             const existingPresentationFolder = newPresentationFiles?.find(
               (folder) => folder.folderTitle === folderName
             );
@@ -267,7 +268,7 @@ export const CreateFileMutation = extendType({
               },
             });
 
-            const newSheetFiles = currentUser.sheetFiles || [];
+            const newSheetFiles = currentUser.sheetFiles || ([] as any);
             const existingSheetFolder = newSheetFiles?.find(
               (folder) => folder.folderTitle === folderName
             );
@@ -331,7 +332,7 @@ export const CreateFileMutation = extendType({
               },
             });
 
-            const newDrawingFiles = currentUser.drawingFiles || [];
+            const newDrawingFiles = currentUser.drawingFiles || ([] as any);
             const existingDrawingFolder = newDrawingFiles?.find(
               (folder) => folder.folderTitle === folderName
             );

@@ -54,7 +54,7 @@ export const startApolloServer = async () => {
           } else {
             console.warn("Token Not Verified 1");
           }
-        } catch (error) {
+        } catch (error: any) {
           // ex. if token is not provided
           console.warn("Token Not Verified 2", error);
           if (error.message === "jwt expired") {
