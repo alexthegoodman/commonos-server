@@ -15,7 +15,7 @@ export const FlowType = objectType({
           where: {
             flows: {
               some: {
-                id: flow.id,
+                id: flow.id as any,
               },
             },
           },

@@ -22,9 +22,13 @@ export const SimpleUploadMutation = extendType({
         x
       ) => {
         const helpers = new Helpers();
-        const filePath = helpers.getUploadDirectory(fileName);
+        const filePath = helpers.getUploadDirectory(fileName as string);
 
         console.info("uploading file", filePath);
+
+        if (!fileData) {
+          throw Error("No fileData");
+        }
 
         let buffer;
         if (true) {
