@@ -24,7 +24,7 @@ export const RegisterUserMutation = extendType({
 
         const headers = req.headers;
         const credentials = helpers.parseAuthHeader(
-          headers.get("Authorization") as string
+          headers.authorization as string
         );
         const email = credentials[0];
         const password = credentials[1];
