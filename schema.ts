@@ -13,6 +13,7 @@ import * as presentationsTypes from "./graphql/presentations";
 import * as sheetsTypes from "./graphql/sheets";
 import * as soundsTypes from "./graphql/sounds";
 import * as videosTypes from "./graphql/videos";
+import * as rssTypes from "./graphql/rss";
 
 import { permissions } from "./permissions";
 
@@ -25,6 +26,7 @@ export const schema = makeSchema({
     sheetsTypes,
     soundsTypes,
     videosTypes,
+    rssTypes,
     jsonScalar,
     dateTimeScalar,
   ],

@@ -13,6 +13,7 @@ export const UpdateUserMutation = extendType({
         drawingFiles: nullable(stringArg()),
         soundFiles: nullable(stringArg()),
         videoFiles: nullable(stringArg()),
+        feedTree: nullable(stringArg()),
       },
       resolve: async (
         _,
@@ -23,6 +24,7 @@ export const UpdateUserMutation = extendType({
           drawingFiles,
           soundFiles,
           videoFiles,
+          feedTree,
         },
         { prisma, currentUser }: Context,
         x
@@ -36,6 +38,7 @@ export const UpdateUserMutation = extendType({
         if (drawingFiles) updateData.drawingFiles = JSON.parse(drawingFiles);
         if (soundFiles) updateData.soundFiles = JSON.parse(soundFiles);
         if (videoFiles) updateData.videoFiles = JSON.parse(videoFiles);
+        if (feedTree) updateData.feedTree = JSON.parse(feedTree);
 
         const updatedUser = await prisma.user.update({
           where: {

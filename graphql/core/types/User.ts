@@ -33,6 +33,7 @@ export const UserType = objectType({
     t.field("drawingFiles", { type: "JSON" });
     t.field("soundFiles", { type: "JSON" });
     t.field("videoFiles", { type: "JSON" });
+    t.field("feedTree", { type: "JSON" });
 
     t.field("updatedAt", { type: "DateTime" });
     t.field("createdAt", { type: "DateTime" });
