@@ -70,6 +70,12 @@ export interface NexusGenObjects {
     title?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
+  Feed: { // root type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    url?: string | null; // String
+  }
   Flow: { // root type
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     id?: string | null; // String
@@ -86,8 +92,20 @@ export interface NexusGenObjects {
     url?: string | null; // String
   }
   Mutation: {};
+  Organization: { // root type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    name?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   Presentation: { // root type
     context?: NexusGenScalars['JSON'] | null; // JSON
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    title?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  Project: { // root type
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     id?: string | null; // String
     title?: string | null; // String
@@ -120,6 +138,7 @@ export interface NexusGenObjects {
     documentTree?: NexusGenScalars['JSON'] | null; // JSON
     drawingFiles?: NexusGenScalars['JSON'] | null; // JSON
     email?: string | null; // String
+    feedTree?: NexusGenScalars['JSON'] | null; // JSON
     frequency?: string | null; // String
     lastTokenReset?: NexusGenScalars['DateTime'] | null; // DateTime
     periodTokenUsage?: number | null; // Int
@@ -171,6 +190,13 @@ export interface NexusGenFieldTypes {
     title: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
+  Feed: { // field return type
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    creator: NexusGenRootTypes['User'] | null; // User
+    id: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+    url: string | null; // String
+  }
   Flow: { // field return type
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
     id: string | null; // String
@@ -190,11 +216,14 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     createFile: string | null; // String
     createFlow: NexusGenRootTypes['Flow'] | null; // Flow
+    createOrganization: NexusGenRootTypes['Organization'] | null; // Organization
+    createProject: NexusGenRootTypes['Project'] | null; // Project
     deleteDocument: string | null; // String
     export: string | null; // String
     generateTitles: Array<NexusGenRootTypes['Document'] | null> | null; // [Document]
     newDocument: NexusGenRootTypes['Document'] | null; // Document
     newDrawing: NexusGenRootTypes['Drawing'] | null; // Drawing
+    newFeed: NexusGenRootTypes['Feed'] | null; // Feed
     newPresentation: NexusGenRootTypes['Presentation'] | null; // Presentation
     newSheet: NexusGenRootTypes['Sheet'] | null; // Sheet
     newSound: NexusGenRootTypes['Sound'] | null; // Sound
@@ -210,11 +239,28 @@ export interface NexusGenFieldTypes {
     updateUser: NexusGenRootTypes['User'] | null; // User
     updateVideo: NexusGenRootTypes['Video'] | null; // Video
   }
+  Organization: { // field return type
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    id: string | null; // String
+    name: string | null; // String
+    owner: NexusGenRootTypes['User'] | null; // User
+    projects: Array<NexusGenRootTypes['Project'] | null> | null; // [Project]
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+    users: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+  }
   Presentation: { // field return type
     context: NexusGenScalars['JSON'] | null; // JSON
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
     creator: NexusGenRootTypes['User'] | null; // User
     id: string | null; // String
+    title: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  Project: { // field return type
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    creator: NexusGenRootTypes['User'] | null; // User
+    id: string | null; // String
+    organization: NexusGenRootTypes['Organization'] | null; // Organization
     title: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
@@ -228,9 +274,11 @@ export interface NexusGenFieldTypes {
     getGeneratedText: string | null; // String
     getGuideQuestions: NexusGenScalars['JSON'] | null; // JSON
     getQuestions: NexusGenScalars['JSON'] | null; // JSON
+    getRSSData: Array<NexusGenScalars['JSON'] | null> | null; // [JSON]
     getRevisedContent: NexusGenScalars['JSON'] | null; // JSON
     myDocuments: Array<NexusGenRootTypes['Document'] | null> | null; // [Document]
     myDrawings: Array<NexusGenRootTypes['Drawing'] | null> | null; // [Drawing]
+    myFeeds: Array<NexusGenRootTypes['Feed'] | null> | null; // [Feed]
     myFlows: Array<NexusGenRootTypes['Flow'] | null> | null; // [Flow]
     myPresentations: Array<NexusGenRootTypes['Presentation'] | null> | null; // [Presentation]
     mySheets: Array<NexusGenRootTypes['Sheet'] | null> | null; // [Sheet]
@@ -270,6 +318,7 @@ export interface NexusGenFieldTypes {
     documents: Array<NexusGenRootTypes['Document'] | null> | null; // [Document]
     drawingFiles: NexusGenScalars['JSON'] | null; // JSON
     email: string | null; // String
+    feedTree: NexusGenScalars['JSON'] | null; // JSON
     frequency: string | null; // String
     lastTokenReset: NexusGenScalars['DateTime'] | null; // DateTime
     periodTokenUsage: number | null; // Int
@@ -312,6 +361,13 @@ export interface NexusGenFieldTypeNames {
     title: 'String'
     updatedAt: 'DateTime'
   }
+  Feed: { // field return type name
+    createdAt: 'DateTime'
+    creator: 'User'
+    id: 'String'
+    updatedAt: 'DateTime'
+    url: 'String'
+  }
   Flow: { // field return type name
     createdAt: 'DateTime'
     id: 'String'
@@ -331,11 +387,14 @@ export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     createFile: 'String'
     createFlow: 'Flow'
+    createOrganization: 'Organization'
+    createProject: 'Project'
     deleteDocument: 'String'
     export: 'String'
     generateTitles: 'Document'
     newDocument: 'Document'
     newDrawing: 'Drawing'
+    newFeed: 'Feed'
     newPresentation: 'Presentation'
     newSheet: 'Sheet'
     newSound: 'Sound'
@@ -351,11 +410,28 @@ export interface NexusGenFieldTypeNames {
     updateUser: 'User'
     updateVideo: 'Video'
   }
+  Organization: { // field return type name
+    createdAt: 'DateTime'
+    id: 'String'
+    name: 'String'
+    owner: 'User'
+    projects: 'Project'
+    updatedAt: 'DateTime'
+    users: 'User'
+  }
   Presentation: { // field return type name
     context: 'JSON'
     createdAt: 'DateTime'
     creator: 'User'
     id: 'String'
+    title: 'String'
+    updatedAt: 'DateTime'
+  }
+  Project: { // field return type name
+    createdAt: 'DateTime'
+    creator: 'User'
+    id: 'String'
+    organization: 'Organization'
     title: 'String'
     updatedAt: 'DateTime'
   }
@@ -369,9 +445,11 @@ export interface NexusGenFieldTypeNames {
     getGeneratedText: 'String'
     getGuideQuestions: 'JSON'
     getQuestions: 'JSON'
+    getRSSData: 'JSON'
     getRevisedContent: 'JSON'
     myDocuments: 'Document'
     myDrawings: 'Drawing'
+    myFeeds: 'Feed'
     myFlows: 'Flow'
     myPresentations: 'Presentation'
     mySheets: 'Sheet'
@@ -411,6 +489,7 @@ export interface NexusGenFieldTypeNames {
     documents: 'Document'
     drawingFiles: 'JSON'
     email: 'String'
+    feedTree: 'JSON'
     frequency: 'String'
     lastTokenReset: 'DateTime'
     periodTokenUsage: 'Int'
@@ -443,6 +522,13 @@ export interface NexusGenArgTypes {
       prompt: string; // String!
       typeCode: string; // String!
     }
+    createOrganization: { // args
+      name: string; // String!
+    }
+    createProject: { // args
+      organizationId: string; // String!
+      title: string; // String!
+    }
     deleteDocument: { // args
       documentId: string; // String!
     }
@@ -452,6 +538,9 @@ export interface NexusGenArgTypes {
     }
     generateTitles: { // args
       treeMd: string; // String!
+    }
+    newFeed: { // args
+      url: string; // String!
     }
     simpleUpload: { // args
       fileData?: string | null; // String
@@ -496,6 +585,7 @@ export interface NexusGenArgTypes {
     updateUser: { // args
       documentTree?: string | null; // String
       drawingFiles?: string | null; // String
+      feedTree?: string | null; // String
       presentationFiles?: string | null; // String
       sheetFiles?: string | null; // String
       soundFiles?: string | null; // String
@@ -534,6 +624,9 @@ export interface NexusGenArgTypes {
       fileTitle: string; // String!
       flowId: string; // String!
       getThis: string; // String!
+    }
+    getRSSData: { // args
+      url: string; // String!
     }
     getRevisedContent: { // args
       fileApp: string; // String!

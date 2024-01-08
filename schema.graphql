@@ -29,6 +29,14 @@ type Drawing {
   updatedAt: DateTime
 }
 
+type Feed {
+  createdAt: DateTime
+  creator: User
+  id: String
+  updatedAt: DateTime
+  url: String
+}
+
 type Flow {
   createdAt: DateTime
   id: String
@@ -55,11 +63,14 @@ type Link {
 type Mutation {
   createFile(fileId: String!, flowId: String!, prompt: String!): String
   createFlow(prompt: String!, typeCode: String!): Flow
+  createOrganization(name: String!): Organization
+  createProject(organizationId: String!, title: String!): Project
   deleteDocument(documentId: String!): String
   export(html: String!, type: String!): String
   generateTitles(treeMd: String!): [Document]
   newDocument: Document
   newDrawing: Drawing
+  newFeed(url: String!): Feed
   newPresentation: Presentation
   newSheet: Sheet
   newSound: Sound
@@ -72,8 +83,18 @@ type Mutation {
   updatePresentation(context: String, presentationId: String!, title: String): Presentation
   updateSheet(context: String, sheetId: String!, title: String): Sheet
   updateSound(context: String, soundId: String!, title: String): Sound
-  updateUser(documentTree: String, drawingFiles: String, presentationFiles: String, sheetFiles: String, soundFiles: String, videoFiles: String): User
+  updateUser(documentTree: String, drawingFiles: String, feedTree: String, presentationFiles: String, sheetFiles: String, soundFiles: String, videoFiles: String): User
   updateVideo(context: String, title: String, videoId: String!): Video
+}
+
+type Organization {
+  createdAt: DateTime
+  id: String
+  name: String
+  owner: User
+  projects: [Project]
+  updatedAt: DateTime
+  users: [User]
 }
 
 type Presentation {
@@ -81,6 +102,15 @@ type Presentation {
   createdAt: DateTime
   creator: User
   id: String
+  title: String
+  updatedAt: DateTime
+}
+
+type Project {
+  createdAt: DateTime
+  creator: User
+  id: String
+  organization: Organization
   title: String
   updatedAt: DateTime
 }
@@ -95,9 +125,11 @@ type Query {
   getGeneratedText(contextText: String!): String
   getGuideQuestions(fileApp: String!, fileTitle: String!, sectionContent: String!): JSON
   getQuestions(fileApp: String!, fileTitle: String!, flowId: String!, getThis: String!): JSON
+  getRSSData(url: String!): [JSON]
   getRevisedContent(fileApp: String!, fileTitle: String!, sectionContent: String!, sectionQuestions: String!): JSON
   myDocuments: [Document]
   myDrawings: [Drawing]
+  myFeeds: [Feed]
   myFlows: [Flow]
   myPresentations: [Presentation]
   mySheets: [Sheet]
@@ -141,6 +173,7 @@ type User {
   documents: [Document]
   drawingFiles: JSON
   email: String
+  feedTree: JSON
   frequency: String
   lastTokenReset: DateTime
   periodTokenUsage: Int

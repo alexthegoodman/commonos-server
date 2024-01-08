@@ -14,6 +14,7 @@ import * as sheetsTypes from "./graphql/sheets";
 import * as soundsTypes from "./graphql/sounds";
 import * as videosTypes from "./graphql/videos";
 import * as rssTypes from "./graphql/rss";
+import * as collaborationTypes from "./graphql/collaboration";
 
 import { permissions } from "./permissions";
 
@@ -27,13 +28,15 @@ export const schema = makeSchema({
     soundsTypes,
     videosTypes,
     rssTypes,
+    collaborationTypes,
     jsonScalar,
     dateTimeScalar,
   ],
   outputs: {
-    typegen: join(__dirname, "..", "nexus-typegen.ts"),
-    schema: join(__dirname, "..", "schema.graphql"),
+    typegen: join(__dirname, ".", "nexus-typegen.ts"),
+    schema: join(__dirname, ".", "schema.graphql"),
   },
+  // shouldExitAfterGenerateArtifacts: true,
 });
 
 export const protectedSchema = applyMiddleware(schema, permissions);
