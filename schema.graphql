@@ -72,6 +72,7 @@ type Mutation {
   newDrawing: Drawing
   newFeed(url: String!): Feed
   newPresentation: Presentation
+  newPresentationTemplate(context: String!, sourceId: String!, title: String!): PresentationTemplate
   newSheet: Sheet
   newSound: Sound
   newVideo: Video
@@ -81,6 +82,7 @@ type Mutation {
   updateDrawing(context: String, drawingId: String!, title: String): Drawing
   updateFlow(flowId: String!, questionsContext: String, resultsContext: String): Flow
   updatePresentation(context: String, presentationId: String!, title: String): Presentation
+  updatePresentationTemplate(context: String!, presentationTemplateId: String!): PresentationTemplate
   updateSheet(context: String, sheetId: String!, title: String): Sheet
   updateSound(context: String, soundId: String!, title: String): Sound
   updateUser(documentTree: String, drawingFiles: String, feedTree: String, presentationFiles: String, sheetFiles: String, soundFiles: String, videoFiles: String): User
@@ -102,6 +104,16 @@ type Presentation {
   createdAt: DateTime
   creator: User
   id: String
+  title: String
+  updatedAt: DateTime
+}
+
+type PresentationTemplate {
+  context: JSON
+  createdAt: DateTime
+  id: String
+  key: String
+  sourceId: String
   title: String
   updatedAt: DateTime
 }
@@ -136,6 +148,7 @@ type Query {
   mySounds: [Sound]
   myVideos: [Video]
   presentation(presentationId: String!): Presentation
+  presentationTemplates: [PresentationTemplate]
   sheet(sheetId: String!): Sheet
   sound(soundId: String!): Sound
   video(videoId: String!): Video

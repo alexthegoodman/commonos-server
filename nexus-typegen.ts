@@ -105,6 +105,15 @@ export interface NexusGenObjects {
     title?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
+  PresentationTemplate: { // root type
+    context?: NexusGenScalars['JSON'] | null; // JSON
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    key?: string | null; // String
+    sourceId?: string | null; // String
+    title?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   Project: { // root type
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     id?: string | null; // String
@@ -225,6 +234,7 @@ export interface NexusGenFieldTypes {
     newDrawing: NexusGenRootTypes['Drawing'] | null; // Drawing
     newFeed: NexusGenRootTypes['Feed'] | null; // Feed
     newPresentation: NexusGenRootTypes['Presentation'] | null; // Presentation
+    newPresentationTemplate: NexusGenRootTypes['PresentationTemplate'] | null; // PresentationTemplate
     newSheet: NexusGenRootTypes['Sheet'] | null; // Sheet
     newSound: NexusGenRootTypes['Sound'] | null; // Sound
     newVideo: NexusGenRootTypes['Video'] | null; // Video
@@ -234,6 +244,7 @@ export interface NexusGenFieldTypes {
     updateDrawing: NexusGenRootTypes['Drawing'] | null; // Drawing
     updateFlow: NexusGenRootTypes['Flow'] | null; // Flow
     updatePresentation: NexusGenRootTypes['Presentation'] | null; // Presentation
+    updatePresentationTemplate: NexusGenRootTypes['PresentationTemplate'] | null; // PresentationTemplate
     updateSheet: NexusGenRootTypes['Sheet'] | null; // Sheet
     updateSound: NexusGenRootTypes['Sound'] | null; // Sound
     updateUser: NexusGenRootTypes['User'] | null; // User
@@ -253,6 +264,15 @@ export interface NexusGenFieldTypes {
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
     creator: NexusGenRootTypes['User'] | null; // User
     id: string | null; // String
+    title: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  PresentationTemplate: { // field return type
+    context: NexusGenScalars['JSON'] | null; // JSON
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    id: string | null; // String
+    key: string | null; // String
+    sourceId: string | null; // String
     title: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
@@ -285,6 +305,7 @@ export interface NexusGenFieldTypes {
     mySounds: Array<NexusGenRootTypes['Sound'] | null> | null; // [Sound]
     myVideos: Array<NexusGenRootTypes['Video'] | null> | null; // [Video]
     presentation: NexusGenRootTypes['Presentation'] | null; // Presentation
+    presentationTemplates: Array<NexusGenRootTypes['PresentationTemplate'] | null> | null; // [PresentationTemplate]
     sheet: NexusGenRootTypes['Sheet'] | null; // Sheet
     sound: NexusGenRootTypes['Sound'] | null; // Sound
     video: NexusGenRootTypes['Video'] | null; // Video
@@ -396,6 +417,7 @@ export interface NexusGenFieldTypeNames {
     newDrawing: 'Drawing'
     newFeed: 'Feed'
     newPresentation: 'Presentation'
+    newPresentationTemplate: 'PresentationTemplate'
     newSheet: 'Sheet'
     newSound: 'Sound'
     newVideo: 'Video'
@@ -405,6 +427,7 @@ export interface NexusGenFieldTypeNames {
     updateDrawing: 'Drawing'
     updateFlow: 'Flow'
     updatePresentation: 'Presentation'
+    updatePresentationTemplate: 'PresentationTemplate'
     updateSheet: 'Sheet'
     updateSound: 'Sound'
     updateUser: 'User'
@@ -424,6 +447,15 @@ export interface NexusGenFieldTypeNames {
     createdAt: 'DateTime'
     creator: 'User'
     id: 'String'
+    title: 'String'
+    updatedAt: 'DateTime'
+  }
+  PresentationTemplate: { // field return type name
+    context: 'JSON'
+    createdAt: 'DateTime'
+    id: 'String'
+    key: 'String'
+    sourceId: 'String'
     title: 'String'
     updatedAt: 'DateTime'
   }
@@ -456,6 +488,7 @@ export interface NexusGenFieldTypeNames {
     mySounds: 'Sound'
     myVideos: 'Video'
     presentation: 'Presentation'
+    presentationTemplates: 'PresentationTemplate'
     sheet: 'Sheet'
     sound: 'Sound'
     video: 'Video'
@@ -542,6 +575,11 @@ export interface NexusGenArgTypes {
     newFeed: { // args
       url: string; // String!
     }
+    newPresentationTemplate: { // args
+      context: string; // String!
+      sourceId: string; // String!
+      title: string; // String!
+    }
     simpleUpload: { // args
       fileData?: string | null; // String
       fileName?: string | null; // String
@@ -571,6 +609,10 @@ export interface NexusGenArgTypes {
       context?: string | null; // String
       presentationId: string; // String!
       title?: string | null; // String
+    }
+    updatePresentationTemplate: { // args
+      context: string; // String!
+      presentationTemplateId: string; // String!
     }
     updateSheet: { // args
       context?: string | null; // String
