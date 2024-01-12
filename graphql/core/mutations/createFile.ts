@@ -56,7 +56,8 @@ export const CreateFileMutation = extendType({
           case "documents":
             const documentPrompt = getDocumentContent(
               fileData.name,
-              fileData.questions
+              fileData.questions,
+              fileData.background
             );
             const documentContent = await openaiClient.makeCompletion(
               documentPrompt,
@@ -121,7 +122,8 @@ export const CreateFileMutation = extendType({
           case "slides":
             const presentationPrompt = getPresentationContent(
               fileData.name,
-              fileData.questions
+              fileData.questions,
+              fileData.background
             );
             const presentationContent = await openaiClient.makeCompletion(
               presentationPrompt,
@@ -225,7 +227,8 @@ export const CreateFileMutation = extendType({
           case "sheets":
             const sheetPrompt = getSheetContent(
               fileData.name,
-              fileData.questions
+              fileData.questions,
+              fileData.background
             );
             const sheetContent = await openaiClient.makeCompletion(
               sheetPrompt,
@@ -302,7 +305,8 @@ export const CreateFileMutation = extendType({
           case "images":
             const imagePrompt = getImageContent(
               fileData.name,
-              fileData.questions
+              fileData.questions,
+              fileData.background
             );
             const imageBlob = await openaiClient.makeImage(imagePrompt);
 

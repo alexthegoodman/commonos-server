@@ -1,6 +1,7 @@
-export const getDocumentContent = (fileName, fileQuestions) => `
+export const getDocumentContent = (fileName, fileQuestions, background) => `
 Document Title: ${fileName}
-Document Information:
+Document Background: ${background ? background : "No background provided"}
+Additional Information:
 ${
   fileQuestions.length
     ? fileQuestions
@@ -14,7 +15,7 @@ ${
             : ""
         )
         .join("\n")
-    : "No information provided"
+    : "No additional information provided"
 }
 
 Given the provided document title and information, please write at least 5 paragraphs of content for the document.
@@ -22,9 +23,10 @@ Rather than describing the document, write the document itself.
 Include bullet points and lists where appropriate.
 `;
 
-export const getPresentationContent = (fileName, fileQuestions) => `
+export const getPresentationContent = (fileName, fileQuestions, background) => `
 Presentation Title: ${fileName}
-Presentation Information:
+Presentation Background: ${background ? background : "No background provided"}
+Additional Information:
 ${
   fileQuestions.length
     ? fileQuestions
@@ -38,7 +40,7 @@ ${
             : ""
         )
         .join("\n")
-    : "No information provided"
+    : "No additional information provided"
 }
 
 Given the provided presentation title and information, please write at least 5 slides of content for the document. Write a title and a paragraph or bullet points for each slide.
@@ -47,9 +49,10 @@ Answer with a JSON object containing an array of strings. For example:
 {"slides":[{"title": "Title 1", "content": "Content 1"}, {"title": "Title 2", "content": "Content 2"}]}
 `;
 
-export const getSheetContent = (fileName, fileQuestions) => `
+export const getSheetContent = (fileName, fileQuestions, background) => `
 Spreadsheet Title: ${fileName}
-Spreadsheet Information:
+Spreadsheet Background: ${background ? background : "No background provided"}
+Additional Information:
 ${
   fileQuestions.length
     ? fileQuestions
@@ -63,7 +66,7 @@ ${
             : ""
         )
         .join("\n")
-    : "No information provided"
+    : "No additional information provided"
 }
 
 Given the provided spreadsheet title and information, please create a spreadsheet with at least 10 rows and 7-10 columns of content.
@@ -72,9 +75,10 @@ Answer with a JSON object containing an array of strings. For example:
 {"rows":[{"col1": "Cell Content 1", "col2": "Cell Content 2", "col3": "Cell Content 3"}, {"col1": "Cell Content 4", "col2": "Cell Content 5", "col3": "Cell Content 6"}]}
 `;
 
-export const getImageContent = (fileName, fileQuestions) => `
+export const getImageContent = (fileName, fileQuestions, background) => `
 Image Title: ${fileName}
-Image Information:
+Image Information: ${background ? background : "No information provided"}
+Additional Information:
 ${
   fileQuestions.length
     ? fileQuestions
@@ -88,6 +92,6 @@ ${
             : ""
         )
         .join("\n")
-    : "No information provided"
+    : "No additional information provided"
 }
 `;
