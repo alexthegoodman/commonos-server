@@ -143,6 +143,7 @@ type Query {
   myDrawings: [Drawing]
   myFeeds: [Feed]
   myFlows: [Flow]
+  myOrganizations: [Organization]
   myPresentations: [Presentation]
   mySheets: [Sheet]
   mySounds: [Sound]

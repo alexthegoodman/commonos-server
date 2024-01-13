@@ -300,6 +300,7 @@ export interface NexusGenFieldTypes {
     myDrawings: Array<NexusGenRootTypes['Drawing'] | null> | null; // [Drawing]
     myFeeds: Array<NexusGenRootTypes['Feed'] | null> | null; // [Feed]
     myFlows: Array<NexusGenRootTypes['Flow'] | null> | null; // [Flow]
+    myOrganizations: Array<NexusGenRootTypes['Organization'] | null> | null; // [Organization]
     myPresentations: Array<NexusGenRootTypes['Presentation'] | null> | null; // [Presentation]
     mySheets: Array<NexusGenRootTypes['Sheet'] | null> | null; // [Sheet]
     mySounds: Array<NexusGenRootTypes['Sound'] | null> | null; // [Sound]
@@ -483,6 +484,7 @@ export interface NexusGenFieldTypeNames {
     myDrawings: 'Drawing'
     myFeeds: 'Feed'
     myFlows: 'Flow'
+    myOrganizations: 'Organization'
     myPresentations: 'Presentation'
     mySheets: 'Sheet'
     mySounds: 'Sound'

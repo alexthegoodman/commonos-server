@@ -3,3 +3,5 @@ export * from "./types/Project";
 
 export * from "./mutations/createOrganization";
 export * from "./mutations/createProject";
+
+export * from "./queries/myOrganizations";
