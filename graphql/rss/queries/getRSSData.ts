@@ -12,7 +12,7 @@ export const GetRSSDataQuery = extendType({
       },
       resolve: async (_, { url }, { prisma, currentUser }: Context, x) => {
         const parser = new Parser();
-        const feed = await parser.parseURL(url);
+        const feed = (await parser.parseURL(url)) as any;
 
         return feed;
       },
