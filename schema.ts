@@ -15,6 +15,7 @@ import * as soundsTypes from "./graphql/sounds";
 import * as videosTypes from "./graphql/videos";
 import * as rssTypes from "./graphql/rss";
 import * as collaborationTypes from "./graphql/collaboration";
+import * as relationshipsTypes from "./graphql/relationships";
 
 import { permissions } from "./permissions";
 
@@ -29,6 +30,7 @@ export const schema = makeSchema({
     videosTypes,
     rssTypes,
     collaborationTypes,
+    relationshipsTypes,
     jsonScalar,
     dateTimeScalar,
   ],

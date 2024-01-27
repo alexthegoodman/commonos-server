@@ -2,6 +2,30 @@
 ### Do not make changes to this file directly
 
 
+type Company {
+  createdAt: DateTime
+  creator: User
+  fields: JSON
+  id: String
+  updatedAt: DateTime
+}
+
+type Contact {
+  createdAt: DateTime
+  creator: User
+  fields: JSON
+  id: String
+  updatedAt: DateTime
+}
+
+type Dashboard {
+  context: JSON
+  createdAt: DateTime
+  creator: User
+  id: String
+  updatedAt: DateTime
+}
+
 """
 A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
@@ -44,6 +68,14 @@ type Flow {
   questionsContext: JSON
   resultsContext: JSON
   type: Type
+  updatedAt: DateTime
+}
+
+type Funnel {
+  context: JSON
+  createdAt: DateTime
+  creator: User
+  id: String
   updatedAt: DateTime
 }
 
@@ -139,10 +171,14 @@ type Query {
   getQuestions(fileApp: String!, fileTitle: String!, flowId: String!, getThis: String!): JSON
   getRSSData(url: String!): [JSON]
   getRevisedContent(fileApp: String!, fileTitle: String!, sectionContent: String!, sectionQuestions: String!): JSON
+  myCompanies: [Company]
+  myContacts: [Contact]
+  myDashboards: [Dashboard]
   myDocuments: [Document]
   myDrawings: [Drawing]
   myFeeds: [Feed]
   myFlows: [Flow]
+  myFunnels: [Funnel]
   myOrganizations: [Organization]
   myPresentations: [Presentation]
   mySheets: [Sheet]

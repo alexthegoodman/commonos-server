@@ -52,6 +52,24 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Company: { // root type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    fields?: NexusGenScalars['JSON'] | null; // JSON
+    id?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  Contact: { // root type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    fields?: NexusGenScalars['JSON'] | null; // JSON
+    id?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  Dashboard: { // root type
+    context?: NexusGenScalars['JSON'] | null; // JSON
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   Document: { // root type
     content?: NexusGenScalars['JSON'] | null; // JSON
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -82,6 +100,12 @@ export interface NexusGenObjects {
     prompt?: string | null; // String
     questionsContext?: NexusGenScalars['JSON'] | null; // JSON
     resultsContext?: NexusGenScalars['JSON'] | null; // JSON
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  Funnel: { // root type
+    context?: NexusGenScalars['JSON'] | null; // JSON
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
   Link: { // root type
@@ -179,6 +203,27 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Company: { // field return type
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    creator: NexusGenRootTypes['User'] | null; // User
+    fields: NexusGenScalars['JSON'] | null; // JSON
+    id: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  Contact: { // field return type
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    creator: NexusGenRootTypes['User'] | null; // User
+    fields: NexusGenScalars['JSON'] | null; // JSON
+    id: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  Dashboard: { // field return type
+    context: NexusGenScalars['JSON'] | null; // JSON
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    creator: NexusGenRootTypes['User'] | null; // User
+    id: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   Document: { // field return type
     content: NexusGenScalars['JSON'] | null; // JSON
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
@@ -213,6 +258,13 @@ export interface NexusGenFieldTypes {
     questionsContext: NexusGenScalars['JSON'] | null; // JSON
     resultsContext: NexusGenScalars['JSON'] | null; // JSON
     type: NexusGenRootTypes['Type'] | null; // Type
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  Funnel: { // field return type
+    context: NexusGenScalars['JSON'] | null; // JSON
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    creator: NexusGenRootTypes['User'] | null; // User
+    id: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
   Link: { // field return type
@@ -296,10 +348,14 @@ export interface NexusGenFieldTypes {
     getQuestions: NexusGenScalars['JSON'] | null; // JSON
     getRSSData: Array<NexusGenScalars['JSON'] | null> | null; // [JSON]
     getRevisedContent: NexusGenScalars['JSON'] | null; // JSON
+    myCompanies: Array<NexusGenRootTypes['Company'] | null> | null; // [Company]
+    myContacts: Array<NexusGenRootTypes['Contact'] | null> | null; // [Contact]
+    myDashboards: Array<NexusGenRootTypes['Dashboard'] | null> | null; // [Dashboard]
     myDocuments: Array<NexusGenRootTypes['Document'] | null> | null; // [Document]
     myDrawings: Array<NexusGenRootTypes['Drawing'] | null> | null; // [Drawing]
     myFeeds: Array<NexusGenRootTypes['Feed'] | null> | null; // [Feed]
     myFlows: Array<NexusGenRootTypes['Flow'] | null> | null; // [Flow]
+    myFunnels: Array<NexusGenRootTypes['Funnel'] | null> | null; // [Funnel]
     myOrganizations: Array<NexusGenRootTypes['Organization'] | null> | null; // [Organization]
     myPresentations: Array<NexusGenRootTypes['Presentation'] | null> | null; // [Presentation]
     mySheets: Array<NexusGenRootTypes['Sheet'] | null> | null; // [Sheet]
@@ -363,6 +419,27 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  Company: { // field return type name
+    createdAt: 'DateTime'
+    creator: 'User'
+    fields: 'JSON'
+    id: 'String'
+    updatedAt: 'DateTime'
+  }
+  Contact: { // field return type name
+    createdAt: 'DateTime'
+    creator: 'User'
+    fields: 'JSON'
+    id: 'String'
+    updatedAt: 'DateTime'
+  }
+  Dashboard: { // field return type name
+    context: 'JSON'
+    createdAt: 'DateTime'
+    creator: 'User'
+    id: 'String'
+    updatedAt: 'DateTime'
+  }
   Document: { // field return type name
     content: 'JSON'
     createdAt: 'DateTime'
@@ -397,6 +474,13 @@ export interface NexusGenFieldTypeNames {
     questionsContext: 'JSON'
     resultsContext: 'JSON'
     type: 'Type'
+    updatedAt: 'DateTime'
+  }
+  Funnel: { // field return type name
+    context: 'JSON'
+    createdAt: 'DateTime'
+    creator: 'User'
+    id: 'String'
     updatedAt: 'DateTime'
   }
   Link: { // field return type name
@@ -480,10 +564,14 @@ export interface NexusGenFieldTypeNames {
     getQuestions: 'JSON'
     getRSSData: 'JSON'
     getRevisedContent: 'JSON'
+    myCompanies: 'Company'
+    myContacts: 'Contact'
+    myDashboards: 'Dashboard'
     myDocuments: 'Document'
     myDrawings: 'Drawing'
     myFeeds: 'Feed'
     myFlows: 'Flow'
+    myFunnels: 'Funnel'
     myOrganizations: 'Organization'
     myPresentations: 'Presentation'
     mySheets: 'Sheet'
