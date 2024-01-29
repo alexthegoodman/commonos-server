@@ -58,7 +58,19 @@ export interface NexusGenObjects {
     id?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
+  CompanySettings: { // root type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    fields?: NexusGenScalars['JSON'] | null; // JSON
+    id?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   Contact: { // root type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    fields?: NexusGenScalars['JSON'] | null; // JSON
+    id?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  ContactSettings: { // root type
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     fields?: NexusGenScalars['JSON'] | null; // JSON
     id?: string | null; // String
@@ -210,12 +222,26 @@ export interface NexusGenFieldTypes {
     id: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
+  CompanySettings: { // field return type
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    fields: NexusGenScalars['JSON'] | null; // JSON
+    id: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+    user: NexusGenRootTypes['User'] | null; // User
+  }
   Contact: { // field return type
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
     creator: NexusGenRootTypes['User'] | null; // User
     fields: NexusGenScalars['JSON'] | null; // JSON
     id: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  ContactSettings: { // field return type
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    fields: NexusGenScalars['JSON'] | null; // JSON
+    id: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+    user: NexusGenRootTypes['User'] | null; // User
   }
   Dashboard: { // field return type
     context: NexusGenScalars['JSON'] | null; // JSON
@@ -290,6 +316,8 @@ export interface NexusGenFieldTypes {
     newSheet: NexusGenRootTypes['Sheet'] | null; // Sheet
     newSound: NexusGenRootTypes['Sound'] | null; // Sound
     newVideo: NexusGenRootTypes['Video'] | null; // Video
+    putCompanySettings: string | null; // String
+    putContactSettings: string | null; // String
     registerUser: string; // String!
     simpleUpload: NexusGenScalars['JSON'] | null; // JSON
     updateDocument: NexusGenRootTypes['Document'] | null; // Document
@@ -349,6 +377,8 @@ export interface NexusGenFieldTypes {
     getRSSData: Array<NexusGenScalars['JSON'] | null> | null; // [JSON]
     getRevisedContent: NexusGenScalars['JSON'] | null; // JSON
     myCompanies: Array<NexusGenRootTypes['Company'] | null> | null; // [Company]
+    myCompanySettings: NexusGenRootTypes['CompanySettings'] | null; // CompanySettings
+    myContactSettings: NexusGenRootTypes['ContactSettings'] | null; // ContactSettings
     myContacts: Array<NexusGenRootTypes['Contact'] | null> | null; // [Contact]
     myDashboards: Array<NexusGenRootTypes['Dashboard'] | null> | null; // [Dashboard]
     myDocuments: Array<NexusGenRootTypes['Document'] | null> | null; // [Document]
@@ -426,12 +456,26 @@ export interface NexusGenFieldTypeNames {
     id: 'String'
     updatedAt: 'DateTime'
   }
+  CompanySettings: { // field return type name
+    createdAt: 'DateTime'
+    fields: 'JSON'
+    id: 'String'
+    updatedAt: 'DateTime'
+    user: 'User'
+  }
   Contact: { // field return type name
     createdAt: 'DateTime'
     creator: 'User'
     fields: 'JSON'
     id: 'String'
     updatedAt: 'DateTime'
+  }
+  ContactSettings: { // field return type name
+    createdAt: 'DateTime'
+    fields: 'JSON'
+    id: 'String'
+    updatedAt: 'DateTime'
+    user: 'User'
   }
   Dashboard: { // field return type name
     context: 'JSON'
@@ -506,6 +550,8 @@ export interface NexusGenFieldTypeNames {
     newSheet: 'Sheet'
     newSound: 'Sound'
     newVideo: 'Video'
+    putCompanySettings: 'String'
+    putContactSettings: 'String'
     registerUser: 'String'
     simpleUpload: 'JSON'
     updateDocument: 'Document'
@@ -565,6 +611,8 @@ export interface NexusGenFieldTypeNames {
     getRSSData: 'JSON'
     getRevisedContent: 'JSON'
     myCompanies: 'Company'
+    myCompanySettings: 'CompanySettings'
+    myContactSettings: 'ContactSettings'
     myContacts: 'Contact'
     myDashboards: 'Dashboard'
     myDocuments: 'Document'
@@ -669,6 +717,12 @@ export interface NexusGenArgTypes {
       context: string; // String!
       sourceId: string; // String!
       title: string; // String!
+    }
+    putCompanySettings: { // args
+      fields: string; // String!
+    }
+    putContactSettings: { // args
+      fields: string; // String!
     }
     simpleUpload: { // args
       fileData?: string | null; // String

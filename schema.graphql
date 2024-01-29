@@ -10,12 +10,28 @@ type Company {
   updatedAt: DateTime
 }
 
+type CompanySettings {
+  createdAt: DateTime
+  fields: JSON
+  id: String
+  updatedAt: DateTime
+  user: User
+}
+
 type Contact {
   createdAt: DateTime
   creator: User
   fields: JSON
   id: String
   updatedAt: DateTime
+}
+
+type ContactSettings {
+  createdAt: DateTime
+  fields: JSON
+  id: String
+  updatedAt: DateTime
+  user: User
 }
 
 type Dashboard {
@@ -108,6 +124,8 @@ type Mutation {
   newSheet: Sheet
   newSound: Sound
   newVideo: Video
+  putCompanySettings(fields: String!): String
+  putContactSettings(fields: String!): String
   registerUser: String!
   simpleUpload(fileData: String, fileName: String, fileSize: Int, fileType: String): JSON
   updateDocument(content: String, documentId: String!, html: String, markdown: String, messages: String, plaintext: String, title: String): Document
@@ -172,6 +190,8 @@ type Query {
   getRSSData(url: String!): [JSON]
   getRevisedContent(fileApp: String!, fileTitle: String!, sectionContent: String!, sectionQuestions: String!): JSON
   myCompanies: [Company]
+  myCompanySettings: CompanySettings
+  myContactSettings: ContactSettings
   myContacts: [Contact]
   myDashboards: [Dashboard]
   myDocuments: [Document]

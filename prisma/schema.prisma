@@ -72,6 +72,8 @@ model User {
   companies Company[]
   dashboards Dashboard[]
   funnels    Funnel[]
+  contactSettings  ContactSettings?
+  companySettings  CompanySettings?
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
@@ -266,6 +268,18 @@ model Contact {
   createdAt DateTime @default(now())
 }
 
+model ContactSettings {
+  id String @id @unique @default(uuid())
+
+  fields Json?
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
 model Company {
   id String @id @unique @default(uuid())
 
@@ -276,6 +290,18 @@ model Company {
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
+}
+
+model CompanySettings {
+  id String @id @unique @default(uuid())
+
+  fields Json?
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())  
 }
 
 model Dashboard {
