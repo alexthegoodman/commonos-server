@@ -10,6 +10,7 @@ import jwt from "jsonwebtoken";
 import { Server } from "socket.io";
 import { createServer } from "http";
 import { fullDomainPort } from "./helpers/urls";
+import { stripeHandler } from "./rest/stripeHandler";
 
 const prisma = new PrismaClient();
 
@@ -65,6 +66,14 @@ export const startApolloServer = async () => {
         return { req, currentUser, ...context };
       },
     })
+  );
+
+  // app.use("/webhook", bodyParser.raw({ type: "application/json" }));
+
+  app.post(
+    "/webhook",
+    bodyParser.raw({ type: "application/json" }),
+    stripeHandler
   );
 
   const httpServer = createServer(app);

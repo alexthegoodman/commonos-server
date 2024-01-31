@@ -120,6 +120,7 @@ type Mutation {
   deleteDocument(documentId: String!): String
   export(html: String!, type: String!): String
   generateTitles(treeMd: String!): [Document]
+  newCheckout: String
   newDocument: Document
   newDrawing: Drawing
   newFeed(url: String!): Feed

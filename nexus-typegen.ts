@@ -312,6 +312,7 @@ export interface NexusGenFieldTypes {
     deleteDocument: string | null; // String
     export: string | null; // String
     generateTitles: Array<NexusGenRootTypes['Document'] | null> | null; // [Document]
+    newCheckout: string | null; // String
     newDocument: NexusGenRootTypes['Document'] | null; // Document
     newDrawing: NexusGenRootTypes['Drawing'] | null; // Drawing
     newFeed: NexusGenRootTypes['Feed'] | null; // Feed
@@ -556,6 +557,7 @@ export interface NexusGenFieldTypeNames {
     deleteDocument: 'String'
     export: 'String'
     generateTitles: 'Document'
+    newCheckout: 'String'
     newDocument: 'Document'
     newDrawing: 'Drawing'
     newFeed: 'Feed'
