@@ -1,33 +1,30 @@
 import { extendType, nonNull, nullable, stringArg } from "nexus";
 import { Context } from "../../../context";
 
-export const UpdateContactMutation = extendType({
+export const DeleteContactMutation = extendType({
   type: "Mutation",
   definition(t) {
-    t.field("updateContact", {
-      type: "Contact",
+    t.field("deleteContact", {
+      type: "String",
       args: {
         contactId: nonNull(stringArg()),
-        fields: nonNull(stringArg()),
       },
       resolve: async (
         _,
-        { contactId, fields },
+        { contactId },
         { prisma, currentUser }: Context,
         x
       ) => {
-        const updatedContact = await prisma.contact.update({
+        await prisma.contact.delete({
           where: {
             id: contactId,
-          },
-          data: {
-            fields: JSON.parse(fields),
+            creator: {
+              id: currentUser.id,
+            },
           },
         });
 
-        console.info("updatedContact", updatedContact);
-
-        return updatedContact;
+        return "DELETED";
       },
     });
   },

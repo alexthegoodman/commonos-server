@@ -301,10 +301,14 @@ export interface NexusGenFieldTypes {
     url: string | null; // String
   }
   Mutation: { // field return type
+    createCompany: NexusGenRootTypes['Company'] | null; // Company
+    createContact: NexusGenRootTypes['Contact'] | null; // Contact
     createFile: string | null; // String
     createFlow: NexusGenRootTypes['Flow'] | null; // Flow
     createOrganization: NexusGenRootTypes['Organization'] | null; // Organization
     createProject: NexusGenRootTypes['Project'] | null; // Project
+    deleteCompany: string | null; // String
+    deleteContact: string | null; // String
     deleteDocument: string | null; // String
     export: string | null; // String
     generateTitles: Array<NexusGenRootTypes['Document'] | null> | null; // [Document]
@@ -320,6 +324,8 @@ export interface NexusGenFieldTypes {
     putContactSettings: string | null; // String
     registerUser: string; // String!
     simpleUpload: NexusGenScalars['JSON'] | null; // JSON
+    updateCompany: NexusGenRootTypes['Company'] | null; // Company
+    updateContact: NexusGenRootTypes['Contact'] | null; // Contact
     updateDocument: NexusGenRootTypes['Document'] | null; // Document
     updateDrawing: NexusGenRootTypes['Drawing'] | null; // Drawing
     updateFlow: NexusGenRootTypes['Flow'] | null; // Flow
@@ -366,6 +372,10 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     authenticate: string | null; // String
+    company: NexusGenRootTypes['Company'] | null; // Company
+    contact: NexusGenRootTypes['Contact'] | null; // Contact
+    countCompanies: number | null; // Int
+    countContacts: number | null; // Int
     document: NexusGenRootTypes['Document'] | null; // Document
     drawing: NexusGenRootTypes['Drawing'] | null; // Drawing
     flow: NexusGenRootTypes['Flow'] | null; // Flow
@@ -535,10 +545,14 @@ export interface NexusGenFieldTypeNames {
     url: 'String'
   }
   Mutation: { // field return type name
+    createCompany: 'Company'
+    createContact: 'Contact'
     createFile: 'String'
     createFlow: 'Flow'
     createOrganization: 'Organization'
     createProject: 'Project'
+    deleteCompany: 'String'
+    deleteContact: 'String'
     deleteDocument: 'String'
     export: 'String'
     generateTitles: 'Document'
@@ -554,6 +568,8 @@ export interface NexusGenFieldTypeNames {
     putContactSettings: 'String'
     registerUser: 'String'
     simpleUpload: 'JSON'
+    updateCompany: 'Company'
+    updateContact: 'Contact'
     updateDocument: 'Document'
     updateDrawing: 'Drawing'
     updateFlow: 'Flow'
@@ -600,6 +616,10 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     authenticate: 'String'
+    company: 'Company'
+    contact: 'Contact'
+    countCompanies: 'Int'
+    countContacts: 'Int'
     document: 'Document'
     drawing: 'Drawing'
     flow: 'Flow'
@@ -684,6 +704,12 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    createCompany: { // args
+      fields: string; // String!
+    }
+    createContact: { // args
+      fields: string; // String!
+    }
     createFile: { // args
       fileId: string; // String!
       flowId: string; // String!
@@ -699,6 +725,12 @@ export interface NexusGenArgTypes {
     createProject: { // args
       organizationId: string; // String!
       title: string; // String!
+    }
+    deleteCompany: { // args
+      companyId: string; // String!
+    }
+    deleteContact: { // args
+      contactId: string; // String!
     }
     deleteDocument: { // args
       documentId: string; // String!
@@ -729,6 +761,14 @@ export interface NexusGenArgTypes {
       fileName?: string | null; // String
       fileSize?: number | null; // Int
       fileType?: string | null; // String
+    }
+    updateCompany: { // args
+      companyId: string; // String!
+      fields: string; // String!
+    }
+    updateContact: { // args
+      contactId: string; // String!
+      fields: string; // String!
     }
     updateDocument: { // args
       content?: string | null; // String
@@ -784,6 +824,12 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    company: { // args
+      companyId: string; // String!
+    }
+    contact: { // args
+      contactId: string; // String!
+    }
     document: { // args
       documentId: string; // String!
     }
@@ -819,6 +865,14 @@ export interface NexusGenArgTypes {
       fileTitle: string; // String!
       sectionContent: string; // String!
       sectionQuestions: string; // String!
+    }
+    myCompanies: { // args
+      skip: number; // Int!
+      take: number; // Int!
+    }
+    myContacts: { // args
+      skip: number; // Int!
+      take: number; // Int!
     }
     presentation: { // args
       presentationId: string; // String!

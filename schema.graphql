@@ -109,10 +109,14 @@ type Link {
 }
 
 type Mutation {
+  createCompany(fields: String!): Company
+  createContact(fields: String!): Contact
   createFile(fileId: String!, flowId: String!, prompt: String!): String
   createFlow(prompt: String!, typeCode: String!): Flow
   createOrganization(name: String!): Organization
   createProject(organizationId: String!, title: String!): Project
+  deleteCompany(companyId: String!): String
+  deleteContact(contactId: String!): String
   deleteDocument(documentId: String!): String
   export(html: String!, type: String!): String
   generateTitles(treeMd: String!): [Document]
@@ -128,6 +132,8 @@ type Mutation {
   putContactSettings(fields: String!): String
   registerUser: String!
   simpleUpload(fileData: String, fileName: String, fileSize: Int, fileType: String): JSON
+  updateCompany(companyId: String!, fields: String!): Company
+  updateContact(contactId: String!, fields: String!): Contact
   updateDocument(content: String, documentId: String!, html: String, markdown: String, messages: String, plaintext: String, title: String): Document
   updateDrawing(context: String, drawingId: String!, title: String): Drawing
   updateFlow(flowId: String!, questionsContext: String, resultsContext: String): Flow
@@ -179,6 +185,10 @@ type Project {
 
 type Query {
   authenticate: String
+  company(companyId: String!): Company
+  contact(contactId: String!): Contact
+  countCompanies: Int
+  countContacts: Int
   document(documentId: String!): Document
   drawing(drawingId: String!): Drawing
   flow(flowId: String!): Flow
@@ -189,10 +199,10 @@ type Query {
   getQuestions(fileApp: String!, fileTitle: String!, flowId: String!, getThis: String!): JSON
   getRSSData(url: String!): [JSON]
   getRevisedContent(fileApp: String!, fileTitle: String!, sectionContent: String!, sectionQuestions: String!): JSON
-  myCompanies: [Company]
+  myCompanies(skip: Int!, take: Int!): [Company]
   myCompanySettings: CompanySettings
   myContactSettings: ContactSettings
-  myContacts: [Contact]
+  myContacts(skip: Int!, take: Int!): [Contact]
   myDashboards: [Dashboard]
   myDocuments: [Document]
   myDrawings: [Drawing]
