@@ -197,6 +197,7 @@ type Query {
   getFileList(flowId: String!, getThis: String!): JSON
   getGeneratedText(contextText: String!): String
   getGuideQuestions(fileApp: String!, fileTitle: String!, sectionContent: String!): JSON
+  getPortalUrl: String
   getQuestions(fileApp: String!, fileTitle: String!, flowId: String!, getThis: String!): JSON
   getRSSData(url: String!): [JSON]
   getRevisedContent(fileApp: String!, fileTitle: String!, sectionContent: String!, sectionQuestions: String!): JSON
