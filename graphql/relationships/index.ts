@@ -15,6 +15,8 @@ export * from "./queries/countContacts";
 export * from "./queries/countCompanies";
 export * from "./queries/company";
 export * from "./queries/contact";
+export * from "./queries/dashboard";
+export * from "./queries/funnel";
 
 export * from "./mutations/createContact";
 export * from "./mutations/createCompany";

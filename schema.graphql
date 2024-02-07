@@ -190,9 +190,11 @@ type Query {
   contact(contactId: String!): Contact
   countCompanies: Int
   countContacts: Int
+  dashboard(dashboardId: String!): Dashboard
   document(documentId: String!): Document
   drawing(drawingId: String!): Drawing
   flow(flowId: String!): Flow
+  funnel(funnelId: String!): Funnel
   getCurrentUser: User
   getFileList(flowId: String!, getThis: String!): JSON
   getGeneratedText(contextText: String!): String

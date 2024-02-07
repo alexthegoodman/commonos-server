@@ -377,9 +377,11 @@ export interface NexusGenFieldTypes {
     contact: NexusGenRootTypes['Contact'] | null; // Contact
     countCompanies: number | null; // Int
     countContacts: number | null; // Int
+    dashboard: NexusGenRootTypes['Dashboard'] | null; // Dashboard
     document: NexusGenRootTypes['Document'] | null; // Document
     drawing: NexusGenRootTypes['Drawing'] | null; // Drawing
     flow: NexusGenRootTypes['Flow'] | null; // Flow
+    funnel: NexusGenRootTypes['Funnel'] | null; // Funnel
     getCurrentUser: NexusGenRootTypes['User'] | null; // User
     getFileList: NexusGenScalars['JSON'] | null; // JSON
     getGeneratedText: string | null; // String
@@ -623,9 +625,11 @@ export interface NexusGenFieldTypeNames {
     contact: 'Contact'
     countCompanies: 'Int'
     countContacts: 'Int'
+    dashboard: 'Dashboard'
     document: 'Document'
     drawing: 'Drawing'
     flow: 'Flow'
+    funnel: 'Funnel'
     getCurrentUser: 'User'
     getFileList: 'JSON'
     getGeneratedText: 'String'
@@ -834,6 +838,9 @@ export interface NexusGenArgTypes {
     contact: { // args
       contactId: string; // String!
     }
+    dashboard: { // args
+      dashboardId: string; // String!
+    }
     document: { // args
       documentId: string; // String!
     }
@@ -842,6 +849,9 @@ export interface NexusGenArgTypes {
     }
     flow: { // args
       flowId: string; // String!
+    }
+    funnel: { // args
+      funnelId: string; // String!
     }
     getFileList: { // args
       flowId: string; // String!
