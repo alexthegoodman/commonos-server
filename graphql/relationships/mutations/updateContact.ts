@@ -13,7 +13,7 @@ export const UpdateContactMutation = extendType({
       resolve: async (
         _,
         { contactId, fields },
-        { prisma, currentUser }: Context,
+        { prisma, currentUser, algolia }: Context,
         x
       ) => {
         const updatedContact = await prisma.contact.update({
@@ -26,6 +26,14 @@ export const UpdateContactMutation = extendType({
         });
 
         console.info("updatedContact", updatedContact);
+
+        const { name: title } = updatedContact?.fields as any;
+
+        const index = algolia.initIndex("contacts");
+        await index.partialUpdateObject({
+          objectID: updatedContact.id,
+          title,
+        });
 
         return updatedContact;
       },

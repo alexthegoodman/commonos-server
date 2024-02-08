@@ -9,7 +9,12 @@ export const CreateContactMutation = extendType({
       args: {
         fields: nonNull(stringArg()),
       },
-      resolve: async (_, { fields }, { prisma, currentUser }: Context, x) => {
+      resolve: async (
+        _,
+        { fields },
+        { prisma, currentUser, algolia }: Context,
+        x
+      ) => {
         const newContact = await prisma.contact.create({
           data: {
             fields: JSON.parse(fields),
@@ -22,6 +27,14 @@ export const CreateContactMutation = extendType({
         });
 
         console.info("newContact", newContact);
+
+        const { name: title } = newContact?.fields as any;
+
+        const index = algolia.initIndex("contacts");
+        await index.saveObject({
+          objectID: newContact.id,
+          title,
+        });
 
         return newContact;
       },

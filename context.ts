@@ -1,6 +1,7 @@
 import { PrismaClient, User } from "@prisma/client";
 import MixpanelClient from "./helpers/mixpanel";
 
+import algoliasearch, { SearchClient } from "algoliasearch";
 import OpenAI from "openai";
 import prisma from "./prisma";
 
@@ -11,16 +12,23 @@ const openai = new OpenAI({
 
 const mixpanel = new MixpanelClient();
 
+const algolia = algoliasearch(
+  process.env.ALGOLIA_APP_ID as string,
+  process.env.ALGOLIA_SERVER_API_KEY as string
+);
+
 export interface Context {
   prisma: PrismaClient;
   mixpanel: MixpanelClient;
   req: any;
   currentUser: User;
   openai: OpenAI;
+  algolia: SearchClient;
 }
 
 export const context = {
   prisma,
   mixpanel,
   openai,
+  algolia,
 };
