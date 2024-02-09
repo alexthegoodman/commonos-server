@@ -252,6 +252,7 @@ type Type {
 }
 
 type User {
+  algoliaApiKey: String
   createdAt: DateTime
   documentTree: JSON
   documents: [Document]

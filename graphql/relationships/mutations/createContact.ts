@@ -34,6 +34,7 @@ export const CreateContactMutation = extendType({
         await index.saveObject({
           objectID: newContact.id,
           title,
+          visible_by: [currentUser.id, "group/public"],
         });
 
         return newContact;

@@ -14,6 +14,8 @@ export const UserType = objectType({
     t.field("lastTokenReset", { type: "DateTime" });
     t.field("periodTokenUsage", { type: "Int" });
 
+    t.field("algoliaApiKey", { type: "String" });
+
     t.list.field("documents", {
       type: "Document",
       resolve: async (user, __, context: Context) => {

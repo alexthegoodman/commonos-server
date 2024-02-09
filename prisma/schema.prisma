@@ -28,6 +28,9 @@ model User {
   // stripe
   stripeCustomerId String @default("")
 
+  // algolia
+  algoliaApiKey String @default("")
+
   // collaboration
   memberOrganizations Organization[] @relation("MemberOrganizations")
   ownedOrganizations  Organization[] @relation("OwnerOrganizations")

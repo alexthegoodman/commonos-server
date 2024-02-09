@@ -19,7 +19,7 @@ export const RegisterUserMutation = extendType({
     t.nonNull.field("registerUser", {
       type: "String",
       args: {},
-      resolve: async (_, {}, { prisma, mixpanel, req }: Context) => {
+      resolve: async (_, {}, { prisma, mixpanel, req, algolia }: Context) => {
         const helpers = new Helpers();
 
         const headers = req.headers;
@@ -70,6 +70,22 @@ export const RegisterUserMutation = extendType({
         // TODO: set secure cookie tied to origin
 
         // mixpanel.track("Sign Up - Complete", { user });
+
+        const publicAlgoliaKey = algolia.generateSecuredApiKey(
+          process.env.ALGOLIA_SEARCH_API_KEY as string, // A search key that you keep private
+          {
+            filters: `visible_by:${user.id} OR visible_by:group/public`,
+          }
+        );
+
+        await prisma.user.update({
+          where: {
+            id: user.id,
+          },
+          data: {
+            algoliaApiKey: publicAlgoliaKey,
+          },
+        });
 
         const data = {
           userId: user.id,

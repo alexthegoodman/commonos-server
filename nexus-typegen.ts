@@ -179,6 +179,7 @@ export interface NexusGenObjects {
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
   User: { // root type
+    algoliaApiKey?: string | null; // String
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     documentTree?: NexusGenScalars['JSON'] | null; // JSON
     drawingFiles?: NexusGenScalars['JSON'] | null; // JSON
@@ -435,6 +436,7 @@ export interface NexusGenFieldTypes {
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
   User: { // field return type
+    algoliaApiKey: string | null; // String
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
     documentTree: NexusGenScalars['JSON'] | null; // JSON
     documents: Array<NexusGenRootTypes['Document'] | null> | null; // [Document]
@@ -683,6 +685,7 @@ export interface NexusGenFieldTypeNames {
     updatedAt: 'DateTime'
   }
   User: { // field return type name
+    algoliaApiKey: 'String'
     createdAt: 'DateTime'
     documentTree: 'JSON'
     documents: 'Document'

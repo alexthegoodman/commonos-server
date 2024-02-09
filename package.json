@@ -11,7 +11,8 @@
     "migrate": "prisma migrate dev",
     "prod:migrate": "prisma migrate deploy",
     "db:clean": "ts-node prisma/seed/clean",
-    "db:seed": "ts-node ./prisma/seed"
+    "db:seed": "ts-node ./prisma/seed",
+    "search:index": "ts-node ./prisma/index/users"
   },
   "dependencies": {
     "@apollo/server": "^4.9.5",
