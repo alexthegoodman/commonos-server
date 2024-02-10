@@ -376,6 +376,7 @@ export interface NexusGenFieldTypes {
     authenticate: string | null; // String
     company: NexusGenRootTypes['Company'] | null; // Company
     contact: NexusGenRootTypes['Contact'] | null; // Contact
+    contactsByIds: Array<NexusGenRootTypes['Contact'] | null> | null; // [Contact]
     countCompanies: number | null; // Int
     countContacts: number | null; // Int
     dashboard: NexusGenRootTypes['Dashboard'] | null; // Dashboard
@@ -625,6 +626,7 @@ export interface NexusGenFieldTypeNames {
     authenticate: 'String'
     company: 'Company'
     contact: 'Contact'
+    contactsByIds: 'Contact'
     countCompanies: 'Int'
     countContacts: 'Int'
     dashboard: 'Dashboard'
@@ -840,6 +842,9 @@ export interface NexusGenArgTypes {
     }
     contact: { // args
       contactId: string; // String!
+    }
+    contactsByIds: { // args
+      ids: string[]; // [String!]!
     }
     dashboard: { // args
       dashboardId: string; // String!

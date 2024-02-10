@@ -188,6 +188,7 @@ type Query {
   authenticate: String
   company(companyId: String!): Company
   contact(contactId: String!): Contact
+  contactsByIds(ids: [String!]!): [Contact]
   countCompanies: Int
   countContacts: Int
   dashboard(dashboardId: String!): Dashboard
