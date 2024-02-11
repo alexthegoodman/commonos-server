@@ -80,6 +80,7 @@ export interface NexusGenObjects {
     context?: NexusGenScalars['JSON'] | null; // JSON
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     id?: string | null; // String
+    title?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
   Document: { // root type
@@ -118,6 +119,7 @@ export interface NexusGenObjects {
     context?: NexusGenScalars['JSON'] | null; // JSON
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     id?: string | null; // String
+    title?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
   Link: { // root type
@@ -249,6 +251,7 @@ export interface NexusGenFieldTypes {
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
     creator: NexusGenRootTypes['User'] | null; // User
     id: string | null; // String
+    title: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
   Document: { // field return type
@@ -292,6 +295,7 @@ export interface NexusGenFieldTypes {
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
     creator: NexusGenRootTypes['User'] | null; // User
     id: string | null; // String
+    title: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
   Link: { // field return type
@@ -304,8 +308,10 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     createCompany: NexusGenRootTypes['Company'] | null; // Company
     createContact: NexusGenRootTypes['Contact'] | null; // Contact
+    createDashboard: NexusGenRootTypes['Dashboard'] | null; // Dashboard
     createFile: string | null; // String
     createFlow: NexusGenRootTypes['Flow'] | null; // Flow
+    createFunnel: NexusGenRootTypes['Funnel'] | null; // Funnel
     createOrganization: NexusGenRootTypes['Organization'] | null; // Organization
     createProject: NexusGenRootTypes['Project'] | null; // Project
     deleteCompany: string | null; // String
@@ -328,9 +334,11 @@ export interface NexusGenFieldTypes {
     simpleUpload: NexusGenScalars['JSON'] | null; // JSON
     updateCompany: NexusGenRootTypes['Company'] | null; // Company
     updateContact: NexusGenRootTypes['Contact'] | null; // Contact
+    updateDashboard: NexusGenRootTypes['Dashboard'] | null; // Dashboard
     updateDocument: NexusGenRootTypes['Document'] | null; // Document
     updateDrawing: NexusGenRootTypes['Drawing'] | null; // Drawing
     updateFlow: NexusGenRootTypes['Flow'] | null; // Flow
+    updateFunnel: NexusGenRootTypes['Funnel'] | null; // Funnel
     updatePresentation: NexusGenRootTypes['Presentation'] | null; // Presentation
     updatePresentationTemplate: NexusGenRootTypes['PresentationTemplate'] | null; // PresentationTemplate
     updateSheet: NexusGenRootTypes['Sheet'] | null; // Sheet
@@ -499,6 +507,7 @@ export interface NexusGenFieldTypeNames {
     createdAt: 'DateTime'
     creator: 'User'
     id: 'String'
+    title: 'String'
     updatedAt: 'DateTime'
   }
   Document: { // field return type name
@@ -542,6 +551,7 @@ export interface NexusGenFieldTypeNames {
     createdAt: 'DateTime'
     creator: 'User'
     id: 'String'
+    title: 'String'
     updatedAt: 'DateTime'
   }
   Link: { // field return type name
@@ -554,8 +564,10 @@ export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     createCompany: 'Company'
     createContact: 'Contact'
+    createDashboard: 'Dashboard'
     createFile: 'String'
     createFlow: 'Flow'
+    createFunnel: 'Funnel'
     createOrganization: 'Organization'
     createProject: 'Project'
     deleteCompany: 'String'
@@ -578,9 +590,11 @@ export interface NexusGenFieldTypeNames {
     simpleUpload: 'JSON'
     updateCompany: 'Company'
     updateContact: 'Contact'
+    updateDashboard: 'Dashboard'
     updateDocument: 'Document'
     updateDrawing: 'Drawing'
     updateFlow: 'Flow'
+    updateFunnel: 'Funnel'
     updatePresentation: 'Presentation'
     updatePresentationTemplate: 'PresentationTemplate'
     updateSheet: 'Sheet'
@@ -783,6 +797,11 @@ export interface NexusGenArgTypes {
       contactId: string; // String!
       fields: string; // String!
     }
+    updateDashboard: { // args
+      context?: string | null; // String
+      dashboardId: string; // String!
+      title?: string | null; // String
+    }
     updateDocument: { // args
       content?: string | null; // String
       documentId: string; // String!
@@ -801,6 +820,11 @@ export interface NexusGenArgTypes {
       flowId: string; // String!
       questionsContext?: string | null; // String
       resultsContext?: string | null; // String
+    }
+    updateFunnel: { // args
+      context?: string | null; // String
+      funnelId: string; // String!
+      title?: string | null; // String
     }
     updatePresentation: { // args
       context?: string | null; // String

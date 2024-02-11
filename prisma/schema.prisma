@@ -310,6 +310,7 @@ model CompanySettings {
 model Dashboard {
   id String @id @unique @default(uuid())
 
+  title  String
   context Json?
 
   creator   User   @relation(fields: [creatorId], references: [id])
@@ -322,6 +323,7 @@ model Dashboard {
 model Funnel {
   id String @id @unique @default(uuid())
 
+  title  String
   context Json?
 
   creator   User   @relation(fields: [creatorId], references: [id])

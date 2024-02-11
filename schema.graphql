@@ -39,6 +39,7 @@ type Dashboard {
   createdAt: DateTime
   creator: User
   id: String
+  title: String
   updatedAt: DateTime
 }
 
@@ -92,6 +93,7 @@ type Funnel {
   createdAt: DateTime
   creator: User
   id: String
+  title: String
   updatedAt: DateTime
 }
 
@@ -111,8 +113,10 @@ type Link {
 type Mutation {
   createCompany(fields: String!): Company
   createContact(fields: String!): Contact
+  createDashboard: Dashboard
   createFile(fileId: String!, flowId: String!, prompt: String!): String
   createFlow(prompt: String!, typeCode: String!): Flow
+  createFunnel: Funnel
   createOrganization(name: String!): Organization
   createProject(organizationId: String!, title: String!): Project
   deleteCompany(companyId: String!): String
@@ -135,9 +139,11 @@ type Mutation {
   simpleUpload(fileData: String, fileName: String, fileSize: Int, fileType: String): JSON
   updateCompany(companyId: String!, fields: String!): Company
   updateContact(contactId: String!, fields: String!): Contact
+  updateDashboard(context: String, dashboardId: String!, title: String): Dashboard
   updateDocument(content: String, documentId: String!, html: String, markdown: String, messages: String, plaintext: String, title: String): Document
   updateDrawing(context: String, drawingId: String!, title: String): Drawing
   updateFlow(flowId: String!, questionsContext: String, resultsContext: String): Flow
+  updateFunnel(context: String, funnelId: String!, title: String): Funnel
   updatePresentation(context: String, presentationId: String!, title: String): Presentation
   updatePresentationTemplate(context: String!, presentationTemplateId: String!): PresentationTemplate
   updateSheet(context: String, sheetId: String!, title: String): Sheet

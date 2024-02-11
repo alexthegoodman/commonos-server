@@ -21,12 +21,12 @@ export * from "./queries/contactsByIds";
 
 export * from "./mutations/createContact";
 export * from "./mutations/createCompany";
-// export * from "./mutations/createDashboard";
-// export * from "./mutations/createFunnel";
+export * from "./mutations/createDashboard";
+export * from "./mutations/createFunnel";
 export * from "./mutations/updateContact";
 export * from "./mutations/updateCompany";
-// export * from "./mutations/updateDashboard";
-// export * from "./mutations/updateFunnel";
+export * from "./mutations/updateDashboard";
+export * from "./mutations/updateFunnel";
 export * from "./mutations/putCompanySettings";
 export * from "./mutations/putContactSettings";
 export * from "./mutations/deleteContact";

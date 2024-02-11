@@ -5,6 +5,7 @@ export const DashboardType = objectType({
   name: "Dashboard",
   definition(t) {
     t.field("id", { type: "String" });
+    t.field("title", { type: "String" });
     t.field("context", { type: "JSON" });
 
     t.field("creator", {
