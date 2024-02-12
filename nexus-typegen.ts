@@ -420,6 +420,7 @@ export interface NexusGenFieldTypes {
     sheet: NexusGenRootTypes['Sheet'] | null; // Sheet
     sound: NexusGenRootTypes['Sound'] | null; // Sound
     video: NexusGenRootTypes['Video'] | null; // Video
+    visualData: Array<NexusGenScalars['JSON'] | null> | null; // [JSON]
   }
   Sheet: { // field return type
     context: NexusGenScalars['JSON'] | null; // JSON
@@ -676,6 +677,7 @@ export interface NexusGenFieldTypeNames {
     sheet: 'Sheet'
     sound: 'Sound'
     video: 'Video'
+    visualData: 'JSON'
   }
   Sheet: { // field return type name
     context: 'JSON'
@@ -931,6 +933,10 @@ export interface NexusGenArgTypes {
     }
     video: { // args
       videoId: string; // String!
+    }
+    visualData: { // args
+      field: string; // String!
+      item: string; // String!
     }
   }
 }

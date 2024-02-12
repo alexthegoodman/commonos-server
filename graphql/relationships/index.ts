@@ -18,6 +18,7 @@ export * from "./queries/contact";
 export * from "./queries/dashboard";
 export * from "./queries/funnel";
 export * from "./queries/contactsByIds";
+export * from "./queries/visualData";
 
 export * from "./mutations/createContact";
 export * from "./mutations/createCompany";

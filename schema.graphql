@@ -230,6 +230,7 @@ type Query {
   sheet(sheetId: String!): Sheet
   sound(soundId: String!): Sound
   video(videoId: String!): Video
+  visualData(field: String!, item: String!): [JSON]
 }
 
 type Sheet {
