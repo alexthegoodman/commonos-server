@@ -78,6 +78,12 @@ model User {
   contactSettings  ContactSettings?
   companySettings  CompanySettings?
 
+  // send email
+  emailLogs EmailLog[]
+  emailTemplates EmailTemplate[]
+  domainSettings DomainSettings?
+  emailDevelopersSettings EmailDevelopersSettings?
+
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
 }
@@ -328,6 +334,66 @@ model Funnel {
 
   creator   User   @relation(fields: [creatorId], references: [id])
   creatorId String
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+// Send Email
+
+model EmailLog {
+  id String @id @unique @default(uuid())
+
+  from    String
+  to      String
+
+  // status   String @default("pending")
+
+  template EmailTemplate @relation(fields: [templateId], references: [id])
+  templateId String
+
+  sender User   @relation(fields: [senderId], references: [id])
+  senderId String
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model EmailTemplate {
+  id String @id @unique @default(uuid())
+
+  title    String
+  context Json?
+
+  logs EmailLog[]
+
+  creator  User   @relation(fields: [creatorId], references: [id])
+  creatorId String
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model DomainSettings {
+  id String @id @unique @default(uuid())
+
+  domainName String @unique
+  dkimData Json?
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model EmailDevelopersSettings {
+  id String @id @unique @default(uuid())
+
+  apiKey String @unique
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())

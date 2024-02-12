@@ -70,6 +70,26 @@ type Drawing {
   updatedAt: DateTime
 }
 
+type EmailLog {
+  createdAt: DateTime
+  from: String
+  id: String
+  sender: User
+  template: User
+  to: String
+  updatedAt: DateTime
+}
+
+type EmailTemplate {
+  context: JSON
+  createdAt: DateTime
+  creator: User
+  id: String
+  logs: [User]
+  title: String
+  updatedAt: DateTime
+}
+
 type Feed {
   createdAt: DateTime
   creator: User
@@ -114,6 +134,7 @@ type Mutation {
   createCompany(fields: String!): Company
   createContact(fields: String!): Contact
   createDashboard: Dashboard
+  createEmailTemplate: EmailTemplate
   createFile(fileId: String!, flowId: String!, prompt: String!): String
   createFlow(prompt: String!, typeCode: String!): Flow
   createFunnel: Funnel
@@ -122,6 +143,7 @@ type Mutation {
   deleteCompany(companyId: String!): String
   deleteContact(contactId: String!): String
   deleteDocument(documentId: String!): String
+  deleteEmailTemplate(emailTemplateId: String!): String
   export(html: String!, type: String!): String
   generateTitles(treeMd: String!): [Document]
   newCheckout: String
@@ -142,6 +164,7 @@ type Mutation {
   updateDashboard(context: String, dashboardId: String!, title: String): Dashboard
   updateDocument(content: String, documentId: String!, html: String, markdown: String, messages: String, plaintext: String, title: String): Document
   updateDrawing(context: String, drawingId: String!, title: String): Drawing
+  updateEmailTemplate(context: String, emailTemplateId: String!, title: String): EmailTemplate
   updateFlow(flowId: String!, questionsContext: String, resultsContext: String): Flow
   updateFunnel(context: String, funnelId: String!, title: String): Funnel
   updatePresentation(context: String, presentationId: String!, title: String): Presentation
@@ -200,6 +223,7 @@ type Query {
   dashboard(dashboardId: String!): Dashboard
   document(documentId: String!): Document
   drawing(drawingId: String!): Drawing
+  emailTemplate(emailTemplateId: String!): EmailTemplate
   flow(flowId: String!): Flow
   funnel(funnelId: String!): Funnel
   getCurrentUser: User
@@ -217,6 +241,8 @@ type Query {
   myDashboards: [Dashboard]
   myDocuments: [Document]
   myDrawings: [Drawing]
+  myEmailLogs(skip: Int!, take: Int!): [EmailLog]
+  myEmailTemplates(skip: Int!, take: Int!): [EmailTemplate]
   myFeeds: [Feed]
   myFlows: [Flow]
   myFunnels: [Funnel]

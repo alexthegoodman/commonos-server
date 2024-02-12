@@ -101,6 +101,20 @@ export interface NexusGenObjects {
     title?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
+  EmailLog: { // root type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    from?: string | null; // String
+    id?: string | null; // String
+    to?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  EmailTemplate: { // root type
+    context?: NexusGenScalars['JSON'] | null; // JSON
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    title?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   Feed: { // root type
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     id?: string | null; // String
@@ -274,6 +288,24 @@ export interface NexusGenFieldTypes {
     title: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
+  EmailLog: { // field return type
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    from: string | null; // String
+    id: string | null; // String
+    sender: NexusGenRootTypes['User'] | null; // User
+    template: NexusGenRootTypes['User'] | null; // User
+    to: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  EmailTemplate: { // field return type
+    context: NexusGenScalars['JSON'] | null; // JSON
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    creator: NexusGenRootTypes['User'] | null; // User
+    id: string | null; // String
+    logs: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+    title: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   Feed: { // field return type
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
     creator: NexusGenRootTypes['User'] | null; // User
@@ -309,6 +341,7 @@ export interface NexusGenFieldTypes {
     createCompany: NexusGenRootTypes['Company'] | null; // Company
     createContact: NexusGenRootTypes['Contact'] | null; // Contact
     createDashboard: NexusGenRootTypes['Dashboard'] | null; // Dashboard
+    createEmailTemplate: NexusGenRootTypes['EmailTemplate'] | null; // EmailTemplate
     createFile: string | null; // String
     createFlow: NexusGenRootTypes['Flow'] | null; // Flow
     createFunnel: NexusGenRootTypes['Funnel'] | null; // Funnel
@@ -317,6 +350,7 @@ export interface NexusGenFieldTypes {
     deleteCompany: string | null; // String
     deleteContact: string | null; // String
     deleteDocument: string | null; // String
+    deleteEmailTemplate: string | null; // String
     export: string | null; // String
     generateTitles: Array<NexusGenRootTypes['Document'] | null> | null; // [Document]
     newCheckout: string | null; // String
@@ -337,6 +371,7 @@ export interface NexusGenFieldTypes {
     updateDashboard: NexusGenRootTypes['Dashboard'] | null; // Dashboard
     updateDocument: NexusGenRootTypes['Document'] | null; // Document
     updateDrawing: NexusGenRootTypes['Drawing'] | null; // Drawing
+    updateEmailTemplate: NexusGenRootTypes['EmailTemplate'] | null; // EmailTemplate
     updateFlow: NexusGenRootTypes['Flow'] | null; // Flow
     updateFunnel: NexusGenRootTypes['Funnel'] | null; // Funnel
     updatePresentation: NexusGenRootTypes['Presentation'] | null; // Presentation
@@ -390,6 +425,7 @@ export interface NexusGenFieldTypes {
     dashboard: NexusGenRootTypes['Dashboard'] | null; // Dashboard
     document: NexusGenRootTypes['Document'] | null; // Document
     drawing: NexusGenRootTypes['Drawing'] | null; // Drawing
+    emailTemplate: NexusGenRootTypes['EmailTemplate'] | null; // EmailTemplate
     flow: NexusGenRootTypes['Flow'] | null; // Flow
     funnel: NexusGenRootTypes['Funnel'] | null; // Funnel
     getCurrentUser: NexusGenRootTypes['User'] | null; // User
@@ -407,6 +443,8 @@ export interface NexusGenFieldTypes {
     myDashboards: Array<NexusGenRootTypes['Dashboard'] | null> | null; // [Dashboard]
     myDocuments: Array<NexusGenRootTypes['Document'] | null> | null; // [Document]
     myDrawings: Array<NexusGenRootTypes['Drawing'] | null> | null; // [Drawing]
+    myEmailLogs: Array<NexusGenRootTypes['EmailLog'] | null> | null; // [EmailLog]
+    myEmailTemplates: Array<NexusGenRootTypes['EmailTemplate'] | null> | null; // [EmailTemplate]
     myFeeds: Array<NexusGenRootTypes['Feed'] | null> | null; // [Feed]
     myFlows: Array<NexusGenRootTypes['Flow'] | null> | null; // [Flow]
     myFunnels: Array<NexusGenRootTypes['Funnel'] | null> | null; // [Funnel]
@@ -531,6 +569,24 @@ export interface NexusGenFieldTypeNames {
     title: 'String'
     updatedAt: 'DateTime'
   }
+  EmailLog: { // field return type name
+    createdAt: 'DateTime'
+    from: 'String'
+    id: 'String'
+    sender: 'User'
+    template: 'User'
+    to: 'String'
+    updatedAt: 'DateTime'
+  }
+  EmailTemplate: { // field return type name
+    context: 'JSON'
+    createdAt: 'DateTime'
+    creator: 'User'
+    id: 'String'
+    logs: 'User'
+    title: 'String'
+    updatedAt: 'DateTime'
+  }
   Feed: { // field return type name
     createdAt: 'DateTime'
     creator: 'User'
@@ -566,6 +622,7 @@ export interface NexusGenFieldTypeNames {
     createCompany: 'Company'
     createContact: 'Contact'
     createDashboard: 'Dashboard'
+    createEmailTemplate: 'EmailTemplate'
     createFile: 'String'
     createFlow: 'Flow'
     createFunnel: 'Funnel'
@@ -574,6 +631,7 @@ export interface NexusGenFieldTypeNames {
     deleteCompany: 'String'
     deleteContact: 'String'
     deleteDocument: 'String'
+    deleteEmailTemplate: 'String'
     export: 'String'
     generateTitles: 'Document'
     newCheckout: 'String'
@@ -594,6 +652,7 @@ export interface NexusGenFieldTypeNames {
     updateDashboard: 'Dashboard'
     updateDocument: 'Document'
     updateDrawing: 'Drawing'
+    updateEmailTemplate: 'EmailTemplate'
     updateFlow: 'Flow'
     updateFunnel: 'Funnel'
     updatePresentation: 'Presentation'
@@ -647,6 +706,7 @@ export interface NexusGenFieldTypeNames {
     dashboard: 'Dashboard'
     document: 'Document'
     drawing: 'Drawing'
+    emailTemplate: 'EmailTemplate'
     flow: 'Flow'
     funnel: 'Funnel'
     getCurrentUser: 'User'
@@ -664,6 +724,8 @@ export interface NexusGenFieldTypeNames {
     myDashboards: 'Dashboard'
     myDocuments: 'Document'
     myDrawings: 'Drawing'
+    myEmailLogs: 'EmailLog'
+    myEmailTemplates: 'EmailTemplate'
     myFeeds: 'Feed'
     myFlows: 'Flow'
     myFunnels: 'Funnel'
@@ -764,6 +826,9 @@ export interface NexusGenArgTypes {
     deleteDocument: { // args
       documentId: string; // String!
     }
+    deleteEmailTemplate: { // args
+      emailTemplateId: string; // String!
+    }
     export: { // args
       html: string; // String!
       type: string; // String!
@@ -816,6 +881,11 @@ export interface NexusGenArgTypes {
     updateDrawing: { // args
       context?: string | null; // String
       drawingId: string; // String!
+      title?: string | null; // String
+    }
+    updateEmailTemplate: { // args
+      context?: string | null; // String
+      emailTemplateId: string; // String!
       title?: string | null; // String
     }
     updateFlow: { // args
@@ -881,6 +951,9 @@ export interface NexusGenArgTypes {
     drawing: { // args
       drawingId: string; // String!
     }
+    emailTemplate: { // args
+      emailTemplateId: string; // String!
+    }
     flow: { // args
       flowId: string; // String!
     }
@@ -919,6 +992,14 @@ export interface NexusGenArgTypes {
       take: number; // Int!
     }
     myContacts: { // args
+      skip: number; // Int!
+      take: number; // Int!
+    }
+    myEmailLogs: { // args
+      skip: number; // Int!
+      take: number; // Int!
+    }
+    myEmailTemplates: { // args
       skip: number; // Int!
       take: number; // Int!
     }
