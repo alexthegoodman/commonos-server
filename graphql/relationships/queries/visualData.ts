@@ -19,7 +19,7 @@ export const VisualDataQuery = extendType({
         let data;
         switch (item) {
           case "contacts":
-            let items = await prisma.contact.findMany({
+            let contacts = await prisma.contact.findMany({
               where: {
                 creator: {
                   id: currentUser.id,
@@ -27,29 +27,7 @@ export const VisualDataQuery = extendType({
               },
             });
 
-            // let contactSettings = await prisma.contactSettings.findFirst({
-            //   where: {
-            //     user: {
-            //       id: currentUser.id,
-            //     },
-            //   },
-            // });
-
-            // let counts = {};
-            // items.forEach((item) => {
-            //   let fields = item.fields as any;
-            //   // count unique values in fields
-
-            //   Object.keys(fields).forEach((field) => {
-            //     if (counts[field]) {
-            //       counts[field] += 1;
-            //     } else {
-            //       counts[field] = 1;
-            //     }
-            //   });
-            // });
-
-            let counts = items
+            let counts = contacts
               .map(({ fields }: any) => fields[field])
               .reduce((names, name) => {
                 const count = names[name] || 0;
@@ -68,6 +46,31 @@ export const VisualDataQuery = extendType({
 
             break;
           case "companies":
+            let companies = await prisma.company.findMany({
+              where: {
+                creator: {
+                  id: currentUser.id,
+                },
+              },
+            });
+
+            let companyCounts = companies
+              .map(({ fields }: any) => fields[field])
+              .reduce((names, name) => {
+                const count = names[name] || 0;
+                names[name] = count + 1;
+                return names;
+              }, {});
+
+            console.info("companyCounts", companyCounts);
+
+            data = Object.keys(companyCounts).map((key) => {
+              return {
+                label: key,
+                value: companyCounts[key],
+              };
+            });
+
             break;
         }
 
