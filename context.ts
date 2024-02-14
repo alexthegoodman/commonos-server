@@ -4,6 +4,7 @@ import MixpanelClient from "./helpers/mixpanel";
 import algoliasearch, { SearchClient } from "algoliasearch";
 import OpenAI from "openai";
 import prisma from "./prisma";
+import AWS_SES from "./helpers/AWS_SES";
 
 const openai = new OpenAI({
   organization: "org-27u0QhfhY8rWqMDmiUBdRw6E",
@@ -17,6 +18,8 @@ const algolia = algoliasearch(
   process.env.ALGOLIA_SERVER_API_KEY as string
 );
 
+const awsSES = new AWS_SES();
+
 export interface Context {
   prisma: PrismaClient;
   mixpanel: MixpanelClient;
@@ -24,6 +27,7 @@ export interface Context {
   currentUser: User;
   openai: OpenAI;
   algolia: SearchClient;
+  awsSES: AWS_SES;
 }
 
 export const context = {
@@ -31,4 +35,5 @@ export const context = {
   mixpanel,
   openai,
   algolia,
+  awsSES,
 };

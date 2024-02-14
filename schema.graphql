@@ -61,6 +61,15 @@ type Document {
   updatedAt: DateTime
 }
 
+type DomainSettings {
+  createdAt: DateTime
+  dkimData: JSON
+  domainName: String
+  id: String
+  updatedAt: DateTime
+  user: User
+}
+
 type Drawing {
   context: JSON
   createdAt: DateTime
@@ -157,6 +166,7 @@ type Mutation {
   newVideo: Video
   putCompanySettings(fields: String!): String
   putContactSettings(fields: String!): String
+  putDomainSettings(domainName: String!): DomainSettings
   registerUser: String!
   simpleUpload(fileData: String, fileName: String, fileSize: Int, fileType: String): JSON
   updateCompany(companyId: String!, fields: String!): Company
@@ -240,6 +250,7 @@ type Query {
   myContacts(skip: Int!, take: Int!): [Contact]
   myDashboards: [Dashboard]
   myDocuments: [Document]
+  myDomainSettings: DomainSettings
   myDrawings: [Drawing]
   myEmailLogs(skip: Int!, take: Int!): [EmailLog]
   myEmailTemplates(skip: Int!, take: Int!): [EmailTemplate]

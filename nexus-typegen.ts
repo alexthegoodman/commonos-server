@@ -94,6 +94,13 @@ export interface NexusGenObjects {
     title?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
+  DomainSettings: { // root type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    dkimData?: NexusGenScalars['JSON'] | null; // JSON
+    domainName?: string | null; // String
+    id?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   Drawing: { // root type
     context?: NexusGenScalars['JSON'] | null; // JSON
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -280,6 +287,14 @@ export interface NexusGenFieldTypes {
     title: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
+  DomainSettings: { // field return type
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    dkimData: NexusGenScalars['JSON'] | null; // JSON
+    domainName: string | null; // String
+    id: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+    user: NexusGenRootTypes['User'] | null; // User
+  }
   Drawing: { // field return type
     context: NexusGenScalars['JSON'] | null; // JSON
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
@@ -364,6 +379,7 @@ export interface NexusGenFieldTypes {
     newVideo: NexusGenRootTypes['Video'] | null; // Video
     putCompanySettings: string | null; // String
     putContactSettings: string | null; // String
+    putDomainSettings: NexusGenRootTypes['DomainSettings'] | null; // DomainSettings
     registerUser: string; // String!
     simpleUpload: NexusGenScalars['JSON'] | null; // JSON
     updateCompany: NexusGenRootTypes['Company'] | null; // Company
@@ -442,6 +458,7 @@ export interface NexusGenFieldTypes {
     myContacts: Array<NexusGenRootTypes['Contact'] | null> | null; // [Contact]
     myDashboards: Array<NexusGenRootTypes['Dashboard'] | null> | null; // [Dashboard]
     myDocuments: Array<NexusGenRootTypes['Document'] | null> | null; // [Document]
+    myDomainSettings: NexusGenRootTypes['DomainSettings'] | null; // DomainSettings
     myDrawings: Array<NexusGenRootTypes['Drawing'] | null> | null; // [Drawing]
     myEmailLogs: Array<NexusGenRootTypes['EmailLog'] | null> | null; // [EmailLog]
     myEmailTemplates: Array<NexusGenRootTypes['EmailTemplate'] | null> | null; // [EmailTemplate]
@@ -561,6 +578,14 @@ export interface NexusGenFieldTypeNames {
     title: 'String'
     updatedAt: 'DateTime'
   }
+  DomainSettings: { // field return type name
+    createdAt: 'DateTime'
+    dkimData: 'JSON'
+    domainName: 'String'
+    id: 'String'
+    updatedAt: 'DateTime'
+    user: 'User'
+  }
   Drawing: { // field return type name
     context: 'JSON'
     createdAt: 'DateTime'
@@ -645,6 +670,7 @@ export interface NexusGenFieldTypeNames {
     newVideo: 'Video'
     putCompanySettings: 'String'
     putContactSettings: 'String'
+    putDomainSettings: 'DomainSettings'
     registerUser: 'String'
     simpleUpload: 'JSON'
     updateCompany: 'Company'
@@ -723,6 +749,7 @@ export interface NexusGenFieldTypeNames {
     myContacts: 'Contact'
     myDashboards: 'Dashboard'
     myDocuments: 'Document'
+    myDomainSettings: 'DomainSettings'
     myDrawings: 'Drawing'
     myEmailLogs: 'EmailLog'
     myEmailTemplates: 'EmailTemplate'
@@ -849,6 +876,9 @@ export interface NexusGenArgTypes {
     }
     putContactSettings: { // args
       fields: string; // String!
+    }
+    putDomainSettings: { // args
+      domainName: string; // String!
     }
     simpleUpload: { // args
       fileData?: string | null; // String
