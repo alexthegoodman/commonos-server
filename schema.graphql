@@ -169,11 +169,14 @@ type Mutation {
   createFlow(prompt: String!, typeCode: String!): Flow
   createFunnel: Funnel
   createOrganization(name: String!): Organization
+  createPost(postTypeId: String!): Post
+  createPostType: Post
   createProject(organizationId: String!, title: String!): Project
   deleteCompany(companyId: String!): String
   deleteContact(contactId: String!): String
   deleteDocument(documentId: String!): String
   deleteEmailTemplate(emailTemplateId: String!): String
+  deletePost(postId: String!): String
   export(html: String!, type: String!): String
   generateTitles(treeMd: String!): [Document]
   newCheckout: String
@@ -189,7 +192,9 @@ type Mutation {
   putContactSettings(fields: String!): String
   putDomainSettings(domainName: String!): DomainSettings
   registerUser: String!
+  sendEmail(body: String!, subject: String!, threadId: String!, to: String!): Email
   simpleUpload(fileData: String, fileName: String, fileSize: Int, fileType: String): JSON
+  togglePublished(postId: String!): Post
   updateCompany(companyId: String!, fields: String!): Company
   updateContact(contactId: String!, fields: String!): Contact
   updateDashboard(context: String, dashboardId: String!, title: String): Dashboard
@@ -198,6 +203,8 @@ type Mutation {
   updateEmailTemplate(context: String, emailTemplateId: String!, title: String): EmailTemplate
   updateFlow(flowId: String!, questionsContext: String, resultsContext: String): Flow
   updateFunnel(context: String, funnelId: String!, title: String): Funnel
+  updatePost(fields: String, markdown: String, postId: String!, title: String): Post
+  updatePostType(fields: String, name: String, postTypeId: String!): Post
   updatePresentation(context: String, presentationId: String!, title: String): Presentation
   updatePresentationTemplate(context: String!, presentationTemplateId: String!): PresentationTemplate
   updateSheet(context: String, sheetId: String!, title: String): Sheet
@@ -298,11 +305,18 @@ type Query {
   myFeeds: [Feed]
   myFlows: [Flow]
   myFunnels: [Funnel]
+  myInboxEmailThreads(inboxId: String!): [Thread]
+  myInboxes: [Inbox]
   myOrganizations: [Organization]
+  myPostTypes: [PostType]
+  myPosts(postTypeId: String!): [Post]
   myPresentations: [Presentation]
   mySheets: [Sheet]
   mySounds: [Sound]
+  myThreadEmails(threadId: String!): [Email]
   myVideos: [Video]
+  post(postId: String!): Post
+  postType(postTypeId: String!): PostType
   presentation(presentationId: String!): Presentation
   presentationTemplates: [PresentationTemplate]
   sheet(sheetId: String!): Sheet

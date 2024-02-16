@@ -416,11 +416,14 @@ export interface NexusGenFieldTypes {
     createFlow: NexusGenRootTypes['Flow'] | null; // Flow
     createFunnel: NexusGenRootTypes['Funnel'] | null; // Funnel
     createOrganization: NexusGenRootTypes['Organization'] | null; // Organization
+    createPost: NexusGenRootTypes['Post'] | null; // Post
+    createPostType: NexusGenRootTypes['Post'] | null; // Post
     createProject: NexusGenRootTypes['Project'] | null; // Project
     deleteCompany: string | null; // String
     deleteContact: string | null; // String
     deleteDocument: string | null; // String
     deleteEmailTemplate: string | null; // String
+    deletePost: string | null; // String
     export: string | null; // String
     generateTitles: Array<NexusGenRootTypes['Document'] | null> | null; // [Document]
     newCheckout: string | null; // String
@@ -436,7 +439,9 @@ export interface NexusGenFieldTypes {
     putContactSettings: string | null; // String
     putDomainSettings: NexusGenRootTypes['DomainSettings'] | null; // DomainSettings
     registerUser: string; // String!
+    sendEmail: NexusGenRootTypes['Email'] | null; // Email
     simpleUpload: NexusGenScalars['JSON'] | null; // JSON
+    togglePublished: NexusGenRootTypes['Post'] | null; // Post
     updateCompany: NexusGenRootTypes['Company'] | null; // Company
     updateContact: NexusGenRootTypes['Contact'] | null; // Contact
     updateDashboard: NexusGenRootTypes['Dashboard'] | null; // Dashboard
@@ -445,6 +450,8 @@ export interface NexusGenFieldTypes {
     updateEmailTemplate: NexusGenRootTypes['EmailTemplate'] | null; // EmailTemplate
     updateFlow: NexusGenRootTypes['Flow'] | null; // Flow
     updateFunnel: NexusGenRootTypes['Funnel'] | null; // Funnel
+    updatePost: NexusGenRootTypes['Post'] | null; // Post
+    updatePostType: NexusGenRootTypes['Post'] | null; // Post
     updatePresentation: NexusGenRootTypes['Presentation'] | null; // Presentation
     updatePresentationTemplate: NexusGenRootTypes['PresentationTemplate'] | null; // PresentationTemplate
     updateSheet: NexusGenRootTypes['Sheet'] | null; // Sheet
@@ -538,11 +545,18 @@ export interface NexusGenFieldTypes {
     myFeeds: Array<NexusGenRootTypes['Feed'] | null> | null; // [Feed]
     myFlows: Array<NexusGenRootTypes['Flow'] | null> | null; // [Flow]
     myFunnels: Array<NexusGenRootTypes['Funnel'] | null> | null; // [Funnel]
+    myInboxEmailThreads: Array<NexusGenRootTypes['Thread'] | null> | null; // [Thread]
+    myInboxes: Array<NexusGenRootTypes['Inbox'] | null> | null; // [Inbox]
     myOrganizations: Array<NexusGenRootTypes['Organization'] | null> | null; // [Organization]
+    myPostTypes: Array<NexusGenRootTypes['PostType'] | null> | null; // [PostType]
+    myPosts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     myPresentations: Array<NexusGenRootTypes['Presentation'] | null> | null; // [Presentation]
     mySheets: Array<NexusGenRootTypes['Sheet'] | null> | null; // [Sheet]
     mySounds: Array<NexusGenRootTypes['Sound'] | null> | null; // [Sound]
+    myThreadEmails: Array<NexusGenRootTypes['Email'] | null> | null; // [Email]
     myVideos: Array<NexusGenRootTypes['Video'] | null> | null; // [Video]
+    post: NexusGenRootTypes['Post'] | null; // Post
+    postType: NexusGenRootTypes['PostType'] | null; // PostType
     presentation: NexusGenRootTypes['Presentation'] | null; // Presentation
     presentationTemplates: Array<NexusGenRootTypes['PresentationTemplate'] | null> | null; // [PresentationTemplate]
     sheet: NexusGenRootTypes['Sheet'] | null; // Sheet
@@ -753,11 +767,14 @@ export interface NexusGenFieldTypeNames {
     createFlow: 'Flow'
     createFunnel: 'Funnel'
     createOrganization: 'Organization'
+    createPost: 'Post'
+    createPostType: 'Post'
     createProject: 'Project'
     deleteCompany: 'String'
     deleteContact: 'String'
     deleteDocument: 'String'
     deleteEmailTemplate: 'String'
+    deletePost: 'String'
     export: 'String'
     generateTitles: 'Document'
     newCheckout: 'String'
@@ -773,7 +790,9 @@ export interface NexusGenFieldTypeNames {
     putContactSettings: 'String'
     putDomainSettings: 'DomainSettings'
     registerUser: 'String'
+    sendEmail: 'Email'
     simpleUpload: 'JSON'
+    togglePublished: 'Post'
     updateCompany: 'Company'
     updateContact: 'Contact'
     updateDashboard: 'Dashboard'
@@ -782,6 +801,8 @@ export interface NexusGenFieldTypeNames {
     updateEmailTemplate: 'EmailTemplate'
     updateFlow: 'Flow'
     updateFunnel: 'Funnel'
+    updatePost: 'Post'
+    updatePostType: 'Post'
     updatePresentation: 'Presentation'
     updatePresentationTemplate: 'PresentationTemplate'
     updateSheet: 'Sheet'
@@ -875,11 +896,18 @@ export interface NexusGenFieldTypeNames {
     myFeeds: 'Feed'
     myFlows: 'Flow'
     myFunnels: 'Funnel'
+    myInboxEmailThreads: 'Thread'
+    myInboxes: 'Inbox'
     myOrganizations: 'Organization'
+    myPostTypes: 'PostType'
+    myPosts: 'Post'
     myPresentations: 'Presentation'
     mySheets: 'Sheet'
     mySounds: 'Sound'
+    myThreadEmails: 'Email'
     myVideos: 'Video'
+    post: 'Post'
+    postType: 'PostType'
     presentation: 'Presentation'
     presentationTemplates: 'PresentationTemplate'
     sheet: 'Sheet'
@@ -968,6 +996,9 @@ export interface NexusGenArgTypes {
     createOrganization: { // args
       name: string; // String!
     }
+    createPost: { // args
+      postTypeId: string; // String!
+    }
     createProject: { // args
       organizationId: string; // String!
       title: string; // String!
@@ -983,6 +1014,9 @@ export interface NexusGenArgTypes {
     }
     deleteEmailTemplate: { // args
       emailTemplateId: string; // String!
+    }
+    deletePost: { // args
+      postId: string; // String!
     }
     export: { // args
       html: string; // String!
@@ -1008,11 +1042,20 @@ export interface NexusGenArgTypes {
     putDomainSettings: { // args
       domainName: string; // String!
     }
+    sendEmail: { // args
+      body: string; // String!
+      subject: string; // String!
+      threadId: string; // String!
+      to: string; // String!
+    }
     simpleUpload: { // args
       fileData?: string | null; // String
       fileName?: string | null; // String
       fileSize?: number | null; // Int
       fileType?: string | null; // String
+    }
+    togglePublished: { // args
+      postId: string; // String!
     }
     updateCompany: { // args
       companyId: string; // String!
@@ -1055,6 +1098,17 @@ export interface NexusGenArgTypes {
       context?: string | null; // String
       funnelId: string; // String!
       title?: string | null; // String
+    }
+    updatePost: { // args
+      fields?: string | null; // String
+      markdown?: string | null; // String
+      postId: string; // String!
+      title?: string | null; // String
+    }
+    updatePostType: { // args
+      fields?: string | null; // String
+      name?: string | null; // String
+      postTypeId: string; // String!
     }
     updatePresentation: { // args
       context?: string | null; // String
@@ -1160,6 +1214,21 @@ export interface NexusGenArgTypes {
     myEmailTemplates: { // args
       skip: number; // Int!
       take: number; // Int!
+    }
+    myInboxEmailThreads: { // args
+      inboxId: string; // String!
+    }
+    myPosts: { // args
+      postTypeId: string; // String!
+    }
+    myThreadEmails: { // args
+      threadId: string; // String!
+    }
+    post: { // args
+      postId: string; // String!
+    }
+    postType: { // args
+      postTypeId: string; // String!
     }
     presentation: { // args
       presentationId: string; // String!
