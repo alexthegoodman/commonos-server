@@ -334,6 +334,7 @@ type Thread {
   emails: [Email]
   id: String
   inbox: Inbox
+  mostRecentEmail: Email
   subject: String
   updatedAt: DateTime
 }

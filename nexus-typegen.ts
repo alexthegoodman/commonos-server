@@ -571,6 +571,7 @@ export interface NexusGenFieldTypes {
     emails: Array<NexusGenRootTypes['Email'] | null> | null; // [Email]
     id: string | null; // String
     inbox: NexusGenRootTypes['Inbox'] | null; // Inbox
+    mostRecentEmail: NexusGenRootTypes['Email'] | null; // Email
     subject: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
@@ -907,6 +908,7 @@ export interface NexusGenFieldTypeNames {
     emails: 'Email'
     id: 'String'
     inbox: 'Inbox'
+    mostRecentEmail: 'Email'
     subject: 'String'
     updatedAt: 'DateTime'
   }

@@ -2,6 +2,7 @@ import {
   CreateConfigurationSetCommand,
   GetIdentityDkimAttributesCommand,
   SESClient,
+  SendEmailCommand,
   SetIdentityDkimEnabledCommand,
   VerifyDomainDkimCommand,
   VerifyDomainIdentityCommand,
@@ -38,15 +39,6 @@ export default class AWS_SES {
     // parse token
     const token = data?.VerificationToken;
 
-    // const commandb = new SetIdentityDkimEnabledCommand({
-    //   DkimEnabled: true,
-    //   Identity: domainName,
-    // });
-
-    // const datab = await this.sesClient?.send(commandb);
-
-    // console.info("SetIdentityDkimEnabledCommand", datab);
-
     const commandx = new VerifyDomainDkimCommand({
       Domain: domainName,
     });
@@ -57,7 +49,7 @@ export default class AWS_SES {
 
     const dkimData = datax?.DkimTokens;
 
-    // call after setting dns records
+    // call after setting dns records?
     // const command2 = new GetIdentityDkimAttributesCommand({
     //   Identities: [domainName],
     // });
@@ -67,5 +59,38 @@ export default class AWS_SES {
     // console.info("GetIdentityDkimAttributesCommand", data2);
 
     return dkimData;
+  }
+
+  async sendEmail(
+    from: string,
+    to: string,
+    subject: string,
+    body: string
+  ): Promise<any> {
+    const command = new SendEmailCommand({
+      Source: from,
+      Destination: {
+        ToAddresses: [to],
+        // CcAddresses: [],
+        // BccAddresses: [],
+      },
+      Message: {
+        Subject: {
+          Data: subject,
+        },
+        Body: {
+          Text: {
+            Data: body,
+          },
+          // Html: {
+          //   Data: body,
+          // },
+        },
+      },
+    });
+
+    const data = await this.sesClient?.send(command);
+
+    return data;
   }
 }

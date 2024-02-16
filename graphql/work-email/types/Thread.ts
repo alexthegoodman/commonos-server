@@ -7,6 +7,22 @@ export const ThreadType = objectType({
     t.field("id", { type: "String" });
     t.field("subject", { type: "String" });
 
+    t.field("mostRecentEmail", {
+      type: "Email",
+      resolve: async (thread, __, context: Context) => {
+        return await context.prisma.email.findFirst({
+          where: {
+            thread: {
+              id: thread.id as string,
+            },
+          },
+          orderBy: {
+            createdAt: "desc",
+          },
+        });
+      },
+    });
+
     t.list.field("emails", {
       type: "Email",
       resolve: async (thread, __, context: Context) => {

@@ -448,6 +448,8 @@ model Email {
 
   unread Boolean @default(true)
 
+  sesMessageId String @unique
+
   thread Thread @relation(fields: [threadId], references: [id])
   threadId String
 
@@ -461,7 +463,10 @@ model Post {
   id String @id @unique @default(uuid())
 
   title String
+  markdown String
   fields Json?
+
+  published Boolean @default(false)
 
   type   PostType @relation(fields: [typeId], references: [id])
   typeId String
