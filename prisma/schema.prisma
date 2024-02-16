@@ -380,6 +380,8 @@ model DomainSettings {
   domainName String @unique
   dkimData Json?
 
+  inboxes Inbox[]
+
   user   User   @relation(fields: [userId], references: [id])
   userId String @unique
 
@@ -394,6 +396,54 @@ model EmailDevelopersSettings {
 
   user   User   @relation(fields: [userId], references: [id])
   userId String @unique
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model Inbox {
+  id String @id @unique @default(uuid())
+
+  username String // "alex" of alex@our-virtue.com
+
+  threads Thread[]
+
+  domain   DomainSettings @relation(fields: [domainId], references: [id])
+  domainId String
+
+  // get via DomainSettings
+  // creator User @relation(fields: [creatorId], references: [id])
+  // creatorId String @unique
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model Thread {
+  id String @id @unique @default(uuid())
+
+  subject String
+  emails Email[]
+
+  inbox Inbox @relation(fields: [inboxId], references: [id])
+  inboxId String
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model Email {
+  id String @id @unique @default(uuid())
+
+  from    String
+  to      String
+  subject String
+  body    String
+
+  unread Boolean @default(true)
+
+  thread Thread @relation(fields: [threadId], references: [id])
+  threadId String
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())

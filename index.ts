@@ -11,6 +11,7 @@ import { Server } from "socket.io";
 import { createServer } from "http";
 import { fullDomainPort } from "./helpers/urls";
 import { stripeHandler } from "./rest/stripeHandler";
+import { snsIncomingEmailHandler } from "./rest/snsIncomingEmailHandler";
 
 const prisma = new PrismaClient();
 
@@ -74,6 +75,12 @@ export const startApolloServer = async () => {
     "/webhook",
     bodyParser.raw({ type: "application/json" }),
     stripeHandler
+  );
+
+  app.post(
+    "/sns-incoming-email",
+    bodyParser.raw({ type: "application/json" }),
+    snsIncomingEmailHandler
   );
 
   const httpServer = createServer(app);
