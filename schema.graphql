@@ -79,6 +79,18 @@ type Drawing {
   updatedAt: DateTime
 }
 
+type Email {
+  body: String
+  createdAt: DateTime
+  from: String
+  id: String
+  subject: String
+  thread: Thread
+  to: String
+  unread: Boolean
+  updatedAt: DateTime
+}
+
 type EmailLog {
   createdAt: DateTime
   from: String
@@ -124,6 +136,15 @@ type Funnel {
   id: String
   title: String
   updatedAt: DateTime
+}
+
+type Inbox {
+  createdAt: DateTime
+  domain: DomainSettings
+  id: String
+  threads: [Thread]
+  updatedAt: DateTime
+  username: String
 }
 
 """
@@ -193,6 +214,26 @@ type Organization {
   projects: [Project]
   updatedAt: DateTime
   users: [User]
+}
+
+type Post {
+  createdAt: DateTime
+  creator: User
+  fields: JSON
+  id: String
+  title: String
+  type: PostType
+  updatedAt: DateTime
+}
+
+type PostType {
+  createdAt: DateTime
+  creator: User
+  fields: JSON
+  id: String
+  name: String
+  posts: [Post]
+  updatedAt: DateTime
 }
 
 type Presentation {
@@ -285,6 +326,15 @@ type Sound {
   creator: User
   id: String
   title: String
+  updatedAt: DateTime
+}
+
+type Thread {
+  createdAt: DateTime
+  emails: [Email]
+  id: String
+  inbox: Inbox
+  subject: String
   updatedAt: DateTime
 }
 

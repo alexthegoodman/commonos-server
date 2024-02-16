@@ -108,6 +108,16 @@ export interface NexusGenObjects {
     title?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
+  Email: { // root type
+    body?: string | null; // String
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    from?: string | null; // String
+    id?: string | null; // String
+    subject?: string | null; // String
+    to?: string | null; // String
+    unread?: boolean | null; // Boolean
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   EmailLog: { // root type
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     from?: string | null; // String
@@ -143,6 +153,12 @@ export interface NexusGenObjects {
     title?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
+  Inbox: { // root type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    username?: string | null; // String
+  }
   Link: { // root type
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     description?: string | null; // String
@@ -153,6 +169,20 @@ export interface NexusGenObjects {
   Mutation: {};
   Organization: { // root type
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    name?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  Post: { // root type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    fields?: NexusGenScalars['JSON'] | null; // JSON
+    id?: string | null; // String
+    title?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  PostType: { // root type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    fields?: NexusGenScalars['JSON'] | null; // JSON
     id?: string | null; // String
     name?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -192,6 +222,12 @@ export interface NexusGenObjects {
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     id?: string | null; // String
     title?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  Thread: { // root type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    subject?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
   Type: { // root type
@@ -303,6 +339,17 @@ export interface NexusGenFieldTypes {
     title: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
+  Email: { // field return type
+    body: string | null; // String
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    from: string | null; // String
+    id: string | null; // String
+    subject: string | null; // String
+    thread: NexusGenRootTypes['Thread'] | null; // Thread
+    to: string | null; // String
+    unread: boolean | null; // Boolean
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   EmailLog: { // field return type
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
     from: string | null; // String
@@ -344,6 +391,14 @@ export interface NexusGenFieldTypes {
     id: string | null; // String
     title: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  Inbox: { // field return type
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    domain: NexusGenRootTypes['DomainSettings'] | null; // DomainSettings
+    id: string | null; // String
+    threads: Array<NexusGenRootTypes['Thread'] | null> | null; // [Thread]
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+    username: string | null; // String
   }
   Link: { // field return type
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
@@ -405,6 +460,24 @@ export interface NexusGenFieldTypes {
     projects: Array<NexusGenRootTypes['Project'] | null> | null; // [Project]
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
     users: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+  }
+  Post: { // field return type
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    creator: NexusGenRootTypes['User'] | null; // User
+    fields: NexusGenScalars['JSON'] | null; // JSON
+    id: string | null; // String
+    title: string | null; // String
+    type: NexusGenRootTypes['PostType'] | null; // PostType
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  PostType: { // field return type
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    creator: NexusGenRootTypes['User'] | null; // User
+    fields: NexusGenScalars['JSON'] | null; // JSON
+    id: string | null; // String
+    name: string | null; // String
+    posts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
   Presentation: { // field return type
     context: NexusGenScalars['JSON'] | null; // JSON
@@ -491,6 +564,14 @@ export interface NexusGenFieldTypes {
     creator: NexusGenRootTypes['User'] | null; // User
     id: string | null; // String
     title: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  Thread: { // field return type
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    emails: Array<NexusGenRootTypes['Email'] | null> | null; // [Email]
+    id: string | null; // String
+    inbox: NexusGenRootTypes['Inbox'] | null; // Inbox
+    subject: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
   Type: { // field return type
@@ -594,6 +675,17 @@ export interface NexusGenFieldTypeNames {
     title: 'String'
     updatedAt: 'DateTime'
   }
+  Email: { // field return type name
+    body: 'String'
+    createdAt: 'DateTime'
+    from: 'String'
+    id: 'String'
+    subject: 'String'
+    thread: 'Thread'
+    to: 'String'
+    unread: 'Boolean'
+    updatedAt: 'DateTime'
+  }
   EmailLog: { // field return type name
     createdAt: 'DateTime'
     from: 'String'
@@ -635,6 +727,14 @@ export interface NexusGenFieldTypeNames {
     id: 'String'
     title: 'String'
     updatedAt: 'DateTime'
+  }
+  Inbox: { // field return type name
+    createdAt: 'DateTime'
+    domain: 'DomainSettings'
+    id: 'String'
+    threads: 'Thread'
+    updatedAt: 'DateTime'
+    username: 'String'
   }
   Link: { // field return type name
     createdAt: 'DateTime'
@@ -696,6 +796,24 @@ export interface NexusGenFieldTypeNames {
     projects: 'Project'
     updatedAt: 'DateTime'
     users: 'User'
+  }
+  Post: { // field return type name
+    createdAt: 'DateTime'
+    creator: 'User'
+    fields: 'JSON'
+    id: 'String'
+    title: 'String'
+    type: 'PostType'
+    updatedAt: 'DateTime'
+  }
+  PostType: { // field return type name
+    createdAt: 'DateTime'
+    creator: 'User'
+    fields: 'JSON'
+    id: 'String'
+    name: 'String'
+    posts: 'Post'
+    updatedAt: 'DateTime'
   }
   Presentation: { // field return type name
     context: 'JSON'
@@ -782,6 +900,14 @@ export interface NexusGenFieldTypeNames {
     creator: 'User'
     id: 'String'
     title: 'String'
+    updatedAt: 'DateTime'
+  }
+  Thread: { // field return type name
+    createdAt: 'DateTime'
+    emails: 'Email'
+    id: 'String'
+    inbox: 'Inbox'
+    subject: 'String'
     updatedAt: 'DateTime'
   }
   Type: { // field return type name

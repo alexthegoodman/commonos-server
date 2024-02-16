@@ -88,7 +88,7 @@ export const snsIncomingEmailHandler = async (request, response) => {
     return;
   }
 
-  // do not do s3+sns, just sns (need to see live payload first)
+  // do not do s3+sns, just sns (need to see live payload first, w attachments)
   // https://docs.aws.amazon.com/ses/latest/dg/receiving-email-notifications-contents.html
 
   //   await prisma.email.create({

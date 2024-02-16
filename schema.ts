@@ -17,6 +17,8 @@ import * as rssTypes from "./graphql/rss";
 import * as collaborationTypes from "./graphql/collaboration";
 import * as relationshipsTypes from "./graphql/relationships";
 import * as sendEmailTypes from "./graphql/send-email";
+import * as workEmailTypes from "./graphql/work-email";
+import * as contentTypes from "./graphql/content";
 
 import { permissions } from "./permissions";
 
@@ -33,6 +35,8 @@ export const schema = makeSchema({
     collaborationTypes,
     relationshipsTypes,
     sendEmailTypes,
+    workEmailTypes,
+    contentTypes,
     jsonScalar,
     dateTimeScalar,
   ],
