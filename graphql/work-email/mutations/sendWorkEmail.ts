@@ -1,10 +1,10 @@
 import { extendType, nonNull, nullable, stringArg } from "nexus";
 import { Context } from "../../../context";
 
-export const SendEmailMutation = extendType({
+export const SendWorkEmailMutation = extendType({
   type: "Mutation",
   definition(t) {
-    t.field("sendEmail", {
+    t.field("sendWorkEmail", {
       type: "Email",
       args: {
         threadId: nonNull(stringArg()),

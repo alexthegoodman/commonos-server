@@ -34,6 +34,14 @@ type ContactSettings {
   user: User
 }
 
+type ContentDevelopersSettings {
+  apiKey: String
+  createdAt: DateTime
+  id: String
+  updatedAt: DateTime
+  user: User
+}
+
 type Dashboard {
   context: JSON
   createdAt: DateTime
@@ -168,6 +176,7 @@ type Mutation {
   createFile(fileId: String!, flowId: String!, prompt: String!): String
   createFlow(prompt: String!, typeCode: String!): Flow
   createFunnel: Funnel
+  createInbox(username: String!): Inbox
   createOrganization(name: String!): Organization
   createPost(postTypeId: String!): Post
   createPostType: Post
@@ -178,7 +187,9 @@ type Mutation {
   deleteEmailTemplate(emailTemplateId: String!): String
   deletePost(postId: String!): String
   export(html: String!, type: String!): String
+  generateContentApiKey: ContentDevelopersSettings
   generateTitles(treeMd: String!): [Document]
+  markAsRead(emailId: String!): Email
   newCheckout: String
   newDocument: Document
   newDrawing: Drawing
@@ -192,7 +203,7 @@ type Mutation {
   putContactSettings(fields: String!): String
   putDomainSettings(domainName: String!): DomainSettings
   registerUser: String!
-  sendEmail(body: String!, subject: String!, threadId: String!, to: String!): Email
+  sendWorkEmail(body: String!, subject: String!, threadId: String!, to: String!): Email
   simpleUpload(fileData: String, fileName: String, fileSize: Int, fileType: String): JSON
   togglePublished(postId: String!): Post
   updateCompany(companyId: String!, fields: String!): Company
@@ -296,6 +307,7 @@ type Query {
   myCompanySettings: CompanySettings
   myContactSettings: ContactSettings
   myContacts(skip: Int!, take: Int!): [Contact]
+  myContentDevelopersSettings: ContentDevelopersSettings
   myDashboards: [Dashboard]
   myDocuments: [Document]
   myDomainSettings: DomainSettings

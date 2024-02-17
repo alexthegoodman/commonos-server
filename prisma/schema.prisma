@@ -87,6 +87,7 @@ model User {
   // content (CMS)
   posts    Post[]
   postTypes PostType[]
+  contentDevelopersSettings ContentDevelopersSettings?
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
@@ -488,6 +489,18 @@ model PostType {
 
   creator   User   @relation(fields: [creatorId], references: [id])
   creatorId String
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model ContentDevelopersSettings {
+  id String @id @unique @default(uuid())
+
+  apiKey String @unique
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())

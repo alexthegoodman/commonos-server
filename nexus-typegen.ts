@@ -76,6 +76,12 @@ export interface NexusGenObjects {
     id?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
+  ContentDevelopersSettings: { // root type
+    apiKey?: string | null; // String
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   Dashboard: { // root type
     context?: NexusGenScalars['JSON'] | null; // JSON
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -303,6 +309,13 @@ export interface NexusGenFieldTypes {
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
     user: NexusGenRootTypes['User'] | null; // User
   }
+  ContentDevelopersSettings: { // field return type
+    apiKey: string | null; // String
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    id: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+    user: NexusGenRootTypes['User'] | null; // User
+  }
   Dashboard: { // field return type
     context: NexusGenScalars['JSON'] | null; // JSON
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
@@ -415,6 +428,7 @@ export interface NexusGenFieldTypes {
     createFile: string | null; // String
     createFlow: NexusGenRootTypes['Flow'] | null; // Flow
     createFunnel: NexusGenRootTypes['Funnel'] | null; // Funnel
+    createInbox: NexusGenRootTypes['Inbox'] | null; // Inbox
     createOrganization: NexusGenRootTypes['Organization'] | null; // Organization
     createPost: NexusGenRootTypes['Post'] | null; // Post
     createPostType: NexusGenRootTypes['Post'] | null; // Post
@@ -425,7 +439,9 @@ export interface NexusGenFieldTypes {
     deleteEmailTemplate: string | null; // String
     deletePost: string | null; // String
     export: string | null; // String
+    generateContentApiKey: NexusGenRootTypes['ContentDevelopersSettings'] | null; // ContentDevelopersSettings
     generateTitles: Array<NexusGenRootTypes['Document'] | null> | null; // [Document]
+    markAsRead: NexusGenRootTypes['Email'] | null; // Email
     newCheckout: string | null; // String
     newDocument: NexusGenRootTypes['Document'] | null; // Document
     newDrawing: NexusGenRootTypes['Drawing'] | null; // Drawing
@@ -439,7 +455,7 @@ export interface NexusGenFieldTypes {
     putContactSettings: string | null; // String
     putDomainSettings: NexusGenRootTypes['DomainSettings'] | null; // DomainSettings
     registerUser: string; // String!
-    sendEmail: NexusGenRootTypes['Email'] | null; // Email
+    sendWorkEmail: NexusGenRootTypes['Email'] | null; // Email
     simpleUpload: NexusGenScalars['JSON'] | null; // JSON
     togglePublished: NexusGenRootTypes['Post'] | null; // Post
     updateCompany: NexusGenRootTypes['Company'] | null; // Company
@@ -536,6 +552,7 @@ export interface NexusGenFieldTypes {
     myCompanySettings: NexusGenRootTypes['CompanySettings'] | null; // CompanySettings
     myContactSettings: NexusGenRootTypes['ContactSettings'] | null; // ContactSettings
     myContacts: Array<NexusGenRootTypes['Contact'] | null> | null; // [Contact]
+    myContentDevelopersSettings: NexusGenRootTypes['ContentDevelopersSettings'] | null; // ContentDevelopersSettings
     myDashboards: Array<NexusGenRootTypes['Dashboard'] | null> | null; // [Dashboard]
     myDocuments: Array<NexusGenRootTypes['Document'] | null> | null; // [Document]
     myDomainSettings: NexusGenRootTypes['DomainSettings'] | null; // DomainSettings
@@ -654,6 +671,13 @@ export interface NexusGenFieldTypeNames {
     updatedAt: 'DateTime'
     user: 'User'
   }
+  ContentDevelopersSettings: { // field return type name
+    apiKey: 'String'
+    createdAt: 'DateTime'
+    id: 'String'
+    updatedAt: 'DateTime'
+    user: 'User'
+  }
   Dashboard: { // field return type name
     context: 'JSON'
     createdAt: 'DateTime'
@@ -766,6 +790,7 @@ export interface NexusGenFieldTypeNames {
     createFile: 'String'
     createFlow: 'Flow'
     createFunnel: 'Funnel'
+    createInbox: 'Inbox'
     createOrganization: 'Organization'
     createPost: 'Post'
     createPostType: 'Post'
@@ -776,7 +801,9 @@ export interface NexusGenFieldTypeNames {
     deleteEmailTemplate: 'String'
     deletePost: 'String'
     export: 'String'
+    generateContentApiKey: 'ContentDevelopersSettings'
     generateTitles: 'Document'
+    markAsRead: 'Email'
     newCheckout: 'String'
     newDocument: 'Document'
     newDrawing: 'Drawing'
@@ -790,7 +817,7 @@ export interface NexusGenFieldTypeNames {
     putContactSettings: 'String'
     putDomainSettings: 'DomainSettings'
     registerUser: 'String'
-    sendEmail: 'Email'
+    sendWorkEmail: 'Email'
     simpleUpload: 'JSON'
     togglePublished: 'Post'
     updateCompany: 'Company'
@@ -887,6 +914,7 @@ export interface NexusGenFieldTypeNames {
     myCompanySettings: 'CompanySettings'
     myContactSettings: 'ContactSettings'
     myContacts: 'Contact'
+    myContentDevelopersSettings: 'ContentDevelopersSettings'
     myDashboards: 'Dashboard'
     myDocuments: 'Document'
     myDomainSettings: 'DomainSettings'
@@ -993,6 +1021,9 @@ export interface NexusGenArgTypes {
       prompt: string; // String!
       typeCode: string; // String!
     }
+    createInbox: { // args
+      username: string; // String!
+    }
     createOrganization: { // args
       name: string; // String!
     }
@@ -1025,6 +1056,9 @@ export interface NexusGenArgTypes {
     generateTitles: { // args
       treeMd: string; // String!
     }
+    markAsRead: { // args
+      emailId: string; // String!
+    }
     newFeed: { // args
       url: string; // String!
     }
@@ -1042,7 +1076,7 @@ export interface NexusGenArgTypes {
     putDomainSettings: { // args
       domainName: string; // String!
     }
-    sendEmail: { // args
+    sendWorkEmail: { // args
       body: string; // String!
       subject: string; // String!
       threadId: string; // String!
