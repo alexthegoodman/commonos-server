@@ -1,5 +1,8 @@
 import { extendType, nonNull, nullable, stringArg } from "nexus";
 import { Context } from "../../../context";
+import e from "cors";
+import DOMPurify from "isomorphic-dompurify";
+import { v4 as uuidv4 } from "uuid";
 
 export const SendWorkEmailMutation = extendType({
   type: "Mutation",
@@ -7,42 +10,87 @@ export const SendWorkEmailMutation = extendType({
     t.field("sendWorkEmail", {
       type: "Email",
       args: {
-        threadId: nonNull(stringArg()),
+        inboxId: nonNull(stringArg()),
+        threadId: nullable(stringArg()),
         to: nonNull(stringArg()),
         subject: nonNull(stringArg()),
         body: nonNull(stringArg()),
       },
       resolve: async (
         _,
-        { threadId, to, subject, body },
+        { inboxId, threadId, to, subject, body },
         { prisma, currentUser, awsSES }: Context,
         x
       ) => {
-        const emailResponse = await awsSES.sendEmail(
-          currentUser.email,
-          to,
-          subject,
-          body
-        );
+        const relatedInbox = await prisma.inbox.findUnique({
+          where: {
+            id: inboxId,
+          },
+        });
 
-        console.info("emailResponse", emailResponse);
+        if (!relatedInbox) {
+          throw new Error("Inbox not found");
+        }
 
-        if (!emailResponse || !emailResponse.MessageId) {
-          throw new Error("Failed to send email");
+        const relatedDomain = await prisma.domainSettings.findUnique({
+          where: {
+            id: relatedInbox.domainId,
+          },
+        });
+
+        if (!relatedDomain) {
+          throw new Error("Domain not found");
+        }
+
+        const from = relatedInbox.username + "@" + relatedDomain.domainName;
+        const sanitizedBody = DOMPurify.sanitize(body);
+
+        // const emailResponse = await awsSES.sendEmail(
+        //   from,
+        //   to,
+        //   subject,
+        //   sanitizedBody
+        // );
+
+        // console.info("emailResponse", emailResponse);
+
+        // if (!emailResponse || !emailResponse.MessageId) {
+        //   throw new Error("Failed to send email");
+        // }
+
+        let thread = null as any;
+        if (threadId) {
+          thread = await prisma.thread.findUnique({
+            where: {
+              id: threadId,
+            },
+          });
+        } else {
+          thread = await prisma.thread.create({
+            data: {
+              subject,
+              inbox: {
+                connect: {
+                  id: inboxId,
+                },
+              },
+            },
+          });
         }
 
         const newEmail = await prisma.email.create({
           data: {
-            from: currentUser.email,
+            from,
             to,
             subject,
-            body,
+            body: sanitizedBody,
             thread: {
               connect: {
-                id: threadId,
+                id: thread.id,
               },
             },
-            sesMessageId: emailResponse.MessageId,
+            // sesMessageId: emailResponse.MessageId,
+            sesMessageId: uuidv4(),
           },
         });
 

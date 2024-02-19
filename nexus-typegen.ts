@@ -1080,8 +1080,9 @@ export interface NexusGenArgTypes {
     }
     sendWorkEmail: { // args
       body: string; // String!
+      inboxId: string; // String!
       subject: string; // String!
-      threadId: string; // String!
+      threadId?: string | null; // String
       to: string; // String!
     }
     simpleUpload: { // args

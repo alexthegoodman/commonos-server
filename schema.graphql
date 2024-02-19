@@ -203,7 +203,7 @@ type Mutation {
   putContactSettings(fields: String!): String
   putDomainSettings(domainName: String!): DomainSettings
   registerUser: String!
-  sendWorkEmail(body: String!, subject: String!, threadId: String!, to: String!): Email
+  sendWorkEmail(body: String!, inboxId: String!, subject: String!, threadId: String, to: String!): Email
   simpleUpload(fileData: String, fileName: String, fileSize: Int, fileType: String): JSON
   togglePublished(postId: String!): Post
   updateCompany(companyId: String!, fields: String!): Company
