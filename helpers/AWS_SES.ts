@@ -67,6 +67,9 @@ export default class AWS_SES {
     subject: string,
     body: string
   ): Promise<any> {
+    // TODO: needs to add In-Reply-To and References headers to thread emails
+    // will use https://nodemailer.com/transports/ses/ for that
+
     const command = new SendEmailCommand({
       Source: from,
       Destination: {
@@ -79,12 +82,12 @@ export default class AWS_SES {
           Data: subject,
         },
         Body: {
-          Text: {
-            Data: body,
-          },
-          // Html: {
+          // Text: {
           //   Data: body,
           // },
+          Html: {
+            Data: body,
+          },
         },
       },
     });

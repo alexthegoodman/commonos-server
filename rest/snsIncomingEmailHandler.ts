@@ -51,7 +51,6 @@ export const snsIncomingEmailHandler = async (request, response) => {
   );
 
   const record = payload.Records[0].Sns;
-  //   const record = event.Records[0].Sns;
 
   const notificationType = record.MessageAttributes["notificationType"].Value;
 
@@ -91,12 +90,30 @@ export const snsIncomingEmailHandler = async (request, response) => {
   // do not do s3+sns, just sns (need to see live payload first, w attachments)
   // https://docs.aws.amazon.com/ses/latest/dg/receiving-email-notifications-contents.html
 
-  //   await prisma.email.create({
-  //     data: {
-  //       to: toEmail,
-  //       from: fromEmail,
-  //       subject: email.mail.commonHeaders.subject,
-  //       //   body: email.
-  //     },
-  //   });
+  // need In-Reply-To (commonHeaders.replyTo ?) to thread emails
+  // In-Reply-To is listed here https://docs.aws.amazon.com/ses/latest/dg/header-fields.html
+
+  // Matching subjects with prefixes like "Re: " and "Fwd: " is a common way to thread emails
+  // https://support.reamaze.com/kb/tips-tricks/how-are-emails-and-conversations-threaded
+
+  const inReplyTo = await prisma.email.findFirst({
+    where: {
+      sesMessageId: email.mail.commonHeaders.replyTo,
+    },
+  });
+
+  // await prisma.email.create({
+  //   data: {
+  //     to: toEmail,
+  //     from: fromEmail,
+  //     subject: email.mail.commonHeaders.subject,
+  //     body: email.content,
+  //     sesMessageId: email.mail.commonHeaders.messageId,
+  //     thread: {
+  //       connect: {
+  //         id: inReplyTo?.threadId,
+  //       }
+  //     }
+  //   },
+  // });
 };
