@@ -303,6 +303,7 @@ type Query {
   getQuestions(fileApp: String!, fileTitle: String!, flowId: String!, getThis: String!): JSON
   getRSSData(url: String!): [JSON]
   getRevisedContent(fileApp: String!, fileTitle: String!, sectionContent: String!, sectionQuestions: String!): JSON
+  inbox(inboxId: String!): Inbox
   myCompanies(skip: Int!, take: Int!): [Company]
   myCompanySettings: CompanySettings
   myContactSettings: ContactSettings

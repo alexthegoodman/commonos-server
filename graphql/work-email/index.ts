@@ -9,3 +9,4 @@ export * from "./mutations/markAsRead";
 export * from "./queries/myInboxEmailThreads";
 export * from "./queries/myInboxes";
 export * from "./queries/myThreadEmails";
+export * from "./queries/inbox";

@@ -432,6 +432,9 @@ model Thread {
   subject String
   emails Email[]
 
+  draft Boolean @default(false)
+  archived Boolean @default(false)
+
   inbox Inbox @relation(fields: [inboxId], references: [id])
   inboxId String
 
@@ -448,6 +451,8 @@ model Email {
   body    String
 
   unread Boolean @default(true)
+  draft Boolean @default(false)
+  archived Boolean @default(false)
 
   sesMessageId String @unique
 

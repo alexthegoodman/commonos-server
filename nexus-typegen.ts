@@ -548,6 +548,7 @@ export interface NexusGenFieldTypes {
     getQuestions: NexusGenScalars['JSON'] | null; // JSON
     getRSSData: Array<NexusGenScalars['JSON'] | null> | null; // [JSON]
     getRevisedContent: NexusGenScalars['JSON'] | null; // JSON
+    inbox: NexusGenRootTypes['Inbox'] | null; // Inbox
     myCompanies: Array<NexusGenRootTypes['Company'] | null> | null; // [Company]
     myCompanySettings: NexusGenRootTypes['CompanySettings'] | null; // CompanySettings
     myContactSettings: NexusGenRootTypes['ContactSettings'] | null; // ContactSettings
@@ -910,6 +911,7 @@ export interface NexusGenFieldTypeNames {
     getQuestions: 'JSON'
     getRSSData: 'JSON'
     getRevisedContent: 'JSON'
+    inbox: 'Inbox'
     myCompanies: 'Company'
     myCompanySettings: 'CompanySettings'
     myContactSettings: 'ContactSettings'
@@ -1232,6 +1234,9 @@ export interface NexusGenArgTypes {
       fileTitle: string; // String!
       sectionContent: string; // String!
       sectionQuestions: string; // String!
+    }
+    inbox: { // args
+      inboxId: string; // String!
     }
     myCompanies: { // args
       skip: number; // Int!
