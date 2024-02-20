@@ -61,6 +61,9 @@ export const snsIncomingEmailHandler = async (request, response) => {
     return;
   }
 
+  // Verify the signature
+  // https://docs.aws.amazon.com/sns/latest/dg/sns-verify-signature-of-message.html
+
   const isVerified = await verifySignature(record);
 
   if (!isVerified) {
@@ -87,7 +90,7 @@ export const snsIncomingEmailHandler = async (request, response) => {
     return;
   }
 
-  // do not do s3+sns, just sns (need to see live payload first, w attachments)
+  // email object schema: (need to see live payload first, w attachments)
   // https://docs.aws.amazon.com/ses/latest/dg/receiving-email-notifications-contents.html
 
   // need In-Reply-To (commonHeaders.replyTo ?) to thread emails
