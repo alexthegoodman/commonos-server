@@ -239,6 +239,8 @@ type Post {
   creator: User
   fields: JSON
   id: String
+  markdown: String
+  published: Boolean
   title: String
   type: PostType
   updatedAt: DateTime

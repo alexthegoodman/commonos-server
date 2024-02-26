@@ -183,6 +183,8 @@ export interface NexusGenObjects {
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     fields?: NexusGenScalars['JSON'] | null; // JSON
     id?: string | null; // String
+    markdown?: string | null; // String
+    published?: boolean | null; // Boolean
     title?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
@@ -489,6 +491,8 @@ export interface NexusGenFieldTypes {
     creator: NexusGenRootTypes['User'] | null; // User
     fields: NexusGenScalars['JSON'] | null; // JSON
     id: string | null; // String
+    markdown: string | null; // String
+    published: boolean | null; // Boolean
     title: string | null; // String
     type: NexusGenRootTypes['PostType'] | null; // PostType
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
@@ -852,6 +856,8 @@ export interface NexusGenFieldTypeNames {
     creator: 'User'
     fields: 'JSON'
     id: 'String'
+    markdown: 'String'
+    published: 'Boolean'
     title: 'String'
     type: 'PostType'
     updatedAt: 'DateTime'

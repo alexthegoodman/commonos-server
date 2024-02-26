@@ -6,7 +6,10 @@ export const PostType = objectType({
   definition(t) {
     t.field("id", { type: "String" });
     t.field("title", { type: "String" });
+    t.field("markdown", { type: "String" });
     t.field("fields", { type: "JSON" });
+
+    t.field("published", { type: "Boolean" });
 
     t.field("type", {
       type: "PostType",
