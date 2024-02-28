@@ -433,7 +433,7 @@ export interface NexusGenFieldTypes {
     createInbox: NexusGenRootTypes['Inbox'] | null; // Inbox
     createOrganization: NexusGenRootTypes['Organization'] | null; // Organization
     createPost: NexusGenRootTypes['Post'] | null; // Post
-    createPostType: NexusGenRootTypes['Post'] | null; // Post
+    createPostType: NexusGenRootTypes['PostType'] | null; // PostType
     createProject: NexusGenRootTypes['Project'] | null; // Project
     deleteCompany: string | null; // String
     deleteContact: string | null; // String
@@ -798,7 +798,7 @@ export interface NexusGenFieldTypeNames {
     createInbox: 'Inbox'
     createOrganization: 'Organization'
     createPost: 'Post'
-    createPostType: 'Post'
+    createPostType: 'PostType'
     createProject: 'Project'
     deleteCompany: 'String'
     deleteContact: 'String'
@@ -1037,6 +1037,10 @@ export interface NexusGenArgTypes {
     }
     createPost: { // args
       postTypeId: string; // String!
+    }
+    createPostType: { // args
+      fields: string; // String!
+      name: string; // String!
     }
     createProject: { // args
       organizationId: string; // String!

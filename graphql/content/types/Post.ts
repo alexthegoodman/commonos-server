@@ -1,7 +1,7 @@
 import { objectType } from "nexus";
 import { Context } from "../../../context";
 
-export const PostType = objectType({
+export const Post = objectType({
   name: "Post",
   definition(t) {
     t.field("id", { type: "String" });

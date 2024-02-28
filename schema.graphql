@@ -179,7 +179,7 @@ type Mutation {
   createInbox(username: String!): Inbox
   createOrganization(name: String!): Organization
   createPost(postTypeId: String!): Post
-  createPostType: Post
+  createPostType(fields: String!, name: String!): PostType
   createProject(organizationId: String!, title: String!): Project
   deleteCompany(companyId: String!): String
   deleteContact(contactId: String!): String

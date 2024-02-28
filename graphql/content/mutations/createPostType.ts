@@ -5,12 +5,21 @@ export const CreatePostTypeMutation = extendType({
   type: "Mutation",
   definition(t) {
     t.field("createPostType", {
-      type: "Post",
-      args: {},
-      resolve: async (_, {}, { prisma, currentUser }: Context, x) => {
+      type: "PostType",
+      args: {
+        name: nonNull(stringArg()),
+        fields: nonNull(stringArg()),
+      },
+      resolve: async (
+        _,
+        { name, fields },
+        { prisma, currentUser }: Context,
+        x
+      ) => {
         const newPostType = await prisma.postType.create({
           data: {
-            name: "New Post Type",
+            name,
+            fields: JSON.parse(fields),
             creator: {
               connect: {
                 id: currentUser.id,
