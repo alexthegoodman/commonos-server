@@ -1224,7 +1224,6 @@ export interface NexusGenArgTypes {
     }
     getFileList: { // args
       flowId: string; // String!
-      getThis: string; // String!
     }
     getGeneratedText: { // args
       contextText: string; // String!

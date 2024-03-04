@@ -14,11 +14,14 @@ export const GetFileListQuery = extendType({
       type: "JSON",
       args: {
         flowId: nonNull(stringArg()),
-        getThis: nonNull(stringArg()),
+        // getThis: nonNull(stringArg()),
       },
       resolve: async (
         _,
-        { flowId, getThis },
+        {
+          flowId,
+          //getThis
+        },
         { prisma, openai, currentUser }: Context,
         x
       ) => {
@@ -37,23 +40,60 @@ export const GetFileListQuery = extendType({
           throw new Error("Flow not found");
         }
 
-        const { initialQuestions } = flow.questionsContext as any;
+        const { initialQuestions, chosenApps } = flow.questionsContext as any;
 
-        let content = "";
-        switch (getThis) {
-          case "documents":
-            content = getDocumentList(flow.prompt, initialQuestions);
-            break;
-          case "additionalFiles":
-            content = getAddtFilesList(flow.prompt, initialQuestions);
-            break;
-          default:
-            throw new Error("Invalid getThis");
+        if (!initialQuestions) {
+          throw new Error("Questions not found");
         }
 
-        console.info("getFileList", content);
+        if (!chosenApps) {
+          throw new Error("Chosen Apps not found");
+        }
 
-        const finalJson = await openaiClient.makeCompletion(content);
+        let finalJson = {} as any;
+
+        await Promise.all(
+          chosenApps.map(async (app) => {
+            let content = "";
+            switch (app) {
+              case "documents":
+                content = getDocumentList(flow.prompt, initialQuestions, 5);
+                break;
+              case "work-email":
+                content = getAddtFilesList(
+                  flow.prompt,
+                  initialQuestions,
+                  app,
+                  3,
+                  "email subjects"
+                );
+                break;
+              case "relationships":
+                content = getAddtFilesList(
+                  flow.prompt,
+                  initialQuestions,
+                  "Relationships CRM",
+                  3,
+                  "dashboard titles"
+                );
+                break;
+              default:
+                content = getAddtFilesList(
+                  flow.prompt,
+                  initialQuestions,
+                  app,
+                  3
+                );
+                break;
+            }
+
+            console.info("getFileList", content);
+
+            const appFiles = await openaiClient.makeCompletion(content);
+
+            finalJson = { ...finalJson, ...appFiles };
+          })
+        );
 
         return finalJson;
       },
