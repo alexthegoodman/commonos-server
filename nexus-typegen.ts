@@ -1036,7 +1036,10 @@ export interface NexusGenArgTypes {
       name: string; // String!
     }
     createPost: { // args
+      fields?: string | null; // String
+      markdown: string; // String!
       postTypeId: string; // String!
+      title: string; // String!
     }
     createPostType: { // args
       fields: string; // String!

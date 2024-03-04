@@ -8,18 +8,22 @@ export const CreatePostMutation = extendType({
       type: "Post",
       args: {
         postTypeId: nonNull(stringArg()),
+        title: nonNull(stringArg()),
+        markdown: nonNull(stringArg()),
+        fields: nullable(stringArg()),
       },
       resolve: async (
         _,
-        { postTypeId },
+        { postTypeId, title, markdown, fields },
         { prisma, currentUser }: Context,
         x
       ) => {
         const newPost = await prisma.post.create({
           data: {
-            title: "New Draft Post",
+            title,
             published: false,
-            markdown: "",
+            markdown,
+            fields: fields ? JSON.parse(fields) : undefined,
             type: {
               connect: {
                 id: postTypeId,

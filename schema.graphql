@@ -178,7 +178,7 @@ type Mutation {
   createFunnel: Funnel
   createInbox(username: String!): Inbox
   createOrganization(name: String!): Organization
-  createPost(postTypeId: String!): Post
+  createPost(fields: String, markdown: String!, postTypeId: String!, title: String!): Post
   createPostType(fields: String!, name: String!): PostType
   createProject(organizationId: String!, title: String!): Project
   deleteCompany(companyId: String!): String
