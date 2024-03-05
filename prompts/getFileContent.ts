@@ -95,3 +95,72 @@ ${
     : "No additional information provided"
 }
 `;
+
+export const getContentContent = (fileName, fileQuestions, background) => `
+Content Title: ${fileName}
+Content Information: ${background ? background : "No information provided"}
+Additional Information:
+${
+  fileQuestions.length
+    ? fileQuestions
+        .map((question) =>
+          question.chosenAnswers.length || question.freeformAnswer.length
+            ? `Question: ${
+                question.question
+              }\nAnswers:${question.chosenAnswers.join(",")},${
+                question.freeformAnswer
+              }`
+            : ""
+        )
+        .join("\n")
+    : "No additional information provided"
+}
+
+Given the provided content title and information, please write at least 5 paragraphs for this piece of content.
+`;
+
+export const getWorkEmailContent = (fileName, fileQuestions, background) => `
+Email Subject: ${fileName}
+Email Information: ${background ? background : "No information provided"}
+Additional Information:
+${
+  fileQuestions.length
+    ? fileQuestions
+        .map((question) =>
+          question.chosenAnswers.length || question.freeformAnswer.length
+            ? `Question: ${
+                question.question
+              }\nAnswers:${question.chosenAnswers.join(",")},${
+                question.freeformAnswer
+              }`
+            : ""
+        )
+        .join("\n")
+    : "No additional information provided"
+}
+
+Given the provided email subject and information, please write an email body.
+`;
+
+// export const getRelationshipsContent = (fileName, fileQuestions, background) => `
+// CRM Dashboard Title: ${fileName}
+// Dashboard Information: ${background ? background : "No information provided"}
+// Additional Information:
+// ${
+//   fileQuestions.length
+//     ? fileQuestions
+//         .map((question) =>
+//           question.chosenAnswers.length || question.freeformAnswer.length
+//             ? `Question: ${
+//                 question.question
+//               }\nAnswers:${question.chosenAnswers.join(",")},${
+//                 question.freeformAnswer
+//               }`
+//             : ""
+//         )
+//         .join("\n")
+//     : "No additional information provided"
+// }
+
+// Given the provided dashboard title and information, please write a list of at least 5 KPIs to monitor in this dashboard.
+// `;

@@ -115,10 +115,13 @@ export interface NexusGenObjects {
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
   Email: { // root type
+    archived?: boolean | null; // Boolean
     body?: string | null; // String
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    draft?: boolean | null; // Boolean
     from?: string | null; // String
     id?: string | null; // String
+    initialMarkdown?: string | null; // String
     subject?: string | null; // String
     to?: string | null; // String
     unread?: boolean | null; // Boolean
@@ -355,10 +358,13 @@ export interface NexusGenFieldTypes {
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
   Email: { // field return type
+    archived: boolean | null; // Boolean
     body: string | null; // String
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    draft: boolean | null; // Boolean
     from: string | null; // String
     id: string | null; // String
+    initialMarkdown: string | null; // String
     subject: string | null; // String
     thread: NexusGenRootTypes['Thread'] | null; // Thread
     to: string | null; // String
@@ -720,10 +726,13 @@ export interface NexusGenFieldTypeNames {
     updatedAt: 'DateTime'
   }
   Email: { // field return type name
+    archived: 'Boolean'
     body: 'String'
     createdAt: 'DateTime'
+    draft: 'Boolean'
     from: 'String'
     id: 'String'
+    initialMarkdown: 'String'
     subject: 'String'
     thread: 'Thread'
     to: 'String'

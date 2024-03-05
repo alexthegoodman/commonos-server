@@ -2,10 +2,12 @@ import { extendType, intArg, nonNull, nullable, stringArg } from "nexus";
 import { Context } from "../../../context";
 import OpenAIClient from "../../../helpers/OpenAI";
 import {
+  getContentContent,
   getDocumentContent,
   getImageContent,
   getPresentationContent,
   getSheetContent,
+  getWorkEmailContent,
 } from "../../../prompts/getFileContent";
 import { v4 as uuidv4 } from "uuid";
 
@@ -302,7 +304,7 @@ export const CreateFileMutation = extendType({
             });
 
             break;
-          case "images":
+          case "images" || "drawings":
             const imagePrompt = getImageContent(
               fileData.name,
               fileData.questions,
@@ -363,6 +365,133 @@ export const CreateFileMutation = extendType({
               },
               data: {
                 drawingFiles: newDrawingFiles,
+              },
+            });
+
+            break;
+          case "content":
+            const contentPrompt = getContentContent(
+              fileData.name,
+              fileData.questions,
+              fileData.background
+            );
+            const contentContent = await openaiClient.makeCompletion(
+              contentPrompt,
+              1.5,
+              "text"
+            );
+
+            let existingPostType = await prisma.postType.findFirst({
+              where: {
+                name: folderName,
+                creator: {
+                  id: currentUser.id,
+                },
+              },
+            });
+
+            if (!existingPostType) {
+              existingPostType = await prisma.postType.create({
+                data: {
+                  name: folderName,
+                  creator: {
+                    connect: {
+                      id: currentUser.id,
+                    },
+                  },
+                },
+              });
+            }
+
+            const newPost = await prisma.post.create({
+              data: {
+                title: fileData.name,
+                type: {
+                  connect: {
+                    id: existingPostType.id,
+                  },
+                },
+                markdown: contentContent,
+                creator: {
+                  connect: {
+                    id: currentUser.id,
+                  },
+                },
+              },
+            });
+
+            break;
+          case "work-email":
+            const emailPrompt = getWorkEmailContent(
+              fileData.name,
+              fileData.questions,
+              fileData.background
+            );
+            const emailContent = await openaiClient.makeCompletion(
+              emailPrompt,
+              1.5,
+              "text"
+            );
+
+            const domainSettings = await prisma.domainSettings.findFirst({
+              where: {
+                user: {
+                  id: currentUser.id,
+                },
+              },
+            });
+
+            const firstInbox = await prisma.inbox.findFirst({
+              where: {
+                domain: {
+                  id: domainSettings?.id,
+                },
+              },
+            });
+
+            if (!firstInbox) {
+              throw new Error("No inbox found");
+            }
+
+            const newThread = await prisma.thread.create({
+              data: {
+                subject: fileData.name,
+                inbox: {
+                  connect: {
+                    id: firstInbox.id,
+                  },
+                },
+              },
+            });
+
+            const newEmail = await prisma.email.create({
+              data: {
+                from: firstInbox.username + "@" + domainSettings?.domainName,
+                to: "",
+                subject: fileData.name,
+                body: "",
+                initialMarkdown: emailContent,
+                sesMessageId: "",
+                draft: true,
+                thread: {
+                  connect: {
+                    id: newThread.id,
+                  },
+                },
+              },
+            });
+
+            break;
+          case "relationships":
+            // no content yet, just dynamic title for now :(
+            const newDashboard = await prisma.dashboard.create({
+              data: {
+                title: fileData.name,
+                creator: {
+                  connect: {
+                    id: currentUser.id,
+                  },
+                },
               },
             });
 

@@ -9,7 +9,11 @@ export const EmailType = objectType({
     t.field("to", { type: "String" });
     t.field("subject", { type: "String" });
     t.field("body", { type: "String" });
+    t.field("initialMarkdown", { type: "String" });
+
     t.field("unread", { type: "Boolean" });
+    t.field("draft", { type: "Boolean" });
+    t.field("archived", { type: "Boolean" });
 
     t.field("thread", {
       type: "Thread",

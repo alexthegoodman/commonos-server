@@ -88,10 +88,13 @@ type Drawing {
 }
 
 type Email {
+  archived: Boolean
   body: String
   createdAt: DateTime
+  draft: Boolean
   from: String
   id: String
+  initialMarkdown: String
   subject: String
   thread: Thread
   to: String
