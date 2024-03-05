@@ -119,7 +119,7 @@ export const GetFileListQuery = extendType({
                   "CMS",
                   "content",
                   3,
-                  "titles",
+                  "content titles",
                   "Provide CMS titles that sound like article or blog post titles."
                 );
                 break;
