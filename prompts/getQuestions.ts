@@ -79,3 +79,30 @@ Provide a list of 3 multiple choice questions, each regarding the visual details
 Answer with a JSON object containing an array of strings. For example:
 {"questions":[{"question":"Question 1","answers":["Answer 1","Answer 2","Answer 3"]},{"question":"Question 2","answers":["Answer 1","Answer 2","Answer 3"]}]}
 `;
+
+export const getContentQuestions = (prompt) => `
+${prompt}
+
+Provide a list of 5 multiple choice questions, each regarding the content of the CMS file. Ask questions regarding what the user wants in the file.
+
+Answer with a JSON object containing an array of strings. For example:
+{"questions":[{"question":"Question 1","answers":["Answer 1","Answer 2","Answer 3"]},{"question":"Question 2","answers":["Answer 1","Answer 2","Answer 3"]}]}
+`;
+
+export const getWorkEmailQuestions = (prompt) => `
+${prompt}
+
+Provide a list of 3 multiple choice questions, each regarding the content of the email file. Ask questions regarding what the user wants in the email file.
+
+Answer with a JSON object containing an array of strings. For example:
+{"questions":[{"question":"Question 1","answers":["Answer 1","Answer 2","Answer 3"]},{"question":"Question 2","answers":["Answer 1","Answer 2","Answer 3"]}]}
+`;
+
+export const getRelationshipsQuestions = (prompt) => `
+${prompt}
+
+Provide a list of 5 multiple choice questions, each regarding the content of the Relationships CRM Dashboard file. Ask questions regarding what the user wants in the file.
+
+Answer with a JSON object containing an array of strings. For example:
+{"questions":[{"question":"Question 1","answers":["Answer 1","Answer 2","Answer 3"]},{"question":"Question 2","answers":["Answer 1","Answer 2","Answer 3"]}]}
+`;

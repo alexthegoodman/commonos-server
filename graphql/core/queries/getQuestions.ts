@@ -1,13 +1,16 @@
 import { extendType, nonNull, nullable, stringArg } from "nexus";
 import { Context } from "../../../context";
 import {
+  getContentQuestions,
   getDocumentOutline,
   getDocumentQuestions,
   getDrawingQuestions,
   getInitialQuestions,
   getPresentationOutline,
   getPresentationQuestions,
+  getRelationshipsQuestions,
   getSheetQuestions,
+  getWorkEmailQuestions,
 } from "../../../prompts/getQuestions";
 import { getEncoding, encodingForModel } from "js-tiktoken";
 import OpenAIClient from "../../../helpers/OpenAI";
@@ -75,6 +78,12 @@ export const GetQuestionsQuery = extendType({
               content = getSheetQuestions(fileTitle);
             } else if (fileApp === "images") {
               content = getDrawingQuestions(fileTitle);
+            } else if (fileApp === "work-email") {
+              content = getWorkEmailQuestions(fileTitle);
+            } else if (fileApp === "relationships") {
+              content = getRelationshipsQuestions(fileTitle);
+            } else if (fileApp === "content") {
+              content = getContentQuestions(fileTitle);
             }
 
             break;
