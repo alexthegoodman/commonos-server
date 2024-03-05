@@ -70,6 +70,7 @@ export const getAddtFilesList = (
   prompt,
   initialQuestions,
   fileType = "presentation",
+  returnFileType = "presentations",
   numFiles = 3,
   targetItem = "titles"
 ) => `
@@ -95,5 +96,5 @@ ${
 }
 
 Answer with a JSON object containing an array of strings. For example:
-{"${fileType}s":["Item 1", "Item 2", "Item 3"]}
+{"${returnFileType}":["Item 1", "Item 2", "Item 3"]}
 `;

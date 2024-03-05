@@ -64,6 +64,7 @@ export const GetFileListQuery = extendType({
                   flow.prompt,
                   initialQuestions,
                   app,
+                  "work-email",
                   3,
                   "email subjects"
                 );
@@ -73,6 +74,7 @@ export const GetFileListQuery = extendType({
                   flow.prompt,
                   initialQuestions,
                   "Relationships CRM",
+                  "relationships",
                   3,
                   "dashboard titles"
                 );
@@ -81,6 +83,7 @@ export const GetFileListQuery = extendType({
                 content = getAddtFilesList(
                   flow.prompt,
                   initialQuestions,
+                  app,
                   app,
                   3
                 );
