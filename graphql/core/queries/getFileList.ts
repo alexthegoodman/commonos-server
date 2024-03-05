@@ -66,7 +66,8 @@ export const GetFileListQuery = extendType({
                   app,
                   "work-email",
                   3,
-                  "email subjects"
+                  "email subjects",
+                  "Provide email subjects that sound personal and direct rather than like newsletters."
                 );
                 break;
               case "relationships":
@@ -76,7 +77,50 @@ export const GetFileListQuery = extendType({
                   "Relationships CRM",
                   "relationships",
                   3,
-                  "dashboard titles"
+                  "dashboard titles",
+                  "Provide Dashboard titles that make sense for monitoring CRM KPIs."
+                );
+                break;
+              case "drawings":
+                content = getAddtFilesList(
+                  flow.prompt,
+                  initialQuestions,
+                  "image",
+                  "drawings",
+                  3,
+                  "prompts",
+                  "Provide image prompts that are detailed and meant for a generator like Dall-E."
+                );
+                break;
+              case "sheets":
+                content = getAddtFilesList(
+                  flow.prompt,
+                  initialQuestions,
+                  "spreadsheet",
+                  "sheets",
+                  3,
+                  "titles"
+                );
+                break;
+              case "slides":
+                content = getAddtFilesList(
+                  flow.prompt,
+                  initialQuestions,
+                  "presentation",
+                  "slides",
+                  3,
+                  "titles"
+                );
+                break;
+              case "content":
+                content = getAddtFilesList(
+                  flow.prompt,
+                  initialQuestions,
+                  "CMS",
+                  "content",
+                  3,
+                  "titles",
+                  "Provide CMS titles that sound like article or blog post titles."
                 );
                 break;
               default:

@@ -72,9 +72,12 @@ export const getAddtFilesList = (
   fileType = "presentation",
   returnFileType = "presentations",
   numFiles = 3,
-  targetItem = "titles"
+  targetItem = "titles",
+  notes = ""
 ) => `
 Provide a list of ${numFiles} ${fileType} ${targetItem} (like those kept as notes by consultants, startup founders, or researchers, rather than ${targetItem} which sound like article titles) that are relevant to the prompt below.
+
+${notes}
 
 Prompt: "${prompt}"
 
