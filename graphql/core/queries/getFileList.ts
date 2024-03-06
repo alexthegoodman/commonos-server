@@ -64,7 +64,7 @@ export const GetFileListQuery = extendType({
                   flow.prompt,
                   initialQuestions,
                   app,
-                  "work-email",
+                  "subjects",
                   3,
                   "email subjects",
                   "Provide email subjects that sound personal and direct rather than like newsletters."
@@ -75,7 +75,7 @@ export const GetFileListQuery = extendType({
                   flow.prompt,
                   initialQuestions,
                   "Relationships CRM",
-                  "relationships",
+                  "titles",
                   3,
                   "dashboard titles",
                   "Provide Dashboard titles that make sense for monitoring CRM KPIs."
@@ -86,7 +86,7 @@ export const GetFileListQuery = extendType({
                   flow.prompt,
                   initialQuestions,
                   "image",
-                  "drawings",
+                  "prompts",
                   3,
                   "prompts",
                   "Provide image prompts that are detailed and meant for a generator like Dall-E."
@@ -97,7 +97,7 @@ export const GetFileListQuery = extendType({
                   flow.prompt,
                   initialQuestions,
                   "spreadsheet",
-                  "sheets",
+                  "titles",
                   3,
                   "titles"
                 );
@@ -107,7 +107,7 @@ export const GetFileListQuery = extendType({
                   flow.prompt,
                   initialQuestions,
                   "presentation",
-                  "slides",
+                  "titles",
                   3,
                   "titles"
                 );
@@ -117,7 +117,7 @@ export const GetFileListQuery = extendType({
                   flow.prompt,
                   initialQuestions,
                   "CMS",
-                  "content",
+                  "titles",
                   3,
                   "content titles",
                   "Provide CMS titles that sound like article or blog post titles."
@@ -128,7 +128,7 @@ export const GetFileListQuery = extendType({
                   flow.prompt,
                   initialQuestions,
                   app,
-                  app,
+                  "titles",
                   3
                 );
                 break;
@@ -138,7 +138,34 @@ export const GetFileListQuery = extendType({
 
             const appFiles = await openaiClient.makeCompletion(content);
 
-            finalJson = { ...finalJson, ...appFiles };
+            let includedFiles = {} as any;
+            switch (app) {
+              case "documents":
+                includedFiles.documents = appFiles.documents;
+                break;
+              case "work-email":
+                includedFiles["work-email"] = appFiles.subjects;
+                break;
+              case "relationships":
+                includedFiles.relationships = appFiles.titles;
+                break;
+              case "drawings":
+                includedFiles.drawings = appFiles.prompts;
+                break;
+              case "sheets":
+                includedFiles.sheets = appFiles.titles;
+                break;
+              case "slides":
+                includedFiles.slides = appFiles.titles;
+                break;
+              case "content":
+                includedFiles.content = appFiles.titles;
+                break;
+              default:
+                break;
+            }
+
+            finalJson = { ...finalJson, ...includedFiles };
           })
         );
 
