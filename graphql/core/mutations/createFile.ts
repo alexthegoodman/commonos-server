@@ -47,6 +47,7 @@ export const CreateFileMutation = extendType({
         const fileData = files?.find((file) => file.id === fileId);
 
         const folderName = prompt.substr(0, 80) + "...";
+        const shortFolderName = prompt.substr(0, 40) + "...";
 
         console.info("createFile", fileData, folderName);
 
@@ -383,7 +384,7 @@ export const CreateFileMutation = extendType({
 
             let existingPostType = await prisma.postType.findFirst({
               where: {
-                name: folderName,
+                name: shortFolderName,
                 creator: {
                   id: currentUser.id,
                 },
@@ -393,7 +394,7 @@ export const CreateFileMutation = extendType({
             if (!existingPostType) {
               existingPostType = await prisma.postType.create({
                 data: {
-                  name: folderName,
+                  name: shortFolderName,
                   creator: {
                     connect: {
                       id: currentUser.id,
@@ -471,7 +472,7 @@ export const CreateFileMutation = extendType({
                 subject: fileData.name,
                 body: "",
                 initialMarkdown: emailContent,
-                sesMessageId: "",
+                sesMessageId: uuidv4(),
                 draft: true,
                 thread: {
                   connect: {

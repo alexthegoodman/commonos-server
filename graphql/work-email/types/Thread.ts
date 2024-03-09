@@ -33,6 +33,9 @@ export const ThreadType = objectType({
               id: thread.id as string,
             },
           },
+          orderBy: {
+            createdAt: "asc",
+          },
         });
       },
     });

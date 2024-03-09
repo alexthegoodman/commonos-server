@@ -17,6 +17,9 @@ export const InboxType = objectType({
               id: inbox.id as string,
             },
           },
+          orderBy: {
+            createdAt: "desc",
+          },
         });
       },
     });

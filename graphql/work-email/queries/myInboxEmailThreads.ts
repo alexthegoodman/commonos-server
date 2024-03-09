@@ -18,7 +18,7 @@ export const MyInboxEmailThreadsQuery = extendType({
             },
           },
           orderBy: {
-            createdAt: "asc",
+            createdAt: "desc",
           },
         });
 
