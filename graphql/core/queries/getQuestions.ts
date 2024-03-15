@@ -14,6 +14,7 @@ import {
 } from "../../../prompts/getQuestions";
 import { getEncoding, encodingForModel } from "js-tiktoken";
 import OpenAIClient from "../../../helpers/OpenAI";
+import AI_Controller from "../../../helpers/AI_Controller";
 
 export const GetQuestionsQuery = extendType({
   type: "Query",
@@ -33,7 +34,8 @@ export const GetQuestionsQuery = extendType({
         x
       ) => {
         console.info("getQuestions", fileTitle, fileApp, getThis);
-        const openaiClient = new OpenAIClient(openai, prisma, currentUser);
+        const aiClient = new AI_Controller(openai, prisma, currentUser);
+        const model = "mistral";
 
         const flow = await prisma.flow.findFirst({
           where: {
@@ -58,8 +60,10 @@ export const GetQuestionsQuery = extendType({
 
             if (fileApp === "documents") {
               const outlineContent = getDocumentOutline(fileTitle);
-              const outlineJson =
-                await openaiClient.makeCompletion(outlineContent);
+              const outlineJson = await aiClient.makeCompletion(
+                model,
+                outlineContent
+              );
               content = getDocumentQuestions(
                 fileTitle,
                 initialQuestions,
@@ -67,8 +71,10 @@ export const GetQuestionsQuery = extendType({
               );
             } else if (fileApp === "slides") {
               const outlineContent = getPresentationOutline(fileTitle);
-              const outlineJson =
-                await openaiClient.makeCompletion(outlineContent);
+              const outlineJson = await aiClient.makeCompletion(
+                model,
+                outlineContent
+              );
               content = getPresentationQuestions(
                 fileTitle,
                 initialQuestions,
@@ -93,7 +99,7 @@ export const GetQuestionsQuery = extendType({
 
         console.info("getQuestions", content);
 
-        const finalJson = await openaiClient.makeCompletion(content);
+        const finalJson = await aiClient.makeCompletion(model, content);
 
         return finalJson;
       },

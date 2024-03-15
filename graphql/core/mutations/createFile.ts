@@ -10,6 +10,7 @@ import {
   getWorkEmailContent,
 } from "../../../prompts/getFileContent";
 import { v4 as uuidv4 } from "uuid";
+import AI_Controller from "../../../helpers/AI_Controller";
 
 export const CreateFileMutation = extendType({
   type: "Mutation",
@@ -27,7 +28,9 @@ export const CreateFileMutation = extendType({
         { prisma, openai, currentUser }: Context,
         x
       ) => {
-        const openaiClient = new OpenAIClient(openai, prisma, currentUser);
+        // const openaiClient = new OpenAIClient(openai, prisma, currentUser);
+        const aiClient = new AI_Controller(openai, prisma, currentUser);
+        const model = "mistral";
 
         const flow = await prisma.flow.findFirst({
           where: {
@@ -62,7 +65,8 @@ export const CreateFileMutation = extendType({
               fileData.questions,
               fileData.background
             );
-            const documentContent = await openaiClient.makeCompletion(
+            const documentContent = await aiClient.makeCompletion(
+              model,
               documentPrompt,
               1.2,
               "text"
@@ -128,7 +132,8 @@ export const CreateFileMutation = extendType({
               fileData.questions,
               fileData.background
             );
-            const presentationContent = await openaiClient.makeCompletion(
+            const presentationContent = await aiClient.makeCompletion(
+              model,
               presentationPrompt,
               1.5,
               "json_object"
@@ -233,7 +238,8 @@ export const CreateFileMutation = extendType({
               fileData.questions,
               fileData.background
             );
-            const sheetContent = await openaiClient.makeCompletion(
+            const sheetContent = await aiClient.makeCompletion(
+              model,
               sheetPrompt,
               1.5,
               "json_object"
@@ -311,7 +317,11 @@ export const CreateFileMutation = extendType({
               fileData.questions,
               fileData.background
             );
-            const imageBlob = await openaiClient.makeImage(imagePrompt);
+            const imageBlob = await aiClient.makeImage(model, imagePrompt);
+
+            if (!imageBlob) {
+              throw new Error("No image blob");
+            }
 
             const drawingContext = {
               lines: [],
@@ -376,7 +386,8 @@ export const CreateFileMutation = extendType({
               fileData.questions,
               fileData.background
             );
-            const contentContent = await openaiClient.makeCompletion(
+            const contentContent = await aiClient.makeCompletion(
+              model,
               contentPrompt,
               1.2, // may need to be 1.2 to avoid gibberish
               "text"
@@ -428,7 +439,8 @@ export const CreateFileMutation = extendType({
               fileData.questions,
               fileData.background
             );
-            const emailContent = await openaiClient.makeCompletion(
+            const emailContent = await aiClient.makeCompletion(
+              model,
               emailPrompt,
               1.5,
               "text"

@@ -62,4 +62,15 @@ export default class Helpers {
     const path = folder + sanitizedFileName;
     return path;
   }
+
+  getTokenLimit(currentUser) {
+    const tokenUsageLimit =
+      currentUser.subscription === "NONE"
+        ? 50000
+        : currentUser.subscription === "STANDARD"
+          ? 2000000
+          : 0;
+
+    return tokenUsageLimit;
+  }
 }

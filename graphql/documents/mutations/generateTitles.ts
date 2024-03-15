@@ -2,6 +2,7 @@ import { extendType, nonNull, nullable, stringArg } from "nexus";
 import { Context } from "../../../context";
 import OpenAIClient from "../../../helpers/OpenAI";
 import { getMoreDocumentTitles } from "../../../prompts/getFileList";
+import AI_Controller from "../../../helpers/AI_Controller";
 
 export const GenerateTitlesMutation = extendType({
   type: "Mutation",
@@ -17,11 +18,13 @@ export const GenerateTitlesMutation = extendType({
         { openai, prisma, currentUser }: Context,
         x
       ) => {
-        const openaiClient = new OpenAIClient(openai, prisma, currentUser);
+        const aiClient = new AI_Controller(openai, prisma, currentUser);
+        const model = "mistral";
 
         const titlesPrompt = getMoreDocumentTitles(treeMd);
 
-        const titles = await openaiClient.makeCompletion(
+        const titles = await aiClient.makeCompletion(
+          model,
           titlesPrompt,
           1.2,
           "json_object"

@@ -6,6 +6,7 @@ import {
 } from "../../../prompts/getFileList";
 import { getEncoding, encodingForModel } from "js-tiktoken";
 import OpenAIClient from "../../../helpers/OpenAI";
+import AI_Controller from "../../../helpers/AI_Controller";
 
 export const GetFileListQuery = extendType({
   type: "Query",
@@ -25,7 +26,8 @@ export const GetFileListQuery = extendType({
         { prisma, openai, currentUser }: Context,
         x
       ) => {
-        const openaiClient = new OpenAIClient(openai, prisma, currentUser);
+        const aiClient = new AI_Controller(openai, prisma, currentUser);
+        const model = "mistral";
 
         const flow = await prisma.flow.findFirst({
           where: {
@@ -136,7 +138,7 @@ export const GetFileListQuery = extendType({
 
             console.info("getFileList", content);
 
-            const appFiles = await openaiClient.makeCompletion(content);
+            const appFiles = await aiClient.makeCompletion(model, content);
 
             let includedFiles = {} as any;
             switch (app) {

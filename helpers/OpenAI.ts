@@ -24,12 +24,8 @@ export default class OpenAIClient {
     temperature = 1.5,
     responseFormat = "json_object"
   ) {
-    const tokenUsageLimit =
-      this.currentUser.subscription === "NONE"
-        ? 50000
-        : this.currentUser.subscription === "STANDARD"
-          ? 2000000
-          : 0;
+    const helpers = new Helpers();
+    const tokenUsageLimit = helpers.getTokenLimit(this.currentUser);
 
     if (this.currentUser.periodTokenUsage >= tokenUsageLimit) {
       throw new Error("Token usage limit reached");

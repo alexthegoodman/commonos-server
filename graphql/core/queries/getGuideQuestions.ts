@@ -6,6 +6,7 @@ import {
   getDocumentGuideQuestions,
   getPresentationGuideQuestions,
 } from "../../../prompts/getGuideQuestions";
+import AI_Controller from "../../../helpers/AI_Controller";
 
 export const GetGuideQuestionsQuery = extendType({
   type: "Query",
@@ -27,7 +28,8 @@ export const GetGuideQuestionsQuery = extendType({
 
         sectionContent = JSON.parse(sectionContent);
 
-        const openaiClient = new OpenAIClient(openai, prisma, currentUser);
+        const aiClient = new AI_Controller(openai, prisma, currentUser);
+        const model = "mistral";
 
         let content = "";
         switch (fileApp) {
@@ -47,7 +49,7 @@ export const GetGuideQuestionsQuery = extendType({
             throw new Error("Invalid file app");
         }
 
-        const finalJson = await openaiClient.makeCompletion(content);
+        const finalJson = await aiClient.makeCompletion(model, content);
 
         return finalJson;
       },

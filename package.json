@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@apollo/server": "^4.9.5",
+    "@aws-sdk/client-bedrock-runtime": "^3.533.0",
     "@aws-sdk/client-s3": "^3.513.0",
     "@aws-sdk/client-ses": "^3.513.0",
     "@faker-js/faker": "^8.3.1",

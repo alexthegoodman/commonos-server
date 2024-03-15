@@ -7,6 +7,7 @@ import {
   getDocumentRevisionContent,
   getPresentationRevisionContent,
 } from "../../../prompts/getRevisedContent";
+import AI_Controller from "../../../helpers/AI_Controller";
 
 export const GetRevisedContentQuery = extendType({
   type: "Query",
@@ -36,7 +37,8 @@ export const GetRevisedContentQuery = extendType({
         sectionContent = JSON.parse(sectionContent);
         sectionQuestions = JSON.parse(sectionQuestions);
 
-        const openaiClient = new OpenAIClient(openai, prisma, currentUser);
+        const aiClient = new AI_Controller(openai, prisma, currentUser);
+        const model = "mistral";
 
         let content = "";
         let finalJson = {};
@@ -47,7 +49,12 @@ export const GetRevisedContentQuery = extendType({
               sectionContent,
               sectionQuestions
             );
-            let text = await openaiClient.makeCompletion(content, 1.2, "text");
+            let text = await aiClient.makeCompletion(
+              model,
+              content,
+              1.2,
+              "text"
+            );
             finalJson = { text };
             break;
           case "slides":
@@ -56,7 +63,7 @@ export const GetRevisedContentQuery = extendType({
               sectionContent,
               sectionQuestions
             );
-            finalJson = await openaiClient.makeCompletion(content);
+            finalJson = await aiClient.makeCompletion(model, content);
             break;
           case "spreadsheets":
             break;
