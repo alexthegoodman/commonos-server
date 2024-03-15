@@ -47,7 +47,7 @@ export const CreateFileMutation = extendType({
         const fileData = files?.find((file) => file.id === fileId);
 
         const folderName = prompt.substr(0, 80) + "...";
-        const shortFolderName = prompt.substr(0, 40) + "...";
+        const shortFolderName = prompt.substr(0, 30) + "...";
 
         console.info("createFile", fileData, folderName);
 
@@ -378,7 +378,7 @@ export const CreateFileMutation = extendType({
             );
             const contentContent = await openaiClient.makeCompletion(
               contentPrompt,
-              1.5,
+              1.2, // may need to be 1.2 to avoid gibberish
               "text"
             );
 

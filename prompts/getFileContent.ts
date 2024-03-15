@@ -116,7 +116,7 @@ ${
     : "No additional information provided"
 }
 
-Given the provided content title and information, please write at least 5 paragraphs for this piece of content.
+Given the provided content title and information, please write an article / content piece.
 `;
 
 export const getWorkEmailContent = (fileName, fileQuestions, background) => `
