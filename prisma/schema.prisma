@@ -415,7 +415,7 @@ model Inbox {
 
   threads Thread[]
 
-  domain   DomainSettings @relation(fields: [domainId], references: [id])
+  domain   DomainSettings @relation(fields: [domainId], references: [id], onDelete: Cascade)
   domainId String
 
   // get via DomainSettings
@@ -435,7 +435,7 @@ model Thread {
   draft Boolean @default(false)
   archived Boolean @default(false)
 
-  inbox Inbox @relation(fields: [inboxId], references: [id])
+  inbox Inbox @relation(fields: [inboxId], references: [id], onDelete: Cascade)
   inboxId String
 
   updatedAt DateTime @updatedAt
@@ -457,7 +457,7 @@ model Email {
 
   sesMessageId String @unique
 
-  thread Thread @relation(fields: [threadId], references: [id])
+  thread Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
   threadId String
 
   updatedAt DateTime @updatedAt

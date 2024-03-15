@@ -444,6 +444,7 @@ export interface NexusGenFieldTypes {
     deleteCompany: string | null; // String
     deleteContact: string | null; // String
     deleteDocument: string | null; // String
+    deleteDomainSettings: string | null; // String
     deleteEmailTemplate: string | null; // String
     deletePost: string | null; // String
     export: string | null; // String
@@ -812,6 +813,7 @@ export interface NexusGenFieldTypeNames {
     deleteCompany: 'String'
     deleteContact: 'String'
     deleteDocument: 'String'
+    deleteDomainSettings: 'String'
     deleteEmailTemplate: 'String'
     deletePost: 'String'
     export: 'String'

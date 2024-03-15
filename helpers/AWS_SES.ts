@@ -1,5 +1,6 @@
 import {
   CreateConfigurationSetCommand,
+  DeleteIdentityCommand,
   GetIdentityDkimAttributesCommand,
   SESClient,
   SendEmailCommand,
@@ -59,6 +60,18 @@ export default class AWS_SES {
     // console.info("GetIdentityDkimAttributesCommand", data2);
 
     return dkimData;
+  }
+
+  async deleteEmailIdentity(domainName: string) {
+    const command = new DeleteIdentityCommand({
+      Identity: domainName,
+    });
+
+    const data = await this.sesClient?.send(command);
+
+    console.info("DeleteIdentityCommand", data);
+
+    return true;
   }
 
   async sendEmail(
