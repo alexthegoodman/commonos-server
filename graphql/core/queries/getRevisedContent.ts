@@ -38,7 +38,7 @@ export const GetRevisedContentQuery = extendType({
         sectionQuestions = JSON.parse(sectionQuestions);
 
         const aiClient = new AI_Controller(openai, prisma, currentUser);
-        const model = "mistral";
+        const model = "gpt";
 
         let content = "";
         let finalJson = {};

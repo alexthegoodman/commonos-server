@@ -29,7 +29,7 @@ export const GetGuideQuestionsQuery = extendType({
         sectionContent = JSON.parse(sectionContent);
 
         const aiClient = new AI_Controller(openai, prisma, currentUser);
-        const model = "mistral";
+        const model = "gpt";
 
         let content = "";
         switch (fileApp) {

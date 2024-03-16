@@ -35,7 +35,7 @@ export const GetQuestionsQuery = extendType({
       ) => {
         console.info("getQuestions", fileTitle, fileApp, getThis);
         const aiClient = new AI_Controller(openai, prisma, currentUser);
-        const model = "mistral";
+        const model = "gpt";
 
         const flow = await prisma.flow.findFirst({
           where: {

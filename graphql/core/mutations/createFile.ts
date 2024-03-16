@@ -30,7 +30,7 @@ export const CreateFileMutation = extendType({
       ) => {
         // const openaiClient = new OpenAIClient(openai, prisma, currentUser);
         const aiClient = new AI_Controller(openai, prisma, currentUser);
-        const model = "mistral";
+        const model = "gpt";
 
         const flow = await prisma.flow.findFirst({
           where: {

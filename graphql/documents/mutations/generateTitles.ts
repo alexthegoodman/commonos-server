@@ -19,7 +19,7 @@ export const GenerateTitlesMutation = extendType({
         x
       ) => {
         const aiClient = new AI_Controller(openai, prisma, currentUser);
-        const model = "mistral";
+        const model = "gpt";
 
         const titlesPrompt = getMoreDocumentTitles(treeMd);
 
