@@ -59,26 +59,26 @@ export const GetQuestionsQuery = extendType({
             const { initialQuestions } = flow.questionsContext as any;
 
             if (fileApp === "documents") {
-              const outlineContent = getDocumentOutline(fileTitle);
-              const outlineJson = await aiClient.makeCompletion(
-                model,
-                outlineContent
-              );
+              // const outlineContent = getDocumentOutline(fileTitle);
+              // const outlineJson = await aiClient.makeCompletion(
+              //   model,
+              //   outlineContent
+              // );
               content = getDocumentQuestions(
                 fileTitle,
-                initialQuestions,
-                outlineJson.sections
+                initialQuestions
+                // outlineJson.sections
               );
             } else if (fileApp === "slides") {
-              const outlineContent = getPresentationOutline(fileTitle);
-              const outlineJson = await aiClient.makeCompletion(
-                model,
-                outlineContent
-              );
+              // const outlineContent = getPresentationOutline(fileTitle);
+              // const outlineJson = await aiClient.makeCompletion(
+              //   model,
+              //   outlineContent
+              // );
               content = getPresentationQuestions(
                 fileTitle,
-                initialQuestions,
-                outlineJson.slides
+                initialQuestions
+                // outlineJson.slides
               );
             } else if (fileApp === "sheets") {
               content = getSheetQuestions(fileTitle);

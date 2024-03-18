@@ -11,6 +11,10 @@ import {
 } from "../../../prompts/getFileContent";
 import { v4 as uuidv4 } from "uuid";
 import AI_Controller from "../../../helpers/AI_Controller";
+import {
+  getContentOutline,
+  getDocumentOutline,
+} from "../../../prompts/getQuestions";
 
 export const CreateFileMutation = extendType({
   type: "Mutation",
@@ -59,23 +63,49 @@ export const CreateFileMutation = extendType({
         // add to folder / tree structure (with id)
 
         switch (fileData?.app) {
-          case "documents":
-            const documentPrompt = getDocumentContent(
-              fileData.name,
-              fileData.questions,
-              fileData.background
-            );
-            const documentContent = await aiClient.makeCompletion(
+          case "documents": {
+            let completeDocument = "";
+
+            const outlineContent = getDocumentOutline(fileData.name);
+            const outlineJson = await aiClient.makeCompletion(
               model,
-              documentPrompt,
-              1.2,
-              "text"
+              outlineContent
             );
+
+            for (let i = 0; i < outlineJson.sections.length; i++) {
+              const section = outlineJson.sections[i];
+              const documentPrompt = getDocumentContent(
+                fileData.name,
+                fileData.questions,
+                fileData.background,
+                section
+              );
+              const documentContent = await aiClient.makeCompletion(
+                model,
+                documentPrompt,
+                1.2,
+                "text"
+              );
+              completeDocument +=
+                "\n\n" + "# " + section + "\n" + documentContent;
+            }
+
+            // const documentPrompt = getDocumentContent(
+            //   fileData.name,
+            //   fileData.questions,
+            //   fileData.background
+            // );
+            // const documentContent = await aiClient.makeCompletion(
+            //   model,
+            //   documentPrompt,
+            //   1.2,
+            //   "text"
+            // );
 
             const newDocument = await prisma.document.create({
               data: {
                 title: fileData.name,
-                plaintext: documentContent,
+                plaintext: completeDocument,
                 creator: {
                   connect: {
                     id: currentUser.id,
@@ -126,6 +156,7 @@ export const CreateFileMutation = extendType({
             });
 
             break;
+          }
           case "slides":
             const presentationPrompt = getPresentationContent(
               fileData.name,
@@ -380,18 +411,45 @@ export const CreateFileMutation = extendType({
             });
 
             break;
-          case "content":
-            const contentPrompt = getContentContent(
-              fileData.name,
-              fileData.questions,
-              fileData.background
-            );
-            const contentContent = await aiClient.makeCompletion(
+          case "content": {
+            // const contentPrompt = getContentContent(
+            //   fileData.name,
+            //   fileData.questions,
+            //   fileData.background
+            // );
+            // const contentContent = await aiClient.makeCompletion(
+            //   model,
+            //   contentPrompt,
+            //   1.2, // may need to be 1.2 to avoid gibberish
+            //   "text"
+            // );
+
+            let completeDocument = "";
+
+            const outlineContent = getContentOutline(fileData.name);
+            const outlineJson = await aiClient.makeCompletion(
               model,
-              contentPrompt,
-              1.2, // may need to be 1.2 to avoid gibberish
-              "text"
+              outlineContent
             );
+
+            // sequential version
+            for (let i = 0; i < outlineJson.sections.length; i++) {
+              const section = outlineJson.sections[i];
+              const documentPrompt = getContentContent(
+                fileData.name,
+                fileData.questions,
+                fileData.background,
+                section
+              );
+              const documentContent = await aiClient.makeCompletion(
+                model,
+                documentPrompt,
+                1.2,
+                "text"
+              );
+              completeDocument +=
+                "\n\n" + "# " + section + "\n" + documentContent;
+            }
 
             let existingPostType = await prisma.postType.findFirst({
               where: {
@@ -423,7 +481,7 @@ export const CreateFileMutation = extendType({
                     id: existingPostType.id,
                   },
                 },
-                markdown: contentContent,
+                markdown: completeDocument,
                 creator: {
                   connect: {
                     id: currentUser.id,
@@ -433,6 +491,7 @@ export const CreateFileMutation = extendType({
             });
 
             break;
+          }
           case "work-email":
             const emailPrompt = getWorkEmailContent(
               fileData.name,

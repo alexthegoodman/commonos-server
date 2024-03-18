@@ -1,4 +1,9 @@
-export const getDocumentContent = (fileName, fileQuestions, background) => `
+export const getDocumentContent = (
+  fileName,
+  fileQuestions,
+  background,
+  sectionTitle
+) => `
 Document Title: ${fileName}
 Document Background: ${background ? background : "No background provided"}
 Additional Information:
@@ -18,8 +23,9 @@ ${
     : "No additional information provided"
 }
 
-Given the provided document title and information, please write at least 5 paragraphs of content for the document.
-Rather than describing the document, write the document itself.
+Current Section: ${sectionTitle ? sectionTitle : "No section provided"}
+
+Given the provided document information, write a thorough section for the current section of the document.
 Include bullet points and lists where appropriate.
 `;
 
@@ -96,7 +102,12 @@ ${
 }
 `;
 
-export const getContentContent = (fileName, fileQuestions, background) => `
+export const getContentContent = (
+  fileName,
+  fileQuestions,
+  background,
+  sectionTitle
+) => `
 Content Title: ${fileName}
 Content Information: ${background ? background : "No information provided"}
 Additional Information:
@@ -116,7 +127,9 @@ ${
     : "No additional information provided"
 }
 
-Given the provided content title and information, please write an article / content piece.
+Current Section: ${sectionTitle ? sectionTitle : "No section provided"}
+
+Given the provided content information, write a thorough section for the current section of the content.
 `;
 
 export const getWorkEmailContent = (fileName, fileQuestions, background) => `

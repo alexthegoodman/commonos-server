@@ -20,11 +20,8 @@ Answer with a JSON object containing an array of strings. For example:
 
 // Ask the user what they would do within the Text Editor / Spreedsheet Editor app. (?)
 
-export const getDocumentQuestions = (prompt, initialQuestions, outline) => `
+export const getDocumentQuestions = (prompt, initialQuestions) => `
 ${prompt}
-
-File Outline:
-${outline.map((section) => `* ${section}`).join("\n")}
 
 Provide a list of 5 multiple choice questions (each with 4 selections). Ask questions regarding what the user wants in each section of the outline.
 
@@ -50,11 +47,8 @@ Answer with a JSON object containing an array of strings. For example:
 {"slides":["Title 1", "Title 2", "Title 3"]}
 `;
 
-export const getPresentationQuestions = (prompt, initialQuestions, outline) => `
+export const getPresentationQuestions = (prompt, initialQuestions) => `
 ${prompt}
-
-Presentation Slides:
-${outline.map((section) => `* ${section}`).join("\n")}
 
 Provide a list of 5 multiple choice questions (each with 4 selections). Ask questions regarding what the user wants in each slide.
 
@@ -87,6 +81,15 @@ Provide a list of 5 multiple choice questions, each regarding the content of the
 
 Answer with a JSON object containing an array of strings. For example:
 {"questions":[{"question":"Question 1","answers":["Answer 1","Answer 2","Answer 3"]},{"question":"Question 2","answers":["Answer 1","Answer 2","Answer 3"]}]}
+`;
+
+export const getContentOutline = (prompt) => `
+${prompt}
+
+What would be an outline for the file title above? Provide a list of at least 5 sections.
+
+Answer with a JSON object containing an array of strings. For example:
+{"sections":["Title 1", "Title 2", "Title 3"]}
 `;
 
 export const getWorkEmailQuestions = (prompt) => `
