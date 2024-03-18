@@ -23,7 +23,7 @@ Answer with a JSON object containing an array of strings. For example:
 export const getDocumentQuestions = (prompt, initialQuestions) => `
 Provide a list of 5 questions you have which help clarify and provide detail to the file listed below. Do not evaluate the user's knowledge of the file. Provide answers in multiple choice format, so it is easy for the user to pick an option.
 
-File: "${prompt}"
+${prompt}
 
 Answer with a JSON object containing an array of strings. For example:
 {"questions":[{"question":"Question 1","answers":["Answer 1","Answer 2","Answer 3"]},{"question":"Question 2","answers":["Answer 1","Answer 2","Answer 3"]}]}
@@ -50,7 +50,7 @@ Answer with a JSON object containing an array of strings. For example:
 export const getPresentationQuestions = (prompt, initialQuestions) => `
 Provide a list of 5 questions you have which help clarify and provide detail to the presentation file listed below. Do not evaluate the user's knowledge of the file. Provide answers in multiple choice format, so it is easy for the user to pick an option.
 
-File: "${prompt}"
+${prompt}
 
 Answer with a JSON object containing an array of strings. For example:
 {"questions":[{"question":"Question 1","answers":["Answer 1","Answer 2","Answer 3"]},{"question":"Question 2","answers":["Answer 1","Answer 2","Answer 3"]}]}
@@ -59,16 +59,16 @@ Answer with a JSON object containing an array of strings. For example:
 export const getSheetQuestions = (prompt) => `
 Provide a list of 3 questions you have which help clarify and provide detail to the spreadsheet file listed below. Ask questions regarding what the user wants in the spreadsheet, such as what to include in the header cells and rows. Do not evaluate the user's knowledge of the file. Provide answers in multiple choice format, so it is easy for the user to pick an option.
 
-File: "${prompt}"
+${prompt}
 
 Answer with a JSON object containing an array of strings. For example:
 {"questions":[{"question":"Question 1","answers":["Answer 1","Answer 2","Answer 3"]},{"question":"Question 2","answers":["Answer 1","Answer 2","Answer 3"]}]}
 `;
 
 export const getDrawingQuestions = (prompt) => `
-Provide a list of 3 questions you have which help clarify and provide detail to the image prompt listed below. Do not evaluate the user's knowledge of the prompt. Ask questions regarding what the user wants in the image and regarding the visual details of the image file. Provide answers in multiple choice format, so it is easy for the user to pick an option.
+Provide a list of 3 questions you have which help clarify and provide detail to the image prompt / file listed below. Do not evaluate the user's knowledge of the prompt. Ask questions regarding what the user wants in the image and regarding the visual details of the image file. Provide answers in multiple choice format, so it is easy for the user to pick an option.
 
-Prompt: "${prompt}"
+${prompt}
 
 Answer with a JSON object containing an array of strings. For example:
 {"questions":[{"question":"Question 1","answers":["Answer 1","Answer 2","Answer 3"]},{"question":"Question 2","answers":["Answer 1","Answer 2","Answer 3"]}]}
@@ -77,7 +77,7 @@ Answer with a JSON object containing an array of strings. For example:
 export const getContentQuestions = (prompt) => `
 Provide a list of 5 questions you have which help clarify and provide detail to the CMS file listed below. Do not evaluate the user's knowledge of the file. Provide answers in multiple choice format, so it is easy for the user to pick an option.
 
-File: "${prompt}"
+${prompt}
 
 Answer with a JSON object containing an array of strings. For example:
 {"questions":[{"question":"Question 1","answers":["Answer 1","Answer 2","Answer 3"]},{"question":"Question 2","answers":["Answer 1","Answer 2","Answer 3"]}]}
@@ -95,7 +95,7 @@ Answer with a JSON object containing an array of strings. For example:
 export const getWorkEmailQuestions = (prompt) => `
 Provide a list of 3 questions you have which help clarify and provide detail to the email file listed below. Do not evaluate the user's knowledge of the file. Provide answers in multiple choice format, so it is easy for the user to pick an option.
 
-File: "${prompt}"
+${prompt}
 
 Answer with a JSON object containing an array of strings. For example:
 {"questions":[{"question":"Question 1","answers":["Answer 1","Answer 2","Answer 3"]},{"question":"Question 2","answers":["Answer 1","Answer 2","Answer 3"]}]}
@@ -104,7 +104,7 @@ Answer with a JSON object containing an array of strings. For example:
 export const getRelationshipsQuestions = (prompt) => `
 Provide a list of 3 questions you have which help clarify and provide detail to the CRM Dashboard file listed below. Do not evaluate the user's knowledge of the file. Provide answers in multiple choice format, so it is easy for the user to pick an option.
 
-File: "${prompt}"
+${prompt}
 
 Answer with a JSON object containing an array of strings. For example:
 {"questions":[{"question":"Question 1","answers":["Answer 1","Answer 2","Answer 3"]},{"question":"Question 2","answers":["Answer 1","Answer 2","Answer 3"]}]}
