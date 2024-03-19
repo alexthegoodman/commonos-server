@@ -14,13 +14,15 @@ export default class AI_Controller {
     model = "gpt",
     outlineContent,
     temperature = 1.5,
-    responseFormat = "json_object"
+    responseFormat = "json_object",
+    initialMessages = []
   ) {
     if (model === "gpt") {
       return this.openAI.makeCompletion(
         outlineContent,
         temperature,
-        responseFormat
+        responseFormat,
+        initialMessages
       );
     } else if (model === "mistral") {
       return this.awsBedrock.makeCompletion(

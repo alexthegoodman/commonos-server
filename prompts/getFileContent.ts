@@ -102,12 +102,7 @@ ${
 }
 `;
 
-export const getContentContent = (
-  fileName,
-  fileQuestions,
-  background,
-  sectionTitle
-) => `
+export const getContentIntro = (fileName, fileQuestions, background) => `
 Content Title: ${fileName}
 Content Information: ${background ? background : "No information provided"}
 Additional Information:
@@ -127,9 +122,13 @@ ${
     : "No additional information provided"
 }
 
-Current Section: ${sectionTitle ? sectionTitle : "No section provided"}
+Given the provided information, write a thorough intro section for this content.
+`;
 
-Given the provided content information, write a thorough section for the current section of the content.
+export const getContentContent = (sectionTitle) => `
+Now, please write a thorough "${
+  sectionTitle ? sectionTitle : ""
+}" section, building on the previous section.
 `;
 
 export const getWorkEmailContent = (fileName, fileQuestions, background) => `

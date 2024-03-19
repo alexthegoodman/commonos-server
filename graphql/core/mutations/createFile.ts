@@ -3,6 +3,7 @@ import { Context } from "../../../context";
 import OpenAIClient from "../../../helpers/OpenAI";
 import {
   getContentContent,
+  getContentIntro,
   getDocumentContent,
   getImageContent,
   getPresentationContent,
@@ -433,22 +434,52 @@ export const CreateFileMutation = extendType({
             );
 
             // sequential version
+            const previousMessages = [] as any;
             for (let i = 0; i < outlineJson.sections.length; i++) {
               const section = outlineJson.sections[i];
-              const documentPrompt = getContentContent(
-                fileData.name,
-                fileData.questions,
-                fileData.background,
-                section
-              );
-              const documentContent = await aiClient.makeCompletion(
-                model,
-                documentPrompt,
-                1.2,
-                "text"
-              );
-              completeDocument +=
-                "\n\n" + "# " + section + "\n" + documentContent;
+              const isFirstSection = i === 0;
+
+              if (isFirstSection) {
+                const introPrompt = getContentIntro(
+                  fileData.name,
+                  fileData.questions,
+                  fileData.background
+                );
+                const introContent = await aiClient.makeCompletion(
+                  model,
+                  introPrompt,
+                  1.2,
+                  "text"
+                );
+                completeDocument += introContent;
+                previousMessages.push({
+                  content: introPrompt,
+                  role: "user",
+                });
+                previousMessages.push({
+                  content: introContent,
+                  role: "assistant",
+                });
+              } else {
+                const documentPrompt = getContentContent(section);
+                const documentContent = await aiClient.makeCompletion(
+                  model,
+                  documentPrompt,
+                  1.2,
+                  "text",
+                  previousMessages
+                );
+                completeDocument +=
+                  "\n\n" + "# " + section + "\n" + documentContent;
+                previousMessages.push({
+                  content: documentPrompt,
+                  role: "user",
+                });
+                previousMessages.push({
+                  content: documentContent,
+                  role: "assistant",
+                });
+              }
             }
 
             let existingPostType = await prisma.postType.findFirst({

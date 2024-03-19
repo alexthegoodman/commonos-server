@@ -22,7 +22,8 @@ export default class OpenAIClient {
   async makeCompletion(
     outlineContent,
     temperature = 1.5,
-    responseFormat = "json_object"
+    responseFormat = "json_object",
+    initialMessages = []
   ) {
     const helpers = new Helpers();
     const tokenUsageLimit = helpers.getTokenLimit(this.currentUser);
@@ -44,6 +45,7 @@ export default class OpenAIClient {
       model: "gpt-3.5-turbo-1106",
       // model: "gpt-4-1106-preview",
       messages: [
+        ...initialMessages,
         {
           content: outlineContent,
           role: "user",
