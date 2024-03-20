@@ -51,7 +51,10 @@ export default class OpenAIClient {
     console.info("Sending prompt....\n", outlineContent);
 
     const outlineResponse = await this.openai.chat.completions.create({
-      model: "gpt-3.5-turbo-1106",
+      model: "gpt-3.5-turbo", // continuous upgrades
+      // model: "gpt-4-turbo-preview", // testing
+      // model: "gpt-3.5-turbo-0125",
+      // model: "gpt-3.5-turbo-1106",
       // model: "gpt-4-1106-preview",
       messages: [
         ...initialMessages,
