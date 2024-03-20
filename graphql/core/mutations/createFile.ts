@@ -5,6 +5,7 @@ import {
   getContentContent,
   getContentIntro,
   getDocumentContent,
+  getDocumentIntro,
   getImageContent,
   getPresentationContent,
   getSheetContent,
@@ -73,35 +74,54 @@ export const CreateFileMutation = extendType({
               outlineContent
             );
 
+            // sequential version
+            const previousMessages = [] as any;
             for (let i = 0; i < outlineJson.sections.length; i++) {
               const section = outlineJson.sections[i];
-              const documentPrompt = getDocumentContent(
-                fileData.name,
-                fileData.questions,
-                fileData.background,
-                section
-              );
-              const documentContent = await aiClient.makeCompletion(
-                model,
-                documentPrompt,
-                1.2,
-                "text"
-              );
-              completeDocument +=
-                "\n\n" + "# " + section + "\n" + documentContent;
-            }
+              const isFirstSection = i === 0;
 
-            // const documentPrompt = getDocumentContent(
-            //   fileData.name,
-            //   fileData.questions,
-            //   fileData.background
-            // );
-            // const documentContent = await aiClient.makeCompletion(
-            //   model,
-            //   documentPrompt,
-            //   1.2,
-            //   "text"
-            // );
+              if (isFirstSection) {
+                const introPrompt = getDocumentIntro(
+                  fileData.name,
+                  fileData.questions,
+                  fileData.background
+                );
+                const introContent = await aiClient.makeCompletion(
+                  model,
+                  introPrompt,
+                  1.2,
+                  "text"
+                );
+                completeDocument += introContent;
+                previousMessages.push({
+                  content: introPrompt,
+                  role: "user",
+                });
+                previousMessages.push({
+                  content: introContent,
+                  role: "assistant",
+                });
+              } else {
+                const documentPrompt = getDocumentContent(section);
+                const documentContent = await aiClient.makeCompletion(
+                  model,
+                  documentPrompt,
+                  1.2,
+                  "text",
+                  previousMessages
+                );
+                completeDocument +=
+                  "\n\n" + "# " + section + "\n" + documentContent;
+                previousMessages.push({
+                  content: documentPrompt,
+                  role: "user",
+                });
+                previousMessages.push({
+                  content: documentContent,
+                  role: "assistant",
+                });
+              }
+            }
 
             const newDocument = await prisma.document.create({
               data: {
@@ -413,18 +433,6 @@ export const CreateFileMutation = extendType({
 
             break;
           case "content": {
-            // const contentPrompt = getContentContent(
-            //   fileData.name,
-            //   fileData.questions,
-            //   fileData.background
-            // );
-            // const contentContent = await aiClient.makeCompletion(
-            //   model,
-            //   contentPrompt,
-            //   1.2, // may need to be 1.2 to avoid gibberish
-            //   "text"
-            // );
-
             let completeDocument = "";
 
             const outlineContent = getContentOutline(fileData.name);

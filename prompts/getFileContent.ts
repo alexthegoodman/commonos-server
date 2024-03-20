@@ -1,11 +1,37 @@
-export const getDocumentContent = (
-  fileName,
-  fileQuestions,
-  background,
-  sectionTitle
-) => `
+// export const getDocumentContent = (
+//   fileName,
+//   fileQuestions,
+//   background,
+//   sectionTitle
+// ) => `
+// Document Title: ${fileName}
+// Document Background: ${background ? background : "No background provided"}
+// Additional Information:
+// ${
+//   fileQuestions.length
+//     ? fileQuestions
+//         .map((question) =>
+//           question.chosenAnswers.length || question.freeformAnswer.length
+//             ? `Question: ${
+//                 question.question
+//               }\nAnswers:${question.chosenAnswers.join(",")},${
+//                 question.freeformAnswer
+//               }`
+//             : ""
+//         )
+//         .join("\n")
+//     : "No additional information provided"
+// }
+
+// Current Section: ${sectionTitle ? sectionTitle : "No section provided"}
+
+// Given the provided document information, write a thorough section for the current section of the document.
+// Include bullet points and lists where appropriate.
+// `;
+
+export const getDocumentIntro = (fileName, fileQuestions, background) => `
 Document Title: ${fileName}
-Document Background: ${background ? background : "No background provided"}
+Document Information: ${background ? background : "No information provided"}
 Additional Information:
 ${
   fileQuestions.length
@@ -23,10 +49,13 @@ ${
     : "No additional information provided"
 }
 
-Current Section: ${sectionTitle ? sectionTitle : "No section provided"}
+Given the provided information, write a thorough intro section for this document.
+`;
 
-Given the provided document information, write a thorough section for the current section of the document.
-Include bullet points and lists where appropriate.
+export const getDocumentContent = (sectionTitle) => `
+Now, please write a thorough "${
+  sectionTitle ? sectionTitle : ""
+}" section, building on the previous section.
 `;
 
 export const getPresentationContent = (fileName, fileQuestions, background) => `
