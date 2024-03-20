@@ -15,3 +15,4 @@ export * from "./queries/myPostTypes";
 export * from "./queries/post";
 export * from "./queries/postType";
 export * from "./queries/myContentDevelopersSettings";
+export * from "./queries/countPosts";

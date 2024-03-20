@@ -295,6 +295,7 @@ type Query {
   contactsByIds(ids: [String!]!): [Contact]
   countCompanies: Int
   countContacts: Int
+  countPosts(postTypeId: String!): Int
   dashboard(dashboardId: String!): Dashboard
   document(documentId: String!): Document
   drawing(drawingId: String!): Drawing

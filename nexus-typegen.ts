@@ -545,6 +545,7 @@ export interface NexusGenFieldTypes {
     contactsByIds: Array<NexusGenRootTypes['Contact'] | null> | null; // [Contact]
     countCompanies: number | null; // Int
     countContacts: number | null; // Int
+    countPosts: number | null; // Int
     dashboard: NexusGenRootTypes['Dashboard'] | null; // Dashboard
     document: NexusGenRootTypes['Document'] | null; // Document
     drawing: NexusGenRootTypes['Drawing'] | null; // Drawing
@@ -914,6 +915,7 @@ export interface NexusGenFieldTypeNames {
     contactsByIds: 'Contact'
     countCompanies: 'Int'
     countContacts: 'Int'
+    countPosts: 'Int'
     dashboard: 'Dashboard'
     document: 'Document'
     drawing: 'Drawing'
@@ -1214,6 +1216,9 @@ export interface NexusGenArgTypes {
     }
     contactsByIds: { // args
       ids: string[]; // [String!]!
+    }
+    countPosts: { // args
+      postTypeId: string; // String!
     }
     dashboard: { // args
       dashboardId: string; // String!
