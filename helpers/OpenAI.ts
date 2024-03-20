@@ -34,6 +34,15 @@ export default class OpenAIClient {
 
     const enc = getEncoding("cl100k_base");
     const inputTokensOutline = enc.encode(outlineContent);
+    const initialMessagesTokens = initialMessages.map((message: any) => {
+      return enc.encode(message.content).length;
+    });
+    const totalMessagesTokens = initialMessagesTokens.reduce(
+      (accumulator, currentValue) => {
+        return accumulator + currentValue;
+      },
+      0
+    );
 
     if (!outlineContent) {
       throw new Error("No prompt content!");
@@ -65,7 +74,10 @@ export default class OpenAIClient {
 
       const outputTokensOutline = enc.encode(jsonText);
 
-      const tokensUsed = inputTokensOutline.length + outputTokensOutline.length;
+      const tokensUsed =
+        inputTokensOutline.length +
+        outputTokensOutline.length +
+        totalMessagesTokens;
 
       console.info("tokensUsed", tokensUsed);
 
