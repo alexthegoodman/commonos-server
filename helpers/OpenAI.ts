@@ -167,7 +167,7 @@ export default class OpenAIClient {
 
     const url = await awsS3.uploadAsset(
       "image",
-      prompt,
+      prompt + ".png",
       "image/png",
       0,
       fileData
