@@ -1,11 +1,12 @@
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { nanoid } from "nanoid";
 import ERROR_CODES from "./ERROR_CODES";
+import { v4 as uuidv4 } from "uuid";
 const { DateTime } = require("luxon");
 
 export default class AWS_S3 {
   REGION = "us-east-2";
   s3Client;
+  cloudfrontUrl = "https://d6ofpzjv6g8he.cloudfront.net/";
 
   constructor() {
     if (process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY) {
@@ -39,7 +40,8 @@ export default class AWS_S3 {
       const dotIndex = filename.lastIndexOf(".");
       const fileExtension = filename.substring(dotIndex);
       const fileTitle = filename.substring(0, dotIndex);
-      const uniqueFileTitle = fileTitle + "-" + nanoid(10);
+      const sanitizedFileTitle = fileTitle.replace(/[^a-z0-9.]/gi, "_");
+      const uniqueFileTitle = sanitizedFileTitle + "-" + uuidv4();
       const bucketUploadDirectory = this.getUploadDirectory();
 
       // TODO: eliminate transparency without file corruption
@@ -66,7 +68,7 @@ export default class AWS_S3 {
       }
 
       const bucketParams = {
-        Bucket: "cp-aws-assets",
+        Bucket: "commonos-primary",
         Key: key,
         ContentEncoding: "base64",
         ContentType: fileType,
@@ -80,7 +82,7 @@ export default class AWS_S3 {
 
         console.info("uploadAsset complete", data, key);
 
-        return key;
+        return this.cloudfrontUrl + key;
       } catch (err) {
         console.error("Error", err);
       }

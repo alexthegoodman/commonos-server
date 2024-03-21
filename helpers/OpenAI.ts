@@ -7,6 +7,7 @@ import { getEncoding, encodingForModel } from "js-tiktoken";
 import { PrismaClient } from "@prisma/client";
 import Helpers from "./Helpers";
 import { put } from "@vercel/blob";
+import AWS_S3 from "./AWS_S3";
 
 export default class OpenAIClient {
   private openai: OpenAI;
@@ -107,6 +108,8 @@ export default class OpenAIClient {
   }
 
   async makeImage(prompt) {
+    const awsS3 = new AWS_S3();
+
     const tokenUsageLimit =
       this.currentUser.subscription === "NONE"
         ? 50000
@@ -135,32 +138,40 @@ export default class OpenAIClient {
 
     const fileData = data[0].b64_json as any;
 
-    // upload to storage
-    const helpers = new Helpers();
-    const filePath = helpers.getUploadDirectory(prompt);
+    // // upload to storage
+    // const helpers = new Helpers();
+    // const filePath = helpers.getUploadDirectory(prompt);
 
-    console.info("uploading file", filePath);
+    // console.info("uploading file", filePath);
 
-    let buffer;
-    if (true) {
-      buffer = Buffer.from(
-        fileData.replace(/^data:image\/\w+;base64,/, ""),
-        "base64"
-      );
-    }
-    // else if (contentType === "video") {
+    // let buffer;
+    // if (true) {
     //   buffer = Buffer.from(
-    //     base64.replace(/^data:video\/\w+;base64,/, ""),
-    //     "base64"
-    //   );
-    // } else if (contentType === "audio") {
-    //   buffer = Buffer.from(
-    //     base64.replace(/^data:audio\/\w+;base64,/, ""),
+    //     fileData.replace(/^data:image\/\w+;base64,/, ""),
     //     "base64"
     //   );
     // }
+    // // else if (contentType === "video") {
+    // //   buffer = Buffer.from(
+    // //     base64.replace(/^data:video\/\w+;base64,/, ""),
+    // //     "base64"
+    // //   );
+    // // } else if (contentType === "audio") {
+    // //   buffer = Buffer.from(
+    // //     base64.replace(/^data:audio\/\w+;base64,/, ""),
+    // //     "base64"
+    // //   );
+    // // }
 
-    const blob = await put(filePath, buffer, { access: "public" });
+    // const blob = await put(filePath, buffer, { access: "public" });
+
+    const url = await awsS3.uploadAsset(
+      "image",
+      prompt,
+      "image/png",
+      0,
+      fileData
+    );
 
     const outputTokensLength = 2000;
     const tokensUsed = inputTokens.length + outputTokensLength;
@@ -176,6 +187,6 @@ export default class OpenAIClient {
       },
     });
 
-    return blob;
+    return { url };
   }
 }
