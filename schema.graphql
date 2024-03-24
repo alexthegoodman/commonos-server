@@ -184,6 +184,7 @@ type Mutation {
   createPost(fields: String, markdown: String!, postTypeId: String!, title: String!): Post
   createPostType(fields: String!, name: String!): PostType
   createProject(organizationId: String!, title: String!): Project
+  createWorkEmailFolder(name: String!): WorkEmailFolder
   deleteCompany(companyId: String!): String
   deleteContact(contactId: String!): String
   deleteDocument(documentId: String!): String
@@ -335,6 +336,8 @@ type Query {
   mySounds: [Sound]
   myThreadEmails(threadId: String!): [Email]
   myVideos: [Video]
+  myWorkEmailFolderTemplates(folderId: String!): [WorkEmailTemplate]
+  myWorkEmailFolders: [WorkEmailFolder]
   post(postId: String!): Post
   postType(postTypeId: String!): PostType
   presentation(presentationId: String!): Presentation
@@ -408,4 +411,23 @@ type Video {
   id: String
   title: String
   updatedAt: DateTime
+}
+
+type WorkEmailFolder {
+  createdAt: DateTime
+  creator: User
+  id: String
+  name: String
+  updatedAt: DateTime
+  workEmailTemplates: [WorkEmailTemplate]
+}
+
+type WorkEmailTemplate {
+  body: String
+  createdAt: DateTime
+  id: String
+  initialMarkdown: String
+  subject: String
+  updatedAt: DateTime
+  workEmailFolder: WorkEmailFolder
 }

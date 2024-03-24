@@ -273,6 +273,20 @@ export interface NexusGenObjects {
     title?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
+  WorkEmailFolder: { // root type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    name?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  WorkEmailTemplate: { // root type
+    body?: string | null; // String
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    initialMarkdown?: string | null; // String
+    subject?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -441,6 +455,7 @@ export interface NexusGenFieldTypes {
     createPost: NexusGenRootTypes['Post'] | null; // Post
     createPostType: NexusGenRootTypes['PostType'] | null; // PostType
     createProject: NexusGenRootTypes['Project'] | null; // Project
+    createWorkEmailFolder: NexusGenRootTypes['WorkEmailFolder'] | null; // WorkEmailFolder
     deleteCompany: string | null; // String
     deleteContact: string | null; // String
     deleteDocument: string | null; // String
@@ -585,6 +600,8 @@ export interface NexusGenFieldTypes {
     mySounds: Array<NexusGenRootTypes['Sound'] | null> | null; // [Sound]
     myThreadEmails: Array<NexusGenRootTypes['Email'] | null> | null; // [Email]
     myVideos: Array<NexusGenRootTypes['Video'] | null> | null; // [Video]
+    myWorkEmailFolderTemplates: Array<NexusGenRootTypes['WorkEmailTemplate'] | null> | null; // [WorkEmailTemplate]
+    myWorkEmailFolders: Array<NexusGenRootTypes['WorkEmailFolder'] | null> | null; // [WorkEmailFolder]
     post: NexusGenRootTypes['Post'] | null; // Post
     postType: NexusGenRootTypes['PostType'] | null; // PostType
     presentation: NexusGenRootTypes['Presentation'] | null; // Presentation
@@ -652,6 +669,23 @@ export interface NexusGenFieldTypes {
     id: string | null; // String
     title: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  WorkEmailFolder: { // field return type
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    creator: NexusGenRootTypes['User'] | null; // User
+    id: string | null; // String
+    name: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+    workEmailTemplates: Array<NexusGenRootTypes['WorkEmailTemplate'] | null> | null; // [WorkEmailTemplate]
+  }
+  WorkEmailTemplate: { // field return type
+    body: string | null; // String
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    id: string | null; // String
+    initialMarkdown: string | null; // String
+    subject: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+    workEmailFolder: NexusGenRootTypes['WorkEmailFolder'] | null; // WorkEmailFolder
   }
 }
 
@@ -811,6 +845,7 @@ export interface NexusGenFieldTypeNames {
     createPost: 'Post'
     createPostType: 'PostType'
     createProject: 'Project'
+    createWorkEmailFolder: 'WorkEmailFolder'
     deleteCompany: 'String'
     deleteContact: 'String'
     deleteDocument: 'String'
@@ -955,6 +990,8 @@ export interface NexusGenFieldTypeNames {
     mySounds: 'Sound'
     myThreadEmails: 'Email'
     myVideos: 'Video'
+    myWorkEmailFolderTemplates: 'WorkEmailTemplate'
+    myWorkEmailFolders: 'WorkEmailFolder'
     post: 'Post'
     postType: 'PostType'
     presentation: 'Presentation'
@@ -1023,6 +1060,23 @@ export interface NexusGenFieldTypeNames {
     title: 'String'
     updatedAt: 'DateTime'
   }
+  WorkEmailFolder: { // field return type name
+    createdAt: 'DateTime'
+    creator: 'User'
+    id: 'String'
+    name: 'String'
+    updatedAt: 'DateTime'
+    workEmailTemplates: 'WorkEmailTemplate'
+  }
+  WorkEmailTemplate: { // field return type name
+    body: 'String'
+    createdAt: 'DateTime'
+    id: 'String'
+    initialMarkdown: 'String'
+    subject: 'String'
+    updatedAt: 'DateTime'
+    workEmailFolder: 'WorkEmailFolder'
+  }
 }
 
 export interface NexusGenArgTypes {
@@ -1061,6 +1115,9 @@ export interface NexusGenArgTypes {
     createProject: { // args
       organizationId: string; // String!
       title: string; // String!
+    }
+    createWorkEmailFolder: { // args
+      name: string; // String!
     }
     deleteCompany: { // args
       companyId: string; // String!
@@ -1291,6 +1348,9 @@ export interface NexusGenArgTypes {
     }
     myThreadEmails: { // args
       threadId: string; // String!
+    }
+    myWorkEmailFolderTemplates: { // args
+      folderId: string; // String!
     }
     post: { // args
       postId: string; // String!

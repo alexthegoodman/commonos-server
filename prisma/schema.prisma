@@ -71,22 +71,25 @@ model User {
   launcherContext Json?
 
   // relationships
-  contacts  Contact[]
-  companies Company[]
-  dashboards Dashboard[]
-  funnels    Funnel[]
-  contactSettings  ContactSettings?
-  companySettings  CompanySettings?
+  contacts        Contact[]
+  companies       Company[]
+  dashboards      Dashboard[]
+  funnels         Funnel[]
+  contactSettings ContactSettings?
+  companySettings CompanySettings?
 
   // send email
-  emailLogs EmailLog[]
-  emailTemplates EmailTemplate[]
-  domainSettings DomainSettings?
+  emailLogs               EmailLog[]
+  emailTemplates          EmailTemplate[]
+  domainSettings          DomainSettings?
   emailDevelopersSettings EmailDevelopersSettings?
 
+  // work email templates
+  workEmailFolders WorkEmailFolder[]
+
   // content (CMS)
-  posts    Post[]
-  postTypes PostType[]
+  posts                     Post[]
+  postTypes                 PostType[]
   contentDevelopersSettings ContentDevelopersSettings?
 
   updatedAt DateTime @updatedAt
@@ -315,13 +318,13 @@ model CompanySettings {
   userId String @unique
 
   updatedAt DateTime @updatedAt
-  createdAt DateTime @default(now())  
+  createdAt DateTime @default(now())
 }
 
 model Dashboard {
   id String @id @unique @default(uuid())
 
-  title  String
+  title   String
   context Json?
 
   creator   User   @relation(fields: [creatorId], references: [id])
@@ -334,7 +337,7 @@ model Dashboard {
 model Funnel {
   id String @id @unique @default(uuid())
 
-  title  String
+  title   String
   context Json?
 
   creator   User   @relation(fields: [creatorId], references: [id])
@@ -349,15 +352,15 @@ model Funnel {
 model EmailLog {
   id String @id @unique @default(uuid())
 
-  from    String
-  to      String
+  from String
+  to   String
 
   // status   String @default("pending")
 
-  template EmailTemplate @relation(fields: [templateId], references: [id])
+  template   EmailTemplate @relation(fields: [templateId], references: [id])
   templateId String
 
-  sender User   @relation(fields: [senderId], references: [id])
+  sender   User   @relation(fields: [senderId], references: [id])
   senderId String
 
   updatedAt DateTime @updatedAt
@@ -367,12 +370,12 @@ model EmailLog {
 model EmailTemplate {
   id String @id @unique @default(uuid())
 
-  title    String
+  title   String
   context Json?
 
   logs EmailLog[]
 
-  creator  User   @relation(fields: [creatorId], references: [id])
+  creator   User   @relation(fields: [creatorId], references: [id])
   creatorId String
 
   updatedAt DateTime @updatedAt
@@ -383,7 +386,7 @@ model DomainSettings {
   id String @id @unique @default(uuid())
 
   domainName String @unique
-  dkimData Json?
+  dkimData   Json?
 
   inboxes Inbox[]
 
@@ -430,12 +433,12 @@ model Thread {
   id String @id @unique @default(uuid())
 
   subject String
-  emails Email[]
+  emails  Email[]
 
-  draft Boolean @default(false)
+  draft    Boolean @default(false)
   archived Boolean @default(false)
 
-  inbox Inbox @relation(fields: [inboxId], references: [id], onDelete: Cascade)
+  inbox   Inbox  @relation(fields: [inboxId], references: [id], onDelete: Cascade)
   inboxId String
 
   updatedAt DateTime @updatedAt
@@ -445,20 +448,50 @@ model Thread {
 model Email {
   id String @id @unique @default(uuid())
 
-  from    String
-  to      String
-  subject String
-  body    String
+  from            String
+  to              String
+  subject         String
+  body            String
   initialMarkdown String?
 
-  unread Boolean @default(true)
-  draft Boolean @default(false)
+  unread   Boolean @default(true)
+  draft    Boolean @default(false)
   archived Boolean @default(false)
 
   sesMessageId String @unique
 
-  thread Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  thread   Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
   threadId String
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+// Work Email Templates
+
+model WorkEmailFolder {
+  id String @id @unique @default(uuid())
+
+  name String
+
+  workEmailTemplates WorkEmailTemplate[]
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String @unique
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model WorkEmailTemplate {
+  id String @id @unique @default(uuid())
+
+  subject         String
+  body            String
+  initialMarkdown String?
+
+  workEmailFolder   WorkEmailFolder? @relation(fields: [workEmailFolderId], references: [id])
+  workEmailFolderId String?
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
@@ -469,9 +502,9 @@ model Email {
 model Post {
   id String @id @unique @default(uuid())
 
-  title String
+  title    String
   markdown String
-  fields Json?
+  fields   Json?
 
   published Boolean @default(false)
 
@@ -488,7 +521,7 @@ model Post {
 model PostType {
   id String @id @unique @default(uuid())
 
-  name String
+  name   String
   fields Json?
 
   posts Post[]
