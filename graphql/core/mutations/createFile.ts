@@ -56,7 +56,7 @@ export const CreateFileMutation = extendType({
         const fileData = files?.find((file) => file.id === fileId);
 
         const folderName = prompt.substr(0, 80) + "...";
-        const shortFolderName = prompt.substr(0, 30) + "...";
+        const shortFolderName = prompt.substr(0, 25) + "...";
 
         console.info("createFile", fileData, folderName);
 

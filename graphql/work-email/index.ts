@@ -8,6 +8,8 @@ export * from "./mutations/sendWorkEmail";
 export * from "./mutations/createInbox";
 export * from "./mutations/markAsRead";
 export * from "./mutations/createWorkEmailFolder";
+export * from "./mutations/createWorkEmailTemplate";
+export * from "./mutations/updateWorkEmailTemplate";
 
 export * from "./queries/myInboxEmailThreads";
 export * from "./queries/myInboxes";

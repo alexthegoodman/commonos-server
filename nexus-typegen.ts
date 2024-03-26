@@ -456,6 +456,7 @@ export interface NexusGenFieldTypes {
     createPostType: NexusGenRootTypes['PostType'] | null; // PostType
     createProject: NexusGenRootTypes['Project'] | null; // Project
     createWorkEmailFolder: NexusGenRootTypes['WorkEmailFolder'] | null; // WorkEmailFolder
+    createWorkEmailTemplate: NexusGenRootTypes['WorkEmailTemplate'] | null; // WorkEmailTemplate
     deleteCompany: string | null; // String
     deleteContact: string | null; // String
     deleteDocument: string | null; // String
@@ -498,6 +499,7 @@ export interface NexusGenFieldTypes {
     updateSound: NexusGenRootTypes['Sound'] | null; // Sound
     updateUser: NexusGenRootTypes['User'] | null; // User
     updateVideo: NexusGenRootTypes['Video'] | null; // Video
+    updateWorkEmailTemplate: NexusGenRootTypes['WorkEmailTemplate'] | null; // WorkEmailTemplate
   }
   Organization: { // field return type
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
@@ -846,6 +848,7 @@ export interface NexusGenFieldTypeNames {
     createPostType: 'PostType'
     createProject: 'Project'
     createWorkEmailFolder: 'WorkEmailFolder'
+    createWorkEmailTemplate: 'WorkEmailTemplate'
     deleteCompany: 'String'
     deleteContact: 'String'
     deleteDocument: 'String'
@@ -888,6 +891,7 @@ export interface NexusGenFieldTypeNames {
     updateSound: 'Sound'
     updateUser: 'User'
     updateVideo: 'Video'
+    updateWorkEmailTemplate: 'WorkEmailTemplate'
   }
   Organization: { // field return type name
     createdAt: 'DateTime'
@@ -1119,6 +1123,11 @@ export interface NexusGenArgTypes {
     createWorkEmailFolder: { // args
       name: string; // String!
     }
+    createWorkEmailTemplate: { // args
+      body: string; // String!
+      folderId: string; // String!
+      subject: string; // String!
+    }
     deleteCompany: { // args
       companyId: string; // String!
     }
@@ -1262,6 +1271,11 @@ export interface NexusGenArgTypes {
       context?: string | null; // String
       title?: string | null; // String
       videoId: string; // String!
+    }
+    updateWorkEmailTemplate: { // args
+      body?: string | null; // String
+      subject?: string | null; // String
+      templateId: string; // String!
     }
   }
   Query: {
