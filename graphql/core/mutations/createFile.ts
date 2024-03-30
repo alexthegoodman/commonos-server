@@ -187,7 +187,7 @@ export const CreateFileMutation = extendType({
             const presentationContent = await aiClient.makeCompletion(
               model,
               presentationPrompt,
-              1.5,
+              1.2,
               "json_object"
             );
 
@@ -293,7 +293,7 @@ export const CreateFileMutation = extendType({
             const sheetContent = await aiClient.makeCompletion(
               model,
               sheetPrompt,
-              1.5,
+              1.2,
               "json_object"
             );
 
@@ -540,53 +540,40 @@ export const CreateFileMutation = extendType({
             const emailContent = await aiClient.makeCompletion(
               model,
               emailPrompt,
-              1.5,
+              1.2,
               "text"
             );
 
-            const domainSettings = await prisma.domainSettings.findFirst({
+            let workEmailFolder = await prisma.workEmailFolder.findFirst({
               where: {
-                user: {
+                name: shortFolderName,
+                creator: {
                   id: currentUser.id,
                 },
               },
             });
 
-            const firstInbox = await prisma.inbox.findFirst({
-              where: {
-                domain: {
-                  id: domainSettings?.id,
-                },
-              },
-            });
-
-            if (!firstInbox) {
-              throw new Error("No inbox found");
-            }
-
-            const newThread = await prisma.thread.create({
-              data: {
-                subject: fileData.name,
-                inbox: {
-                  connect: {
-                    id: firstInbox.id,
+            if (!workEmailFolder) {
+              workEmailFolder = await prisma.workEmailFolder.create({
+                data: {
+                  name: shortFolderName,
+                  creator: {
+                    connect: {
+                      id: currentUser.id,
+                    },
                   },
                 },
-              },
-            });
+              });
+            }
 
-            const newEmail = await prisma.email.create({
+            const newWorkEmailTemplate = await prisma.workEmailTemplate.create({
               data: {
-                from: firstInbox.username + "@" + domainSettings?.domainName,
-                to: "",
                 subject: fileData.name,
                 body: "",
                 initialMarkdown: emailContent,
-                sesMessageId: uuidv4(),
-                draft: true,
-                thread: {
+                workEmailFolder: {
                   connect: {
-                    id: newThread.id,
+                    id: workEmailFolder.id,
                   },
                 },
               },

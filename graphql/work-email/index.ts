@@ -17,3 +17,4 @@ export * from "./queries/myThreadEmails";
 export * from "./queries/inbox";
 export * from "./queries/myWorkEmailFolders";
 export * from "./queries/myWorkEmailFolderTemplates";
+export * from "./queries/workEmailTemplate";

@@ -348,6 +348,7 @@ type Query {
   sound(soundId: String!): Sound
   video(videoId: String!): Video
   visualData(field: String!, item: String!): [JSON]
+  workEmailTemplate(templateId: String!): WorkEmailTemplate
 }
 
 type Sheet {
