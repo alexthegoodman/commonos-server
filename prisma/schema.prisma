@@ -477,7 +477,7 @@ model WorkEmailFolder {
   workEmailTemplates WorkEmailTemplate[]
 
   creator   User   @relation(fields: [creatorId], references: [id])
-  creatorId String @unique
+  creatorId String
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
