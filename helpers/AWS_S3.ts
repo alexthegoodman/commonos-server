@@ -90,4 +90,18 @@ export default class AWS_S3 {
       console.error(ERROR_CODES.B001);
     }
   }
+
+  async listMetadata() {
+    const params = { Bucket: "commonos-primary" };
+    const files = await this.s3Client.listObjectsV2(params).promise();
+
+    const metadata = files.Contents.map((file) => ({
+      key: file.Key,
+      lastModified: file.LastModified,
+    }));
+
+    console.info("metadata", metadata);
+
+    return metadata;
+  }
 }

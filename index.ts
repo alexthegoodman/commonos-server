@@ -12,6 +12,7 @@ import { createServer } from "http";
 import { fullDomainPort } from "./helpers/urls";
 import { stripeHandler } from "./rest/stripeHandler";
 import { snsIncomingEmailHandler } from "./rest/snsIncomingEmailHandler";
+import WebSocket from "ws";
 
 const prisma = new PrismaClient();
 
@@ -86,14 +87,84 @@ export const startApolloServer = async () => {
   );
 
   const httpServer = createServer(app);
-  const io = new Server(httpServer, {
-    cors: {
-      origin: fullDomainPort,
-    },
-  });
+  // const io = new Server(httpServer, {
+  //   cors: {
+  //     origin: fullDomainPort,
+  //   },
+  // });
 
-  io.on("connection", (socket) => {
-    console.info("a user connected");
+  // io.on("connection", (socket) => {
+  //   console.info("a user connected");
+  // });
+
+  // Event handlers
+  const eventHandlers = {
+    eventName1: handleEventName1,
+    eventName2: handleEventName2,
+    // Add more handlers here
+  };
+
+  function handleEventName1(currentUser, data, ws) {
+    // Handle eventName1
+    ws.send(JSON.stringify({ message: "Handled eventName1" }));
+  }
+
+  function handleEventName2(currentUser, data, ws) {
+    // Handle eventName2
+    ws.send(JSON.stringify({ message: "Handled eventName2" }));
+  }
+
+  const wss = new WebSocket.Server({ server: httpServer });
+
+  // WebSocket connection and authentication
+  wss.on("connection", (ws) => {
+    ws.on("message", async (message) => {
+      const tokenHeaderKey = process.env.TOKEN_HEADER_KEY as string;
+      const jwtSecretKey = process.env.JWT_SECRET_KEY as string;
+
+      const data = JSON.parse(message); // includes event, Authorization, and payload
+
+      // console.info(
+      //   "DEBUG incoming websocket message",
+      //   data.event,
+      //   data[tokenHeaderKey]
+      // );
+
+      // Check for auth token in the event
+      if (data[tokenHeaderKey]) {
+        try {
+          const tokenHeader = data[tokenHeaderKey];
+          const token = tokenHeader?.split("Bearer ")[1] as string;
+
+          // console.info("verify", token, jwtSecretKey);
+
+          const verified = jwt.verify(token, jwtSecretKey);
+
+          if (verified && typeof verified !== "string") {
+            let currentUser = await prisma.user.findFirst({
+              where: {
+                id: verified.userId,
+              },
+            });
+
+            // Token is valid, route the event
+            if (data.event && eventHandlers[data.event]) {
+              eventHandlers[data.event](currentUser, data.payload, ws);
+            } else {
+              ws.send(JSON.stringify({ error: "Unknown event" }));
+            }
+          } else {
+            ws.send(JSON.stringify({ warning: "Token Not Verified 1" }));
+          }
+        } catch (err) {
+          // Token is invalid
+          ws.send(JSON.stringify({ error: "Invalid token" }));
+        }
+      } else {
+        // No token provided
+        ws.send(JSON.stringify({ error: "No token provided" }));
+      }
+    });
   });
 
   await new Promise<void>((r) =>
