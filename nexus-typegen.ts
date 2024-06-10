@@ -175,6 +175,13 @@ export interface NexusGenObjects {
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
     url?: string | null; // String
   }
+  MdProject: { // root type
+    context?: NexusGenScalars['JSON'] | null; // JSON
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    title?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   Mutation: {};
   Organization: { // root type
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -442,6 +449,14 @@ export interface NexusGenFieldTypes {
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
     url: string | null; // String
   }
+  MdProject: { // field return type
+    context: NexusGenScalars['JSON'] | null; // JSON
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    creator: NexusGenRootTypes['User'] | null; // User
+    id: string | null; // String
+    title: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   Mutation: { // field return type
     createCompany: NexusGenRootTypes['Company'] | null; // Company
     createContact: NexusGenRootTypes['Contact'] | null; // Contact
@@ -451,6 +466,7 @@ export interface NexusGenFieldTypes {
     createFlow: NexusGenRootTypes['Flow'] | null; // Flow
     createFunnel: NexusGenRootTypes['Funnel'] | null; // Funnel
     createInbox: NexusGenRootTypes['Inbox'] | null; // Inbox
+    createMdProject: NexusGenRootTypes['MdProject'] | null; // MdProject
     createOrganization: NexusGenRootTypes['Organization'] | null; // Organization
     createPost: NexusGenRootTypes['Post'] | null; // Post
     createPostType: NexusGenRootTypes['PostType'] | null; // PostType
@@ -491,6 +507,7 @@ export interface NexusGenFieldTypes {
     updateEmailTemplate: NexusGenRootTypes['EmailTemplate'] | null; // EmailTemplate
     updateFlow: NexusGenRootTypes['Flow'] | null; // Flow
     updateFunnel: NexusGenRootTypes['Funnel'] | null; // Funnel
+    updateMdProject: NexusGenRootTypes['MdProject'] | null; // MdProject
     updatePost: NexusGenRootTypes['Post'] | null; // Post
     updatePostType: NexusGenRootTypes['Post'] | null; // Post
     updatePresentation: NexusGenRootTypes['Presentation'] | null; // Presentation
@@ -500,6 +517,7 @@ export interface NexusGenFieldTypes {
     updateUser: NexusGenRootTypes['User'] | null; // User
     updateVideo: NexusGenRootTypes['Video'] | null; // Video
     updateWorkEmailTemplate: NexusGenRootTypes['WorkEmailTemplate'] | null; // WorkEmailTemplate
+    uploadSync: string | null; // String
   }
   Organization: { // field return type
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
@@ -835,6 +853,14 @@ export interface NexusGenFieldTypeNames {
     updatedAt: 'DateTime'
     url: 'String'
   }
+  MdProject: { // field return type name
+    context: 'JSON'
+    createdAt: 'DateTime'
+    creator: 'User'
+    id: 'String'
+    title: 'String'
+    updatedAt: 'DateTime'
+  }
   Mutation: { // field return type name
     createCompany: 'Company'
     createContact: 'Contact'
@@ -844,6 +870,7 @@ export interface NexusGenFieldTypeNames {
     createFlow: 'Flow'
     createFunnel: 'Funnel'
     createInbox: 'Inbox'
+    createMdProject: 'MdProject'
     createOrganization: 'Organization'
     createPost: 'Post'
     createPostType: 'PostType'
@@ -884,6 +911,7 @@ export interface NexusGenFieldTypeNames {
     updateEmailTemplate: 'EmailTemplate'
     updateFlow: 'Flow'
     updateFunnel: 'Funnel'
+    updateMdProject: 'MdProject'
     updatePost: 'Post'
     updatePostType: 'Post'
     updatePresentation: 'Presentation'
@@ -893,6 +921,7 @@ export interface NexusGenFieldTypeNames {
     updateUser: 'User'
     updateVideo: 'Video'
     updateWorkEmailTemplate: 'WorkEmailTemplate'
+    uploadSync: 'String'
   }
   Organization: { // field return type name
     createdAt: 'DateTime'
@@ -1230,6 +1259,11 @@ export interface NexusGenArgTypes {
       funnelId: string; // String!
       title?: string | null; // String
     }
+    updateMdProject: { // args
+      context?: string | null; // String
+      projectId: string; // String!
+      title?: string | null; // String
+    }
     updatePost: { // args
       fields?: string | null; // String
       markdown?: string | null; // String
@@ -1278,6 +1312,11 @@ export interface NexusGenArgTypes {
       body?: string | null; // String
       subject?: string | null; // String
       templateId: string; // String!
+    }
+    uploadSync: { // args
+      fileData: string; // String!
+      fileName: string; // String!
+      filePath: string; // String!
     }
   }
   Query: {

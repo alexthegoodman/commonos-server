@@ -19,6 +19,8 @@ import * as relationshipsTypes from "./graphql/relationships";
 import * as sendEmailTypes from "./graphql/send-email";
 import * as workEmailTypes from "./graphql/work-email";
 import * as contentTypes from "./graphql/content";
+import * as fileManagerTypes from "./graphql/file-manager";
+import * as midpointTypes from "./graphql/midpoint";
 
 import { permissions } from "./permissions";
 
@@ -37,6 +39,8 @@ export const schema = makeSchema({
     sendEmailTypes,
     workEmailTypes,
     contentTypes,
+    fileManagerTypes,
+    midpointTypes,
     jsonScalar,
     dateTimeScalar,
   ],

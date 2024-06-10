@@ -171,6 +171,15 @@ type Link {
   url: String
 }
 
+type MdProject {
+  context: JSON
+  createdAt: DateTime
+  creator: User
+  id: String
+  title: String
+  updatedAt: DateTime
+}
+
 type Mutation {
   createCompany(fields: String!): Company
   createContact(fields: String!): Contact
@@ -180,6 +189,7 @@ type Mutation {
   createFlow(prompt: String!, typeCode: String!): Flow
   createFunnel: Funnel
   createInbox(username: String!): Inbox
+  createMdProject: MdProject
   createOrganization(name: String!): Organization
   createPost(fields: String, markdown: String!, postTypeId: String!, title: String!): Post
   createPostType(fields: String!, name: String!): PostType
@@ -220,6 +230,7 @@ type Mutation {
   updateEmailTemplate(context: String, emailTemplateId: String!, title: String): EmailTemplate
   updateFlow(flowId: String!, questionsContext: String, resultsContext: String): Flow
   updateFunnel(context: String, funnelId: String!, title: String): Funnel
+  updateMdProject(context: String, projectId: String!, title: String): MdProject
   updatePost(fields: String, markdown: String, postId: String!, title: String): Post
   updatePostType(fields: String, name: String, postTypeId: String!): Post
   updatePresentation(context: String, presentationId: String!, title: String): Presentation
@@ -229,6 +240,7 @@ type Mutation {
   updateUser(documentTree: String, drawingFiles: String, feedTree: String, presentationFiles: String, sheetFiles: String, soundFiles: String, videoFiles: String): User
   updateVideo(context: String, title: String, videoId: String!): Video
   updateWorkEmailTemplate(body: String, subject: String, templateId: String!): WorkEmailTemplate
+  uploadSync(fileData: String!, fileName: String!, filePath: String!): String
 }
 
 type Organization {

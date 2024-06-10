@@ -92,6 +92,9 @@ model User {
   postTypes                 PostType[]
   contentDevelopersSettings ContentDevelopersSettings?
 
+  // midpoint
+  midpointProjects MdProject[]
+
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
 }
@@ -540,6 +543,21 @@ model ContentDevelopersSettings {
 
   user   User   @relation(fields: [userId], references: [id])
   userId String @unique
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+// Midpoint
+
+model MdProject {
+  id String @id @unique @default(uuid())
+
+  title   String
+  context Json?
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
