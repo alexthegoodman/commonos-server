@@ -480,7 +480,9 @@ export interface NexusGenFieldTypes {
     deleteEmailTemplate: string | null; // String
     deletePost: string | null; // String
     export: string | null; // String
+    generateConcept: string | null; // String
     generateContentApiKey: NexusGenRootTypes['ContentDevelopersSettings'] | null; // ContentDevelopersSettings
+    generateModel: string | null; // String
     generateTitles: Array<NexusGenRootTypes['Document'] | null> | null; // [Document]
     markAsRead: NexusGenRootTypes['Email'] | null; // Email
     newCheckout: string | null; // String
@@ -884,7 +886,9 @@ export interface NexusGenFieldTypeNames {
     deleteEmailTemplate: 'String'
     deletePost: 'String'
     export: 'String'
+    generateConcept: 'String'
     generateContentApiKey: 'ContentDevelopersSettings'
+    generateModel: 'String'
     generateTitles: 'Document'
     markAsRead: 'Email'
     newCheckout: 'String'
@@ -1177,6 +1181,12 @@ export interface NexusGenArgTypes {
     export: { // args
       html: string; // String!
       type: string; // String!
+    }
+    generateConcept: { // args
+      prompt: string; // String!
+    }
+    generateModel: { // args
+      imagePath: string; // String!
     }
     generateTitles: { // args
       treeMd: string; // String!

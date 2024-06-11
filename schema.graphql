@@ -203,7 +203,9 @@ type Mutation {
   deleteEmailTemplate(emailTemplateId: String!): String
   deletePost(postId: String!): String
   export(html: String!, type: String!): String
+  generateConcept(prompt: String!): String
   generateContentApiKey: ContentDevelopersSettings
+  generateModel(imagePath: String!): String
   generateTitles(treeMd: String!): [Document]
   markAsRead(emailId: String!): Email
   newCheckout: String

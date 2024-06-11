@@ -23,7 +23,7 @@ export default class AWS_S3 {
   getUploadDirectory() {
     const year = DateTime.now().toFormat("yyyy");
     const month = DateTime.now().toFormat("MM");
-    const folder = `${year}/${month}/`;
+    const folder = `web/${year}/${month}/`;
     return folder;
   }
 
@@ -32,7 +32,15 @@ export default class AWS_S3 {
     return size;
   }
 
-  async uploadAsset(contentType, filename, fileType, fileSize, base64) {
+  async uploadAsset(
+    contentType,
+    filename,
+    fileType,
+    fileSize,
+    base64,
+    sanitize = true,
+    fileKey = ""
+  ) {
     const sizeLimit = 10000000; // 10MB
     const calculatedFileSize = this.getSizeBase64(base64.length);
 
@@ -40,9 +48,14 @@ export default class AWS_S3 {
       const dotIndex = filename.lastIndexOf(".");
       const fileExtension = filename.substring(dotIndex);
       const fileTitle = filename.substring(0, dotIndex);
-      const sanitizedFileTitle = fileTitle.replace(/[^a-z0-9.]/gi, "_");
-      const uniqueFileTitle = sanitizedFileTitle + "-" + uuidv4();
-      const bucketUploadDirectory = this.getUploadDirectory();
+      const sanitizedFileTitle = sanitize
+        ? fileTitle.replace(/[^a-z0-9.]/gi, "_")
+        : fileTitle;
+      const uniqueFileTitle = sanitize
+        ? sanitizedFileTitle + "-" + uuidv4()
+        : fileTitle;
+      const bucketUploadDirectory =
+        fileKey === "" ? this.getUploadDirectory() : fileKey;
 
       // TODO: eliminate transparency without file corruption
       const key = bucketUploadDirectory + uniqueFileTitle + fileExtension;

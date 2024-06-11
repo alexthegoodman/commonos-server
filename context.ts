@@ -5,6 +5,7 @@ import algoliasearch, { SearchClient } from "algoliasearch";
 import OpenAI from "openai";
 import prisma from "./prisma";
 import AWS_SES from "./helpers/AWS_SES";
+import ReplicateAI from "./helpers/ReplicateAI";
 
 const openai = new OpenAI({
   organization: "org-27u0QhfhY8rWqMDmiUBdRw6E",
@@ -20,6 +21,8 @@ const algolia = algoliasearch(
 
 const awsSES = new AWS_SES();
 
+const replicate = new ReplicateAI();
+
 export interface Context {
   prisma: PrismaClient;
   mixpanel: MixpanelClient;
@@ -28,6 +31,7 @@ export interface Context {
   openai: OpenAI;
   algolia: SearchClient;
   awsSES: AWS_SES;
+  replicate: ReplicateAI;
 }
 
 export const context = {
@@ -36,4 +40,5 @@ export const context = {
   openai,
   algolia,
   awsSES,
+  replicate,
 };
