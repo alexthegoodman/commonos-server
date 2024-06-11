@@ -593,6 +593,7 @@ export interface NexusGenFieldTypes {
     getFileList: NexusGenScalars['JSON'] | null; // JSON
     getGeneratedText: string | null; // String
     getGuideQuestions: NexusGenScalars['JSON'] | null; // JSON
+    getMdProject: NexusGenRootTypes['MdProject'] | null; // MdProject
     getPortalUrl: string | null; // String
     getQuestions: NexusGenScalars['JSON'] | null; // JSON
     getRSSData: Array<NexusGenScalars['JSON'] | null> | null; // [JSON]
@@ -999,6 +1000,7 @@ export interface NexusGenFieldTypeNames {
     getFileList: 'JSON'
     getGeneratedText: 'String'
     getGuideQuestions: 'JSON'
+    getMdProject: 'MdProject'
     getPortalUrl: 'String'
     getQuestions: 'JSON'
     getRSSData: 'JSON'
@@ -1370,6 +1372,9 @@ export interface NexusGenArgTypes {
       fileApp: string; // String!
       fileTitle: string; // String!
       sectionContent: string; // String!
+    }
+    getMdProject: { // args
+      projectId: string; // String!
     }
     getQuestions: { // args
       fileApp: string; // String!

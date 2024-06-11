@@ -16,6 +16,10 @@ export default class ReplicateAI {
       const base64File = Buffer.from(response.data, "binary").toString(
         "base64"
       );
+      console.info(
+        "fetchFileAsBase64 content-type",
+        response.headers["content-type"]
+      );
       return `data:${response.headers["content-type"]};base64,${base64File}`;
     } catch (error) {
       console.error("Error fetching and converting file:", error);
@@ -63,7 +67,7 @@ export default class ReplicateAI {
         input: {
           image_path: imagePath,
           foreground_ratio: 0.85,
-          do_remove_background: false,
+          do_remove_background: true,
         },
       }
     )) as unknown as string;

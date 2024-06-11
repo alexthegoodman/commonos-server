@@ -40,11 +40,19 @@ export const UploadSyncMutation = extendType({
           projectId
         );
 
+        let contentType = "image";
+        let fileType = "image/png";
+
+        if (fileFormat === "glb") {
+          contentType = "model";
+          fileType = "model/gltf-binary";
+        }
+
         const cloudfrontUrl = await awsS3.uploadAsset(
-          "image", // hardcode for testing
+          contentType,
           fileName,
-          "image/jpeg", // fileType
-          1000, // fileSize
+          fileType,
+          1000, // hardcode for testing (fileSize)
           fileData,
           false,
           fileKey

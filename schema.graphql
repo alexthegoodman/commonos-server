@@ -323,6 +323,7 @@ type Query {
   getFileList(flowId: String!): JSON
   getGeneratedText(contextText: String!): String
   getGuideQuestions(fileApp: String!, fileTitle: String!, sectionContent: String!): JSON
+  getMdProject(projectId: String!): MdProject
   getPortalUrl: String
   getQuestions(fileApp: String!, fileTitle: String!, flowId: String!, getThis: String!): JSON
   getRSSData(url: String!): [JSON]
