@@ -67,7 +67,7 @@ export const startApolloServer = async () => {
           }
         }
 
-        return { req, currentUser, ...context };
+        return { req, currentUser, broadcastToGroup, ...context };
       },
     })
   );
@@ -97,27 +97,44 @@ export const startApolloServer = async () => {
   //   console.info("a user connected");
   // });
 
+  // TODO: are socket messages properly shared between Heroku dynos?
+
+  // Group management
+  const groups: Record<string, Set<WebSocket>> = {};
+
   // Event handlers
   const eventHandlers = {
-    eventName1: handleEventName1,
-    eventName2: handleEventName2,
-    // Add more handlers here
+    join: handleJoin,
   };
 
-  function handleEventName1(currentUser, data, ws) {
-    // Handle eventName1
-    ws.send(JSON.stringify({ message: "Handled eventName1" }));
+  function handleJoin(currentUser, data, ws) {
+    // ws.send(JSON.stringify({ message: "Handled eventName1" }));
+    const groupId = data.groupId;
+    if (!groups[groupId]) {
+      groups[groupId] = new Set();
+    }
+    console.info("user joining group", groupId);
+    groups[groupId].add(ws);
+    ws.send(JSON.stringify({ type: "joined", groupId }));
   }
 
-  function handleEventName2(currentUser, data, ws) {
-    // Handle eventName2
-    ws.send(JSON.stringify({ message: "Handled eventName2" }));
+  // Function to broadcast a message to a group
+  function broadcastToGroup(groupId: string, message: string) {
+    if (groups[groupId]) {
+      for (const client of groups[groupId]) {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(message);
+        }
+      }
+    }
   }
 
   const wss = new WebSocket.Server({ server: httpServer });
 
   // WebSocket connection and authentication
   wss.on("connection", (ws) => {
+    console.info("new ws connection");
+
     ws.on("message", async (message) => {
       const tokenHeaderKey = process.env.TOKEN_HEADER_KEY as string;
       const jwtSecretKey = process.env.JWT_SECRET_KEY as string;

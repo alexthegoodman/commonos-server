@@ -32,6 +32,7 @@ export interface Context {
   algolia: SearchClient;
   awsSES: AWS_SES;
   replicate: ReplicateAI;
+  broadcastToGroup: (groupId: string, message: string) => void;
 }
 
 export const context = {

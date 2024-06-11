@@ -19,15 +19,17 @@ export const UploadSyncMutation = extendType({
       resolve: async (
         _,
         { fileName, filePath, fileData },
-        { prisma, currentUser }: Context,
+        { prisma, currentUser, broadcastToGroup }: Context,
         x
       ) => {
         const awsS3 = new AWS_S3();
 
+        console.info("being upload sync");
+
         let fileFormat = fileName.split(".")[1];
-        let normalFilePath = filePath.replace(/\\\\/g, "/");
-        let projectId = normalFilePath.split("/")[0];
-        let fileKey = "native/" + currentUser.id + "/" + normalFilePath;
+        let normalFilePath = filePath.replace(/\\/g, "/");
+        let projectId = normalFilePath.split("/")[2];
+        let fileKey = "native/" + currentUser.id + "/" + normalFilePath + "/";
 
         console.info(
           "uploadSync",
@@ -52,6 +54,8 @@ export const UploadSyncMutation = extendType({
           throw Error("Could not get cloudfront url");
         }
 
+        console.info("saving context...");
+
         // update projectId project to include this concept or model
         const currentProject = await prisma.mdProject.findUnique({
           where: {
@@ -61,9 +65,12 @@ export const UploadSyncMutation = extendType({
 
         let defaultContext = currentProject?.context
           ? (currentProject.context as any)
-          : {};
+          : {
+              concepts: [],
+              models: [],
+            };
 
-        if (fileFormat === "jpg") {
+        if (fileFormat === "png") {
           await prisma.mdProject.update({
             where: {
               id: projectId,
@@ -105,7 +112,13 @@ export const UploadSyncMutation = extendType({
           });
         }
 
-        // TODO: send event to projectId socket group to refresh context
+        console.info("broadcast to group...");
+
+        // send event to projectId socket group to refresh context
+        broadcastToGroup(
+          projectId,
+          JSON.stringify({ command: "refreshContext" })
+        );
 
         return cloudfrontUrl;
       },
