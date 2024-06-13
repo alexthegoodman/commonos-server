@@ -478,6 +478,7 @@ export interface NexusGenFieldTypes {
     deleteDocument: string | null; // String
     deleteDomainSettings: string | null; // String
     deleteEmailTemplate: string | null; // String
+    deleteMdProject: string | null; // String
     deletePost: string | null; // String
     export: string | null; // String
     generateConcept: string | null; // String
@@ -594,6 +595,7 @@ export interface NexusGenFieldTypes {
     getGeneratedText: string | null; // String
     getGuideQuestions: NexusGenScalars['JSON'] | null; // JSON
     getMdProject: NexusGenRootTypes['MdProject'] | null; // MdProject
+    getMdProjects: Array<NexusGenRootTypes['MdProject'] | null> | null; // [MdProject]
     getPortalUrl: string | null; // String
     getQuestions: NexusGenScalars['JSON'] | null; // JSON
     getRSSData: Array<NexusGenScalars['JSON'] | null> | null; // [JSON]
@@ -885,6 +887,7 @@ export interface NexusGenFieldTypeNames {
     deleteDocument: 'String'
     deleteDomainSettings: 'String'
     deleteEmailTemplate: 'String'
+    deleteMdProject: 'String'
     deletePost: 'String'
     export: 'String'
     generateConcept: 'String'
@@ -1001,6 +1004,7 @@ export interface NexusGenFieldTypeNames {
     getGeneratedText: 'String'
     getGuideQuestions: 'JSON'
     getMdProject: 'MdProject'
+    getMdProjects: 'MdProject'
     getPortalUrl: 'String'
     getQuestions: 'JSON'
     getRSSData: 'JSON'
@@ -1176,6 +1180,9 @@ export interface NexusGenArgTypes {
     }
     deleteEmailTemplate: { // args
       emailTemplateId: string; // String!
+    }
+    deleteMdProject: { // args
+      projectId: string; // String!
     }
     deletePost: { // args
       postId: string; // String!

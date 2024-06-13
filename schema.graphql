@@ -201,6 +201,7 @@ type Mutation {
   deleteDocument(documentId: String!): String
   deleteDomainSettings: String
   deleteEmailTemplate(emailTemplateId: String!): String
+  deleteMdProject(projectId: String!): String
   deletePost(postId: String!): String
   export(html: String!, type: String!): String
   generateConcept(prompt: String!): String
@@ -324,6 +325,7 @@ type Query {
   getGeneratedText(contextText: String!): String
   getGuideQuestions(fileApp: String!, fileTitle: String!, sectionContent: String!): JSON
   getMdProject(projectId: String!): MdProject
+  getMdProjects: [MdProject]
   getPortalUrl: String
   getQuestions(fileApp: String!, fileTitle: String!, flowId: String!, getThis: String!): JSON
   getRSSData(url: String!): [JSON]
