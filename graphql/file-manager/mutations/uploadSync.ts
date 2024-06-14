@@ -29,6 +29,7 @@ export const UploadSyncMutation = extendType({
         let fileFormat = fileName.split(".")[1];
         let normalFilePath = filePath.replace(/\\/g, "/");
         let projectId = normalFilePath.split("/")[2];
+        let category = normalFilePath.split("/")[3];
         let fileKey = "native/" + currentUser.id + "/" + normalFilePath + "/";
 
         console.info(
@@ -46,6 +47,11 @@ export const UploadSyncMutation = extendType({
         if (fileFormat === "glb") {
           contentType = "model";
           fileType = "model/gltf-binary";
+        }
+
+        if (fileFormat === "tif") {
+          contentType = "image";
+          fileType = "image/tiff";
         }
 
         const cloudfrontUrl = await awsS3.uploadAsset(
@@ -76,9 +82,10 @@ export const UploadSyncMutation = extendType({
           : {
               concepts: [],
               models: [],
+              landscapes: [],
             };
 
-        if (fileFormat === "png") {
+        if (category === "concepts") {
           await prisma.mdProject.update({
             where: {
               id: projectId,
@@ -98,7 +105,7 @@ export const UploadSyncMutation = extendType({
               },
             },
           });
-        } else if (fileFormat === "glb") {
+        } else if (category === "models") {
           await prisma.mdProject.update({
             where: {
               id: projectId,
@@ -108,6 +115,28 @@ export const UploadSyncMutation = extendType({
                 ...defaultContext,
                 models: [
                   ...defaultContext.models,
+                  {
+                    id: uuidv4(),
+                    fileName,
+                    cloudfrontUrl,
+                    normalFilePath,
+                  },
+                ],
+              },
+            },
+          });
+        } else if (category === "landscapes") {
+          await prisma.mdProject.update({
+            where: {
+              id: projectId,
+            },
+            data: {
+              context: {
+                ...defaultContext,
+                landscapes: [
+                  ...(defaultContext.landscapes
+                    ? defaultContext.landscapes
+                    : []),
                   {
                     id: uuidv4(),
                     fileName,

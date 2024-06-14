@@ -15,6 +15,8 @@ export const GetMdProjectQuery = extendType({
         { prisma, currentUser }: Context,
         x
       ) => {
+        console.info("get md project", projectId);
+
         const mdProject = await prisma.mdProject.findUnique({
           where: {
             id: projectId,
