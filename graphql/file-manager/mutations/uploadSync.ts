@@ -28,6 +28,7 @@ export const UploadSyncMutation = extendType({
 
         let fileFormat = fileName.split(".")[1];
         let normalFilePath = filePath.replace(/\\/g, "/");
+        let targetApp = normalFilePath.split("/")[1]; // currently only `midpoint`
         let projectId = normalFilePath.split("/")[2];
         let category = normalFilePath.split("/")[3];
         let fileKey = "native/" + currentUser.id + "/" + normalFilePath + "/";
@@ -83,6 +84,8 @@ export const UploadSyncMutation = extendType({
               concepts: [],
               models: [],
               landscapes: [],
+              textures: [],
+              levels: [],
             };
 
         if (category === "concepts") {
@@ -137,6 +140,26 @@ export const UploadSyncMutation = extendType({
                   ...(defaultContext.landscapes
                     ? defaultContext.landscapes
                     : []),
+                  {
+                    id: uuidv4(),
+                    fileName,
+                    cloudfrontUrl,
+                    normalFilePath,
+                  },
+                ],
+              },
+            },
+          });
+        } else if (category === "textures") {
+          await prisma.mdProject.update({
+            where: {
+              id: projectId,
+            },
+            data: {
+              context: {
+                ...defaultContext,
+                textures: [
+                  ...(defaultContext.textures ? defaultContext.textures : []),
                   {
                     id: uuidv4(),
                     fileName,

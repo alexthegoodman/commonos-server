@@ -484,6 +484,7 @@ export interface NexusGenFieldTypes {
     generateConcept: string | null; // String
     generateContentApiKey: NexusGenRootTypes['ContentDevelopersSettings'] | null; // ContentDevelopersSettings
     generateModel: string | null; // String
+    generateTexture: string | null; // String
     generateTitles: Array<NexusGenRootTypes['Document'] | null> | null; // [Document]
     markAsRead: NexusGenRootTypes['Email'] | null; // Email
     newCheckout: string | null; // String
@@ -893,6 +894,7 @@ export interface NexusGenFieldTypeNames {
     generateConcept: 'String'
     generateContentApiKey: 'ContentDevelopersSettings'
     generateModel: 'String'
+    generateTexture: 'String'
     generateTitles: 'Document'
     markAsRead: 'Email'
     newCheckout: 'String'
@@ -1196,6 +1198,9 @@ export interface NexusGenArgTypes {
     }
     generateModel: { // args
       imagePath: string; // String!
+    }
+    generateTexture: { // args
+      prompt: string; // String!
     }
     generateTitles: { // args
       treeMd: string; // String!

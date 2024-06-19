@@ -207,6 +207,7 @@ type Mutation {
   generateConcept(prompt: String!): String
   generateContentApiKey: ContentDevelopersSettings
   generateModel(imagePath: String!): String
+  generateTexture(prompt: String!): String
   generateTitles(treeMd: String!): [Document]
   markAsRead(emailId: String!): Email
   newCheckout: String
