@@ -129,6 +129,47 @@ export const UploadSyncMutation = extendType({
             },
           });
         } else if (category === "landscapes") {
+          let landscapeId = normalFilePath.split("/")[4];
+          let subCategory = normalFilePath.split("/")[5];
+
+          const existingLandscape = defaultContext.landscapes.find(
+            (landscape) => landscape.id === landscapeId
+          );
+          let landscapeData: any = existingLandscape
+            ? existingLandscape
+            : {
+                id: landscapeId,
+              };
+
+          let file = {
+            id: uuidv4(),
+            fileName,
+            cloudfrontUrl,
+            normalFilePath,
+          };
+
+          if (subCategory === "heightmaps") {
+            landscapeData.heightmap = file;
+          } else if (subCategory === "rockmaps") {
+            landscapeData.rockmap = file;
+          } else if (subCategory === "soils") {
+            landscapeData.soil = file;
+          }
+
+          const currentLandscapes = defaultContext.landscapes
+            ? defaultContext.landscapes
+            : [];
+
+          const newLandscapes = existingLandscape
+            ? currentLandscapes.map((landscape) => {
+                if (landscape.id === landscapeId) {
+                  return landscapeData;
+                } else {
+                  return landscape;
+                }
+              })
+            : [...currentLandscapes, landscapeData];
+
           await prisma.mdProject.update({
             where: {
               id: projectId,
@@ -136,17 +177,7 @@ export const UploadSyncMutation = extendType({
             data: {
               context: {
                 ...defaultContext,
-                landscapes: [
-                  ...(defaultContext.landscapes
-                    ? defaultContext.landscapes
-                    : []),
-                  {
-                    id: uuidv4(),
-                    fileName,
-                    cloudfrontUrl,
-                    normalFilePath,
-                  },
-                ],
+                landscapes: newLandscapes,
               },
             },
           });
