@@ -141,19 +141,11 @@ export const startApolloServer = async () => {
 
       const data = JSON.parse(message); // includes event, Authorization, and payload
 
-      // console.info(
-      //   "DEBUG incoming websocket message",
-      //   data.event,
-      //   data[tokenHeaderKey]
-      // );
-
       // Check for auth token in the event
       if (data[tokenHeaderKey]) {
         try {
           const tokenHeader = data[tokenHeaderKey];
           const token = tokenHeader?.split("Bearer ")[1] as string;
-
-          // console.info("verify", token, jwtSecretKey);
 
           const verified = jwt.verify(token, jwtSecretKey);
 
