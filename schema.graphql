@@ -63,6 +63,8 @@ type Document {
   html: String
   id: String
   markdown: String
+  masterJson: JSON
+  masterVisuals: JSON
   messages: JSON
   plaintext: String
   title: String
@@ -229,7 +231,7 @@ type Mutation {
   updateCompany(companyId: String!, fields: String!): Company
   updateContact(contactId: String!, fields: String!): Contact
   updateDashboard(context: String, dashboardId: String!, title: String): Dashboard
-  updateDocument(content: String, documentId: String!, html: String, markdown: String, messages: String, plaintext: String, title: String): Document
+  updateDocument(content: String, documentId: String!, html: String, markdown: String, masterJson: String, masterVisuals: String, messages: String, plaintext: String, title: String): Document
   updateDrawing(context: String, drawingId: String!, title: String): Drawing
   updateEmailTemplate(context: String, emailTemplateId: String!, title: String): EmailTemplate
   updateFlow(flowId: String!, questionsContext: String, resultsContext: String): Flow
@@ -241,7 +243,7 @@ type Mutation {
   updatePresentationTemplate(context: String!, presentationTemplateId: String!): PresentationTemplate
   updateSheet(context: String, sheetId: String!, title: String): Sheet
   updateSound(context: String, soundId: String!, title: String): Sound
-  updateUser(documentTree: String, drawingFiles: String, feedTree: String, presentationFiles: String, sheetFiles: String, soundFiles: String, videoFiles: String): User
+  updateUser(documentTree: String, drawingFiles: String, feedTree: String, launcherContext: String, presentationFiles: String, sheetFiles: String, soundFiles: String, videoFiles: String): User
   updateVideo(context: String, title: String, videoId: String!): Video
   updateWorkEmailTemplate(body: String, subject: String, templateId: String!): WorkEmailTemplate
   uploadSync(fileData: String!, fileName: String!, filePath: String!): String
@@ -415,6 +417,7 @@ type User {
   feedTree: JSON
   frequency: String
   lastTokenReset: DateTime
+  launcherContext: JSON
   periodTokenUsage: Int
   presentationFiles: JSON
   role: String

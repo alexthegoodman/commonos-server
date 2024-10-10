@@ -36,6 +36,7 @@ export const UserType = objectType({
     t.field("soundFiles", { type: "JSON" });
     t.field("videoFiles", { type: "JSON" });
     t.field("feedTree", { type: "JSON" });
+    t.field("launcherContext", { type: "JSON" });
 
     t.field("updatedAt", { type: "DateTime" });
     t.field("createdAt", { type: "DateTime" });

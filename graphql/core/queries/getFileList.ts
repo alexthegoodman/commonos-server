@@ -59,7 +59,7 @@ export const GetFileListQuery = extendType({
             let content = "";
             switch (app) {
               case "documents":
-                content = getDocumentList(flow.prompt, initialQuestions, 5);
+                content = getDocumentList(flow.prompt, initialQuestions, 3);
                 break;
               case "work-email":
                 content = getAddtFilesList(

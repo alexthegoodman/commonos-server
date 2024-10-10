@@ -95,6 +95,8 @@ export interface NexusGenObjects {
     html?: string | null; // String
     id?: string | null; // String
     markdown?: string | null; // String
+    masterJson?: NexusGenScalars['JSON'] | null; // JSON
+    masterVisuals?: NexusGenScalars['JSON'] | null; // JSON
     messages?: NexusGenScalars['JSON'] | null; // JSON
     plaintext?: string | null; // String
     title?: string | null; // String
@@ -264,6 +266,7 @@ export interface NexusGenObjects {
     feedTree?: NexusGenScalars['JSON'] | null; // JSON
     frequency?: string | null; // String
     lastTokenReset?: NexusGenScalars['DateTime'] | null; // DateTime
+    launcherContext?: NexusGenScalars['JSON'] | null; // JSON
     periodTokenUsage?: number | null; // Int
     presentationFiles?: NexusGenScalars['JSON'] | null; // JSON
     role?: string | null; // String
@@ -357,6 +360,8 @@ export interface NexusGenFieldTypes {
     html: string | null; // String
     id: string | null; // String
     markdown: string | null; // String
+    masterJson: NexusGenScalars['JSON'] | null; // JSON
+    masterVisuals: NexusGenScalars['JSON'] | null; // JSON
     messages: NexusGenScalars['JSON'] | null; // JSON
     plaintext: string | null; // String
     title: string | null; // String
@@ -680,6 +685,7 @@ export interface NexusGenFieldTypes {
     feedTree: NexusGenScalars['JSON'] | null; // JSON
     frequency: string | null; // String
     lastTokenReset: NexusGenScalars['DateTime'] | null; // DateTime
+    launcherContext: NexusGenScalars['JSON'] | null; // JSON
     periodTokenUsage: number | null; // Int
     presentationFiles: NexusGenScalars['JSON'] | null; // JSON
     role: string | null; // String
@@ -767,6 +773,8 @@ export interface NexusGenFieldTypeNames {
     html: 'String'
     id: 'String'
     markdown: 'String'
+    masterJson: 'JSON'
+    masterVisuals: 'JSON'
     messages: 'JSON'
     plaintext: 'String'
     title: 'String'
@@ -1090,6 +1098,7 @@ export interface NexusGenFieldTypeNames {
     feedTree: 'JSON'
     frequency: 'String'
     lastTokenReset: 'DateTime'
+    launcherContext: 'JSON'
     periodTokenUsage: 'Int'
     presentationFiles: 'JSON'
     role: 'String'
@@ -1259,6 +1268,8 @@ export interface NexusGenArgTypes {
       documentId: string; // String!
       html?: string | null; // String
       markdown?: string | null; // String
+      masterJson?: string | null; // String
+      masterVisuals?: string | null; // String
       messages?: string | null; // String
       plaintext?: string | null; // String
       title?: string | null; // String
@@ -1322,6 +1333,7 @@ export interface NexusGenArgTypes {
       documentTree?: string | null; // String
       drawingFiles?: string | null; // String
       feedTree?: string | null; // String
+      launcherContext?: string | null; // String
       presentationFiles?: string | null; // String
       sheetFiles?: string | null; // String
       soundFiles?: string | null; // String

@@ -137,6 +137,9 @@ model Document {
   plaintext String?
   markdown  String?
 
+  masterJson    Json?
+  masterVisuals Json?
+
   messages Json?
 
   creator   User   @relation(fields: [creatorId], references: [id])

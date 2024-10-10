@@ -53,7 +53,7 @@ Given the provided information, write a thorough intro section for this document
 `;
 
 export const getDocumentContent = (sectionTitle) => `
-Now, please write a thorough "${
+Now, please write a short "${
   sectionTitle ? sectionTitle : ""
 }" section, building on the previous section.
 `;
@@ -155,7 +155,7 @@ Given the provided information, write a thorough intro section for this content.
 `;
 
 export const getContentContent = (sectionTitle) => `
-Now, please write a thorough "${
+Now, please write a short "${
   sectionTitle ? sectionTitle : ""
 }" section, building on the previous section.
 `;

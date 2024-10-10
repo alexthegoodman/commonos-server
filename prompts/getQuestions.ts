@@ -21,7 +21,7 @@ Answer with a JSON object containing an array of strings. For example:
 // Ask the user what they would do within the Text Editor / Spreedsheet Editor app. (?)
 
 export const getDocumentQuestions = (prompt, initialQuestions) => `
-Provide a list of 5 questions you have which help clarify and provide detail to the file listed below. Do not evaluate the user's knowledge of the file. Provide answers in multiple choice format, so it is easy for the user to pick an option.
+Provide a list of 3 questions you have which help clarify and provide detail to the file listed below. Do not evaluate the user's knowledge of the file. Provide answers in multiple choice format, so it is easy for the user to pick an option.
 
 ${prompt}
 
@@ -48,7 +48,7 @@ Answer with a JSON object containing an array of strings. For example:
 `;
 
 export const getPresentationQuestions = (prompt, initialQuestions) => `
-Provide a list of 5 questions you have which help clarify and provide detail to the presentation file listed below. Do not evaluate the user's knowledge of the file. Provide answers in multiple choice format, so it is easy for the user to pick an option.
+Provide a list of 3 questions you have which help clarify and provide detail to the presentation file listed below. Do not evaluate the user's knowledge of the file. Provide answers in multiple choice format, so it is easy for the user to pick an option.
 
 ${prompt}
 
@@ -75,7 +75,7 @@ Answer with a JSON object containing an array of strings. For example:
 `;
 
 export const getContentQuestions = (prompt) => `
-Provide a list of 5 questions you have which help clarify and provide detail to the CMS file listed below. Do not evaluate the user's knowledge of the file. Provide answers in multiple choice format, so it is easy for the user to pick an option.
+Provide a list of 3 questions you have which help clarify and provide detail to the CMS file listed below. Do not evaluate the user's knowledge of the file. Provide answers in multiple choice format, so it is easy for the user to pick an option.
 
 ${prompt}
 
