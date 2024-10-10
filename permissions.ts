@@ -18,6 +18,8 @@ export const permissions = shield(
       "*": isAuthenticated,
       authenticate: not(isAuthenticated),
       // getDashboardData: and(isAuthenticated, isAdmin),
+      // TODO: add newPresentationTemplates, updatePresentationTemplate,
+      // updateDocumentTempalte, newDocumentTemplate as isAdmin
     },
     Mutation: {
       "*": isAuthenticated,

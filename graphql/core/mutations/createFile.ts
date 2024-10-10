@@ -123,10 +123,22 @@ export const CreateFileMutation = extendType({
               }
             }
 
+            const documentTemplates = await prisma.documentTemplate.findMany();
+            const randomTemplate =
+              documentTemplates[
+                Math.floor(Math.random() * documentTemplates.length)
+              ];
+
+            const visuals =
+              typeof randomTemplate?.masterVisuals === "string"
+                ? JSON.parse(randomTemplate?.masterVisuals)
+                : randomTemplate?.masterVisuals;
+
             const newDocument = await prisma.document.create({
               data: {
                 title: fileData.name,
                 plaintext: completeDocument,
+                masterVisuals: visuals ? visuals : [],
                 creator: {
                   connect: {
                     id: currentUser.id,
@@ -191,51 +203,96 @@ export const CreateFileMutation = extendType({
               "json_object"
             );
 
-            const presentationContext = {
+            // const presentationContext = {
+            //   slides: [
+            //     {
+            //       id: uuidv4(),
+            //       title: fileData.name,
+            //       texts: [
+            //         {
+            //           id: uuidv4(),
+            //           content: fileData.name,
+            //           x: 0,
+            //           y: 250,
+            //           width: 1000,
+            //           fontSize: 24,
+            //           fontStyle: "normal",
+            //           fontFamily: "Arial",
+            //           fontVariant: "normal",
+            //           fill: "black",
+            //           align: "center",
+            //           lineHeight: 1.35,
+            //         },
+            //       ],
+            //       shapes: [],
+            //       images: [],
+            //     },
+            //     ...presentationContent.slides.map((slide) => ({
+            //       id: uuidv4(),
+            //       title: slide.title,
+            //       texts: [
+            //         {
+            //           id: uuidv4(),
+            //           content: slide.content,
+            //           x: 150,
+            //           y: 250,
+            //           width: 700,
+            //           fontSize: 24,
+            //           fontStyle: "normal",
+            //           fontFamily: "Arial",
+            //           fontVariant: "normal",
+            //           fill: "black",
+            //           align: "left",
+            //           lineHeight: 1.35,
+            //         },
+            //       ],
+            //       shapes: [],
+            //       images: [],
+            //     })),
+            //   ],
+            // };
+
+            const presentationTemplates =
+              await prisma.presentationTemplate.findMany();
+            const randomTemplate =
+              presentationTemplates[
+                Math.floor(Math.random() * presentationTemplates.length)
+              ];
+
+            let presentationContext = {};
+
+            if (!randomTemplate.context) {
+              return "FAILURE";
+            }
+
+            const randomContext =
+              typeof randomTemplate.context === "string"
+                ? JSON.parse(randomTemplate.context)
+                : randomTemplate.context;
+
+            presentationContext["slides"] = [];
+            presentationContext["slides"][0] = randomContext["slides"][0];
+            presentationContext["slides"][0]["title"] = fileData.name;
+            presentationContext["slides"][0]["texts"][0]["content"] =
+              fileData.name;
+
+            let bodyTemplate = randomContext["slides"][1];
+
+            presentationContext = {
+              ...presentationContext,
               slides: [
-                {
-                  id: uuidv4(),
-                  title: fileData.name,
-                  texts: [
-                    {
-                      id: uuidv4(),
-                      content: fileData.name,
-                      x: 0,
-                      y: 250,
-                      width: 1000,
-                      fontSize: 24,
-                      fontStyle: "normal",
-                      fontFamily: "Arial",
-                      fontVariant: "normal",
-                      fill: "black",
-                      align: "center",
-                      lineHeight: 1.35,
-                    },
-                  ],
-                  shapes: [],
-                  images: [],
-                },
+                ...presentationContext["slides"],
                 ...presentationContent.slides.map((slide) => ({
+                  ...bodyTemplate,
                   id: uuidv4(),
                   title: slide.title,
                   texts: [
                     {
+                      ...bodyTemplate.texts[0],
                       id: uuidv4(),
                       content: slide.content,
-                      x: 150,
-                      y: 250,
-                      width: 700,
-                      fontSize: 24,
-                      fontStyle: "normal",
-                      fontFamily: "Arial",
-                      fontVariant: "normal",
-                      fill: "black",
-                      align: "left",
-                      lineHeight: 1.35,
                     },
                   ],
-                  shapes: [],
-                  images: [],
                 })),
               ],
             };
