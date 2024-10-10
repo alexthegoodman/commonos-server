@@ -102,6 +102,15 @@ export interface NexusGenObjects {
     title?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
+  DocumentTemplate: { // root type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    key?: string | null; // String
+    masterVisuals?: NexusGenScalars['JSON'] | null; // JSON
+    sourceId?: string | null; // String
+    title?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   DomainSettings: { // root type
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     dkimData?: NexusGenScalars['JSON'] | null; // JSON
@@ -367,6 +376,15 @@ export interface NexusGenFieldTypes {
     title: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
+  DocumentTemplate: { // field return type
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    id: string | null; // String
+    key: string | null; // String
+    masterVisuals: NexusGenScalars['JSON'] | null; // JSON
+    sourceId: string | null; // String
+    title: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   DomainSettings: { // field return type
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
     dkimData: NexusGenScalars['JSON'] | null; // JSON
@@ -494,6 +512,7 @@ export interface NexusGenFieldTypes {
     markAsRead: NexusGenRootTypes['Email'] | null; // Email
     newCheckout: string | null; // String
     newDocument: NexusGenRootTypes['Document'] | null; // Document
+    newDocumentTemplate: NexusGenRootTypes['DocumentTemplate'] | null; // DocumentTemplate
     newDrawing: NexusGenRootTypes['Drawing'] | null; // Drawing
     newFeed: NexusGenRootTypes['Feed'] | null; // Feed
     newPresentation: NexusGenRootTypes['Presentation'] | null; // Presentation
@@ -512,6 +531,7 @@ export interface NexusGenFieldTypes {
     updateContact: NexusGenRootTypes['Contact'] | null; // Contact
     updateDashboard: NexusGenRootTypes['Dashboard'] | null; // Dashboard
     updateDocument: NexusGenRootTypes['Document'] | null; // Document
+    updateDocumentTemplate: NexusGenRootTypes['DocumentTemplate'] | null; // DocumentTemplate
     updateDrawing: NexusGenRootTypes['Drawing'] | null; // Drawing
     updateEmailTemplate: NexusGenRootTypes['EmailTemplate'] | null; // EmailTemplate
     updateFlow: NexusGenRootTypes['Flow'] | null; // Flow
@@ -592,6 +612,7 @@ export interface NexusGenFieldTypes {
     countPosts: number | null; // Int
     dashboard: NexusGenRootTypes['Dashboard'] | null; // Dashboard
     document: NexusGenRootTypes['Document'] | null; // Document
+    documentTemplates: Array<NexusGenRootTypes['DocumentTemplate'] | null> | null; // [DocumentTemplate]
     drawing: NexusGenRootTypes['Drawing'] | null; // Drawing
     emailTemplate: NexusGenRootTypes['EmailTemplate'] | null; // EmailTemplate
     flow: NexusGenRootTypes['Flow'] | null; // Flow
@@ -780,6 +801,15 @@ export interface NexusGenFieldTypeNames {
     title: 'String'
     updatedAt: 'DateTime'
   }
+  DocumentTemplate: { // field return type name
+    createdAt: 'DateTime'
+    id: 'String'
+    key: 'String'
+    masterVisuals: 'JSON'
+    sourceId: 'String'
+    title: 'String'
+    updatedAt: 'DateTime'
+  }
   DomainSettings: { // field return type name
     createdAt: 'DateTime'
     dkimData: 'JSON'
@@ -907,6 +937,7 @@ export interface NexusGenFieldTypeNames {
     markAsRead: 'Email'
     newCheckout: 'String'
     newDocument: 'Document'
+    newDocumentTemplate: 'DocumentTemplate'
     newDrawing: 'Drawing'
     newFeed: 'Feed'
     newPresentation: 'Presentation'
@@ -925,6 +956,7 @@ export interface NexusGenFieldTypeNames {
     updateContact: 'Contact'
     updateDashboard: 'Dashboard'
     updateDocument: 'Document'
+    updateDocumentTemplate: 'DocumentTemplate'
     updateDrawing: 'Drawing'
     updateEmailTemplate: 'EmailTemplate'
     updateFlow: 'Flow'
@@ -1005,6 +1037,7 @@ export interface NexusGenFieldTypeNames {
     countPosts: 'Int'
     dashboard: 'Dashboard'
     document: 'Document'
+    documentTemplates: 'DocumentTemplate'
     drawing: 'Drawing'
     emailTemplate: 'EmailTemplate'
     flow: 'Flow'
@@ -1217,6 +1250,11 @@ export interface NexusGenArgTypes {
     markAsRead: { // args
       emailId: string; // String!
     }
+    newDocumentTemplate: { // args
+      masterVisuals: string; // String!
+      sourceId: string; // String!
+      title: string; // String!
+    }
     newFeed: { // args
       url: string; // String!
     }
@@ -1273,6 +1311,10 @@ export interface NexusGenArgTypes {
       messages?: string | null; // String
       plaintext?: string | null; // String
       title?: string | null; // String
+    }
+    updateDocumentTemplate: { // args
+      documentTemplateId: string; // String!
+      masterVisuals: string; // String!
     }
     updateDrawing: { // args
       context?: string | null; // String

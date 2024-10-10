@@ -71,6 +71,16 @@ type Document {
   updatedAt: DateTime
 }
 
+type DocumentTemplate {
+  createdAt: DateTime
+  id: String
+  key: String
+  masterVisuals: JSON
+  sourceId: String
+  title: String
+  updatedAt: DateTime
+}
+
 type DomainSettings {
   createdAt: DateTime
   dkimData: JSON
@@ -214,6 +224,7 @@ type Mutation {
   markAsRead(emailId: String!): Email
   newCheckout: String
   newDocument: Document
+  newDocumentTemplate(masterVisuals: String!, sourceId: String!, title: String!): DocumentTemplate
   newDrawing: Drawing
   newFeed(url: String!): Feed
   newPresentation: Presentation
@@ -232,6 +243,7 @@ type Mutation {
   updateContact(contactId: String!, fields: String!): Contact
   updateDashboard(context: String, dashboardId: String!, title: String): Dashboard
   updateDocument(content: String, documentId: String!, html: String, markdown: String, masterJson: String, masterVisuals: String, messages: String, plaintext: String, title: String): Document
+  updateDocumentTemplate(documentTemplateId: String!, masterVisuals: String!): DocumentTemplate
   updateDrawing(context: String, drawingId: String!, title: String): Drawing
   updateEmailTemplate(context: String, emailTemplateId: String!, title: String): EmailTemplate
   updateFlow(flowId: String!, questionsContext: String, resultsContext: String): Flow
@@ -319,6 +331,7 @@ type Query {
   countPosts(postTypeId: String!): Int
   dashboard(dashboardId: String!): Dashboard
   document(documentId: String!): Document
+  documentTemplates: [DocumentTemplate]
   drawing(drawingId: String!): Drawing
   emailTemplate(emailTemplateId: String!): EmailTemplate
   flow(flowId: String!): Flow

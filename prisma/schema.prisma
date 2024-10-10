@@ -149,6 +149,19 @@ model Document {
   createdAt DateTime @default(now())
 }
 
+model DocumentTemplate {
+  id String @id @unique @default(uuid())
+
+  sourceId String @unique // document id
+
+  key           String @unique
+  title         String
+  masterVisuals Json
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
 model Presentation {
   id String @id @unique @default(uuid())
 
