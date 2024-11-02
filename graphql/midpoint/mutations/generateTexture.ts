@@ -15,7 +15,9 @@ export const GenerateTextureMutation = extendType({
         { prisma, currentUser, replicate }: Context,
         x
       ) => {
-        const textureBase64 = await replicate.generateConcept(prompt); // switch out for texture-specific model if needed
+        const textureBase64 = await replicate.generateConcept(
+          `${prompt} texture`
+        ); // switch out for texture-specific model if needed
 
         return textureBase64;
       },

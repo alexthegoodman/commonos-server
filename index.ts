@@ -37,7 +37,7 @@ export const startApolloServer = async () => {
           const tokenHeader = req.header(tokenHeaderKey);
           const token = tokenHeader?.split("Bearer ")[1] as string;
 
-          // console.info("verify", token, jwtSecretKey);
+          console.info("verify", token, jwtSecretKey);
 
           const verified = jwt.verify(token, jwtSecretKey);
 
@@ -109,7 +109,7 @@ export const startApolloServer = async () => {
 
   function handleJoin(currentUser, data, ws) {
     // ws.send(JSON.stringify({ message: "Handled eventName1" }));
-    const groupId = data.groupId;
+    const groupId = data.group_id;
     if (!groups[groupId]) {
       groups[groupId] = new Set();
     }

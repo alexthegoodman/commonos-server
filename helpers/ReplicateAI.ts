@@ -30,6 +30,8 @@ export default class ReplicateAI {
   async generateConcept(prompt = "A tiger in the mountains") {
     // TODO: count towards token limits
 
+    console.info("generating concept...");
+
     // sdxl-flash
     const imageUrl = (await this.replicateClient.run(
       "chenxwh/sdxl-flash:001bb81139b01780380407b4106ac681df46108e002eafbeb9ccb2d8faca42e1",
@@ -59,6 +61,8 @@ export default class ReplicateAI {
     imagePath = "https://replicate.delivery/pbxt/KVwdH39PhIC46WaizHYsrFp9f5oLSr65VKhEtxoFtmmwEqeL/hamburger.png"
   ) {
     // TODO: count towards token limits
+
+    console.info("generating model...");
 
     // tripo-sr
     const modelUrl = (await this.replicateClient.run(
